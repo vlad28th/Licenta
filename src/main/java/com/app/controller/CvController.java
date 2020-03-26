@@ -29,7 +29,7 @@ public class CvController {
 		MyUser curentUser = (MyUser) principal;
 		model.addAttribute("mesajCV", curentUser.getUsername()
 				+ ", aici iti vei incarca CV-ul pe platforma. Asigura-te ca este complet si toate datele sunt corecte. Succes!");
-		
+		 
 		//model.addAttribute("cv", new CV());
 		return "/students/uploadCV";
 
