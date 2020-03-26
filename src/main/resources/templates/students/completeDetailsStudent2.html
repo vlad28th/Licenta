@@ -16,5 +16,12 @@
 	<input type="file" id="myfile" name="cv">	
 	<input type="submit" value="Incarca CV">
 	</form>
+	
+	<form th:action = "@{/submitDetailsStudent}">
+		<input type="text" th:name="specializare" placeholder="specializare">
+		<input type="text" th:name="grupa" placeholder="grupa">
+		<input type="submit" value="Submit">
+	</form>
+	
 </body>
 </html>

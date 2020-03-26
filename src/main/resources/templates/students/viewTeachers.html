@@ -2,21 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
+<title>Profesori coordonatori</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/headerStudent.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/teachersTable.css}" />
-
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
 </head>
 <div th:replace="fragments/headerStudent :: header">...</div>
 
-<script type="text/javascript">
-	function submit(x){
-		document.getElementById(x).submit();
-			}
-</script>
-<head>
-<meta charset="UTF-8">
-<title>Profesori coordonatori</title>
-</head>
+
 <body>
 
 	<div th:if="${errorMessage}">
@@ -47,4 +40,11 @@
 	</table>
 </div>
 </body>
+
+<script type="text/javascript">
+	function submit(x){
+		document.getElementById(x).submit();
+			}
+</script>
+
 </html>

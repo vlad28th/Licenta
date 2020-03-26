@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <!-- Title Page-->
+    <title>Apply for job by Colorlib</title>
+
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <!-- Main CSS-->
+    <link href="css/completeStudentDetails.css" rel="stylesheet" media="all">
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/headerStudent.css}"/>
+</head>
+
+ <div th:replace="fragments/headerStudent :: header">...</div>
+	 
+<form th:action = "@{/submitDetailsStudent}">
+<body>
+    <div class="page-wrapper bg-dark p-t-100 p-b-50">
+        <div class="wrapper wrapper--w900">
+            <div class="card card-6">
+                <div class="card-heading">
+                    <h2 class="title">Completeaza profilul</h2>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        <div class="form-row">
+                            <div class="name">Nume complet</div>
+                            <div class="value">
+                                <input class="input--style-6" type="text" th:name="username" placeholder="nume=username" th:value="${student.user.username}">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="name">Email</div><br>
+                                <div class="input-group">
+                                    <input class="input--style-6" type="text" th:name="email" placeholder="email" th:value="${student.user.email}">
+                                </div>
+                        </div>
+                        
+                         <div class="form-row">
+                            <div class="name">Specializare</div><br>
+                                <div class="input-group">
+                                    <input class="input--style-6" type="text" th:name="specializare" placeholder="specializare" th:value="${student.specializare}">
+                                </div>
+                        </div>
+                        
+                         <div class="form-row">
+                            <div class="name">Grupa</div><br>
+                                <div class="input-group">
+                                    <input class="input--style-6" type="text" th:name="grupa" placeholder="grupa" th:value="${student.grupa}">
+                                </div>
+                        </div>
+                        
+                        <div class="card-footer">
+                    <button class="btn btn--radius-2 btn--blue-2" type="submit">Submit</button>
+                		</div>
+                        
+                        <div class="form-row">
+                            <div class="name">Incarca CV</div>
+                            <div class="value">
+                                <div class="input-group js-input-file">
+                                	<form th:action="@{/submitCV}" enctype="multipart/form-data" method="post">
+                                	<input class="input-file" type="file" id="file_cv" name="cv">	
+                                   <button class="btn btn--radius-2 btn--blue-2" type="submit">Submit CV</button>
+                                </form>
+                                </div>
+                                <div class="label--desc">Max file size 50 MB</div>
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+    </form>
+</html>
+<!-- end document-->>

@@ -20,5 +20,11 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	byte[] getCV(@Param("userID") int userID);
 
 	public Student findByIdstudenti(int studentID);
+	
+	
+	@Transactional
+	@Modifying
+	@Query("update studenti s set s.specializare = :specializare, s.grupa=:grupa where s.user.userID = :userID")
+	void setDetails(@Param("specializare") String specializare, @Param("grupa") String grupa, @Param("userID") int userID);
 
 }

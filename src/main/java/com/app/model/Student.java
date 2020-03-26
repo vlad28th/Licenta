@@ -31,15 +31,21 @@ public class Student implements MultipartFile, Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idstudenti;
-	
-
 
 	@Lob
 	private byte[] cv;
 	
+	
+	private String specializare;
+
+
+	private String grupa;
+	
+	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userID")
 	private User user;
+	
 	
 	@OneToMany(mappedBy="student")
 	private List<Request> cereri;
@@ -73,6 +79,22 @@ public class Student implements MultipartFile, Serializable{
 
 	public void setCv(byte[] cv) {
 		this.cv = cv;
+	}
+	
+	public String getSpecializare() {
+		return specializare;
+	}
+
+	public void setSpecializare(String specializare) {
+		this.specializare = specializare;
+	}
+
+	public String getGrupa() {
+		return grupa;
+	}
+
+	public void setGrupa(String grupa) {
+		this.grupa = grupa;
 	}
 
 	@Override

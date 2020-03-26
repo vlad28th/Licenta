@@ -59,7 +59,7 @@ public class TeachersController {
 		}
 */		
 	
-		@RequestMapping("/submitDetails")
+		@RequestMapping("/submitDetailsTeacher")
 		public String submitDetails(@RequestParam(value = "departament") String departament , @RequestParam(value = "slots") String slots) {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser curentUser = (MyUser) principal;
@@ -69,12 +69,12 @@ public class TeachersController {
 			
 			return "redirect:/teacherWelcome";
 		}
-		@RequestMapping("/completeDetails")
+		@RequestMapping("/completeDetailsTeacher")
 		public String completeDetails(Model model) {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser curentUser = (MyUser) principal;
 			model.addAttribute("mesaj","Salutare, " + curentUser.getUser().getUsername() + "\r\nAici vei completa detalii pe care studentii le vor veea atunci cand vor vrea sa faca o cerere catre tine");
-			return "/teachers/completeDetails";
+			return "/teachers/completeDetailsTeacher";
 	}
 		
 		@RequestMapping("/studentDetails")
