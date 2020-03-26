@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" type="text/css" th:href="@{/css/headerStudent.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/teachersTable.css}" />
+
+</head>
+<div th:replace="fragments/headerStudent :: header">...</div>
+
+<script type="text/javascript">
+	function submit(x){
+		document.getElementById(x).submit();
+			}
+</script>
+<head>
+<meta charset="UTF-8">
+<title>Profesori coordonatori</title>
+</head>
+<body>
+
+	<div th:if="${errorMessage}">
+	<script> alert("Ai facut deja o cerere catre acest profesor") </script>
+	</div>
+	
+	<div class="container"> 
+	<table class="responsive-table" border="1">
+		<tr>
+			<th scope="col">Nume</th>
+			<th scope="col">Email</th>
+			<th scope="col">Departament</th>
+			<th scope="col">Locuri disponibile</th>
+
+		</tr>
+		<tr th:each="user: ${users}">
+			<td><a th:text="${user.username}" href="#"
+				th:onclick="'submit(\'' + ${user.userID} + '\');'"></a>
+				<form th:action="@{/teacherDetails}" th:id="${user.userID}">
+					<input id="input" type="hidden" th:name="teacherID"
+						th:value="${user.teacher.idprofesori}"></td>
+			</form>
+			<td th:text="${user.email}"></td>
+			<td th:text="${user.teacher.departament}"></td>
+			<td th:text="${user.teacher.slots}"></td>
+
+		</tr>
+	</table>
+</div>
+</body>
+</html>

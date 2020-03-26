@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" th:href="@{/css/headerTeacher.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/teacherViewReq.css}" />
+<script type="text/javascript">
+	function submit(x){
+		document.getElementById(x).submit();
+			}
+</script>
+<title>Cereri</title>
+</head>
+<body>
+
+
+</head>
+<div th:replace="fragments/headerTeacher :: header">...</div>
+
+<div class="container"> 
+	<table class="responsive-table" border="1">
+		<tr>
+			<th scope="col">Student</th>
+			<th scope="col">Data trimiterii</th>
+			<th scope="col">Status</th>
+
+		</tr>
+		<tr th:each="cerere: ${cereriProfesor}">
+		<td><a th:text="${cerere.student.user.username}" href="#"
+				th:onclick="'submit(\'' + ${cerere.student.user.userID} + '\');'"></a>
+				<form th:action="@{/studentDetails}" th:id="${cerere.student.user.userID}">
+					<input id="input" type="hidden" th:name="studentID"
+						th:value="${cerere.student.idstudenti}"></td>
+			</form>
+			<td th:text="${cerere.status}"></td>
+			<td>Data</td>
+			
+
+		</tr>
+		
+		
+	</table>
+
+
+
+</body>
+</html>

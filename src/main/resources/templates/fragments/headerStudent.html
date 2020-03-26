@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	
+<div class="topnav" th:fragment="header">
+
+<head>
+<link rel="stylesheet" type="text/css" th:href="@{/css/headerStudent.css}" />
+<script type="text/javascript">
+	function submit(x){
+		document.getElementById(x).submit();
+			}
+</script>
+</head>
+
+<form th:action="@{/welcome}" method="get" id="welcome"></form>
+<form th:action="@{/uploadCV}" method="get" id="uploadCV"></form>
+<form th:action="@{/teachers}" id="profesori"></form>
+<form th:action="@{/viewCV}" id="viewCV"></form>
+<form th:action="@{/logout}" method="post" id="logout"></form>
+<form th:action="@{/viewRequests}" id="cereri"></form>
+	
+	<a href="#" th:onclick="submit('welcome')">Home</a>
+	<a href="#" th:onclick="submit('uploadCV')" >Incarca CV</a>
+	<a href="#" th:onclick="submit('viewCV')" >Vezi CV</a> 
+	<a href="#" th:onclick="submit('profesori')" >Profesori coordonatori</a>
+	<a href="#" th:onclick="submit('cereri')" >Cereri trimise</a>
+	<a href="#" th:onclick="submit('logout')" >Logout</a> 
+</div>
+</html>

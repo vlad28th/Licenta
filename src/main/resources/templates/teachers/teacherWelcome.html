@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/headerTeacher.css}"/>
+	</head>
+	 <div th:replace="fragments/headerTeacher :: header">...</div>
+
+
+<body>
+	<p>Welcome</p>
+	<p th:text="${mesaj}">Message</p>
+
+</body>
+
+
+</html>

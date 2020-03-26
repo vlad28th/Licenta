@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	
+<div class="topnav" th:fragment="header">
+
+<head>
+<link rel="stylesheet" type="text/css" th:href="@{/css/headerTeacher.css}" />
+
+<script type="text/javascript">
+	function submit(x){
+		document.getElementById(x).submit();
+			}
+</script>
+</head>
+
+<form th:action="@{/welcome}" method="get" id="welcome"></form>
+<form th:action="@{/completeDetails}" id="complete"></form>
+<form th:action="@{/viewRequests}" id="cereri"></form>
+<form th:action="@{/logout}" method="post" id="logout"></form>
+	
+	<a href="#" th:onclick="submit('welcome')">Home</a>
+	<a href="#" th:onclick="submit('complete')" >Completeaza detalii</a>
+	<a href="#" th:onclick="submit('cereri')" >Vezi cereri primite</a> 
+	<a href="#" th:onclick="submit('logout')" >Logout</a> 
+</div>
+</html>

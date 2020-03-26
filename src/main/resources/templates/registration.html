@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>User Registration</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
+<title>Login</title>
+</head>
+
+	
+  <script type="text/javascript">
+    function Validate() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+        if (password != confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+
+<body>
+		
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Login Form -->
+   <form th:action="@{/registration}" th:object="${user}" method="post">
+      <input type="text" id="login" class="fadeIn second" name="username" placeholder="username" th:field="*{username}" required>
+      <input type="text" id="email" class="fadeIn third" name="email" placeholder="email" th:field="*{email}" required>
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" th:field="*{password}" required>
+      <input type="password" id="confirmPassword" class="fadeIn third" name="password" placeholder="confirm password" th:field="*{confirmPassword}" required>
+      <div th:each="role : ${T(com.app.model.Role).values()}">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" th:field="*{role}" th:value="${role}" class="custom-control-input" required>
+                    <label class="custom-control-label" th:for="${#ids.prev('role')}" th:text="${role}">role</label>
+                </div>
+            </div>
+      <input type="submit" class="fadeIn fourth" value="Regster" onclick="return Validate()">
+    </form>
+  </div>
+</div>
+		
+</html>
