@@ -3,6 +3,8 @@ package com.app.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,13 +69,16 @@ public class TeachersController {
 			
 			teacherRepo.updateDetails(currentUserID, departament, slots);
 			
+			Authentication authentication = new UsernamePasswordAuthenticationToken(principal, curentUser.getPassword());
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+			
 			return "redirect:/teacherWelcome";
 		}
 		@RequestMapping("/completeDetailsTeacher")
 		public String completeDetails(Model model) {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser curentUser = (MyUser) principal;
-			model.addAttribute("mesaj","Salutare, " + curentUser.getUser().getUsername() + "\r\nAici vei completa detalii pe care studentii le vor veea atunci cand vor vrea sa faca o cerere catre tine");
+			model.addAttribute("teacher",curentUser.getUser().getTeacher());
 			return "/teachers/completeDetailsTeacher";
 	}
 		
