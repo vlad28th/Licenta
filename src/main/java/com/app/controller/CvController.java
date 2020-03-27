@@ -50,10 +50,11 @@ public class CvController {
 	}
 
 	@RequestMapping("/viewCV")
-	public ResponseEntity<byte[]> viewCV() {
+	public ResponseEntity<byte[]> viewCV(@RequestParam(required = false, value="userID") String userIDfromWeb) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser) principal;
 		int userID = curentUser.getUserID();
+		if(userIDfromWeb != null) userID = Integer.valueOf(userIDfromWeb);
 		
 		byte[] cvFromDB = cvRepo.getCV(userID);
 
