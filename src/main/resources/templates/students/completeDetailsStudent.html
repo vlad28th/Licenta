@@ -24,7 +24,7 @@
 
  <div th:replace="fragments/headerStudent :: header">...</div>
 	 
-<form th:action = "@{/submitDetailsStudent}">
+
 <body>
     <div class="page-wrapper bg-dark p-t-100 p-b-50">
         <div class="wrapper wrapper--w900">
@@ -33,7 +33,7 @@
                     <h2 class="title">Completeaza profilul</h2>
                 </div>
                 <div class="card-body">
-                    <form method="POST">
+					<form th:action = "@{/submitDetailsStudent}">
                         <div class="form-row">
                             <div class="name">Nume complet</div>
                             <div class="value">
@@ -65,7 +65,7 @@
                         <div class="card-footer">
                     <button class="btn btn--radius-2 btn--blue-2" type="submit">Submit</button>
                 		</div>
-                        
+                        </form>
                         <div class="form-row">
                             <div class="name">Incarca CV</div>
                             <div class="value">
@@ -95,6 +95,5 @@
     <script src="js/global.js"></script>
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
-    </form>
 </html>
 <!-- end document-->>
