@@ -37,28 +37,28 @@
                         <div class="form-row">
                             <div class="name">Nume complet</div>
                             <div class="value">
-                                <input class="input--style-6" type="text" th:name="username" placeholder="nume=username" th:value="${student.user.username}">
+                                <input class="input--style-6" type="text" th:name="username" placeholder="nume=username" th:value="${student.user.username}" required>
                             </div>
                         </div>
                         
                         <div class="form-row">
                             <div class="name">Email</div><br>
                                 <div class="input-group">
-                                    <input class="input--style-6" type="text" th:name="email" placeholder="email" th:value="${student.user.email}">
+                                    <input class="input--style-6" type="text" th:name="email" placeholder="email" th:value="${student.user.email}" required>
                                 </div>
                         </div>
                         
                          <div class="form-row">
                             <div class="name">Specializare</div><br>
                                 <div class="input-group">
-                                    <input class="input--style-6" type="text" th:name="specializare" placeholder="specializare" th:value="${student.specializare}">
+                                    <input class="input--style-6" type="text" th:name="specializare" placeholder="specializare" th:value="${student.specializare}"  required>
                                 </div>
                         </div>
                         
                          <div class="form-row">
                             <div class="name">Grupa</div><br>
                                 <div class="input-group">
-                                    <input class="input--style-6" type="text" th:name="grupa" placeholder="grupa" th:value="${student.grupa}">
+                                    <input class="input--style-6" type="text" th:name="grupa" placeholder="grupa" th:value="${student.grupa}" required>
                                 </div>
                         </div>
                         

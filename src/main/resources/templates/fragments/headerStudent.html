@@ -11,13 +11,13 @@
 <form th:action="@{/welcome}" method="get" id="welcome"></form>
 <form th:action="@{/completeDetailsStudent}" id="complete"></form>
 <form th:action="@{/teachers}" id="profesori"></form>
-<form th:action="@{/viewCV}" id="viewCV"></form>
+<form th:action="@{/viewCV}" th:target="_blank" id="viewCV"></form>
 <form th:action="@{/logout}" method="post" id="logout"></form>
 <form th:action="@{/viewRequests}" id="cereri"></form>
 	
 	<a href="#" th:onclick="submit('welcome')">Home</a>
 	<a href="#" th:onclick="submit('complete')" >Completeaza profil</a>
-	<a href="#" target="_blank" th:onclick="submit('viewCV')" >Vezi profil</a> 
+	<a href="#" th:onclick="submit('viewCV')" >Vezi profil</a> 
 	<a href="#" th:onclick="submit('profesori')" >Profesori coordonatori</a>
 	<a href="#" th:onclick="submit('cereri')" >Cereri trimise</a>
 	<a href="#" th:onclick="submit('logout')" >Logout</a> 
