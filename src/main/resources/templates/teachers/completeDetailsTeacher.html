@@ -11,7 +11,7 @@
     <meta name="keywords" content="Colorlib Templates">
 
     <!-- Title Page-->
-    <title>Apply for job by Colorlib</title>
+    <title>Complete details</title>
 
     <!-- Font special for pages-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
@@ -48,6 +48,13 @@
                                 </div>
                         </div>
                         
+                        <div class="form-row">
+                            <div class="name">Alte mentiuni</div><br>
+                                <div class="input-group">
+                                    <textarea class="input--style-6" rows="3" cols="50" placeholder="Introduceti alte precizari" th:name="comment">[[${teacher.comment}]]</textarea>
+                                </div>
+                        </div>
+                        
                         
                         <div class="card-footer">
                     <button class="btn btn--radius-2 btn--blue-2" type="submit">Submit</button>
@@ -56,36 +63,9 @@
                             </div>
                         </div>
                 </div>
-                
             </div>
         </div>
     </div>
 
-    <!-- Jquery JS-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-
-
-    <!-- Main JS-->
-    <script src="js/global.js"></script>
-
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
     </form>
-</html>
-<!-- end document-->>
-
-
-
-
-
-
-
-
-
-<body>
-	<form th:action="@{/submitDetailsTeacher}">
-		<label>Departament</label> <input type="text" th:name="departament"/>
-		<label>Locuri Disponibile</label> <input type="text" th:name="slots" />
-		<button type="submit">Confirma modificari</button>
-	</form>
-</body>
 </html>

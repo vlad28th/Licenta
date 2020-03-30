@@ -13,7 +13,12 @@
 
 <body>
 	<p> AICI SUNT DETALIILE USERULUI SELECTAT </p>
-	<p th:text="${teacher.user.username}"></p>
+	<p>Nume : [[${teacher.user.username}]]</p>
+	<p>Email : [[${teacher.user.email}]]</p>
+	<p>Locuri disponibile : [[${teacher.slots}]]</p>
+	<p>Departament : [[${teacher.departament}]]</p>
+	<p>Alte mentiuni : [[${teacher.comment}]]</p>
+	
 	
 	<form th:action = "@{/submitRequest}">
 		<input type="hidden" th:name="teacherID" th:value="${teacher.idprofesori}">

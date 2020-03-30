@@ -17,6 +17,7 @@ import com.app.repository.RequestRepository;
 import com.app.repository.StudentRepository;
 import com.app.repository.TeacherRepository;
 import com.app.repository.UserRepository;
+import com.app.services.DateUtil;
 
 @Controller
 public class StudentsController {
@@ -58,7 +59,7 @@ public class StudentsController {
 
 		System.out.println("vreau sa fac cerere catre profesorul -> " + targetTeacher.getUser().getUsername());
 		Request request = new Request();
-		request.setStatus("TRIMISA");
+		request.setStatus("In asteptare (" + DateUtil.getDate() + ")");
 		request.setStudent(curentUser.getUser().getStudent());
 		request.setTeacher(targetTeacher);
 

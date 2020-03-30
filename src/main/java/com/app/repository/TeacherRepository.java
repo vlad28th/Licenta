@@ -18,6 +18,11 @@ public interface TeacherRepository extends JpaRepository<Teacher, Integer>{
 	 @Modifying
 	@Query("update profesori u set u.departament =:departament , u.slots = :slots where u.user.userID = :userID")
 	public void updateDetails(@Param("userID") int userID , @Param("departament") String departament, @Param("slots") String slots);
+	 
+	 @Transactional
+	 @Modifying
+	@Query("update profesori p set p.comment =:comment where p.user.userID = :userID")
+	public void updateComment(@Param("userID") int userID , @Param("comment") String comment);
 	
 	@Query("FROM profesori u WHERE u.user.userID = :userID ")
 	public List<Teacher> findByUserID(@Param("userID") int userID);
@@ -25,5 +30,10 @@ public interface TeacherRepository extends JpaRepository<Teacher, Integer>{
 	
 	public Teacher findByIdprofesori(int teacherID);
 	
+	public List<Teacher> findByDepartament(String departament);
+	
+	
+	@Query("from profesori p where p.user.username like %:username%")
+	public List<Teacher> findByUserUsernameLike(String username);
 	
 }

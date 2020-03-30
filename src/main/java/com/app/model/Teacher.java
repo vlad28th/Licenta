@@ -37,7 +37,17 @@ public class Teacher implements Serializable{
 
 	private String slots;
 	
+	private String comment;
 	
+	
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
 	public Integer getIdprofesori() {
 		return idprofesori;
 	}

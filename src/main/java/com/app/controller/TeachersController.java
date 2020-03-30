@@ -36,10 +36,17 @@ public class TeachersController {
 	RequestRepository requestRepo;
 	
 	@RequestMapping("/teachers")
-	public String displayTeachers(Model model) {
-
-		List<User> listaProfi = repo.findTeachers();
-		model.addAttribute("users", listaProfi);
+	public String displayTeachers(Model model, @RequestParam(required = false, value="departament") String departament, @RequestParam(required = false, value="name") String name) {
+		
+		model.addAttribute("teachers", teacherRepo.findAll());
+		if( departament != null ) { model.addAttribute("teachers", teacherRepo.findByDepartament(departament));
+									model.addAttribute("departament",departament);
+		}
+		
+		if(name != null) { model.addAttribute("teachers", teacherRepo.findByUserUsernameLike(name));
+						   model.addAttribute("name",name);
+						}
+		
 		return "/students/viewTeachers";
 	}
 	
@@ -62,12 +69,13 @@ public class TeachersController {
 */		
 	
 		@RequestMapping("/submitDetailsTeacher")
-		public String submitDetails(@RequestParam(value = "departament") String departament , @RequestParam(value = "slots") String slots) {
+		public String submitDetails(@RequestParam(value = "departament") String departament , @RequestParam(value = "slots") String slots, @RequestParam("comment") String comment) {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser curentUser = (MyUser) principal;
 			int currentUserID = curentUser.getUserID();
 			
 			teacherRepo.updateDetails(currentUserID, departament, slots);
+			if(comment.length() != 0 ) teacherRepo.updateComment(currentUserID, comment);
 			
 			Authentication authentication = new UsernamePasswordAuthenticationToken(principal, curentUser.getPassword());
 			SecurityContextHolder.getContext().setAuthentication(authentication);
