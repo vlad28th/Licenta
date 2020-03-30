@@ -3,17 +3,30 @@
       xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/headerStudent.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/student/studentWelcome.css}"/>
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	</head>
  <div th:replace="fragments/headerStudent :: header">...</div>
 	 
+	   <h1 id="titlu">Hai noroc, [[${student.user.username}]]!</h1>
 	 
     <body>
-          <p>Welcome </p>
-          <p th:text="${mesaj}">Message</p>
+    
+   
+      
+               
+         <p>Aceasta este <b>"platforma de practica"</b> venita in ajutorul tau. 
+         Aici gasesti profesorii disponibili sa colaboreze cu tine impreuna cu detaliile lor.
+         Adresa de email, numarul de locuri disponibile pentru studenti, cerinte suplimentare din partea lor.</p>
          
-
+         <p>Incarca-ti cv-ul, daca ai vreo tema la care te-ai gandit pentru licenta, 
+         incarc-o aici si trimite cereri profesorilor pe care ii crezi potriviti pentru tine </p>
+         
+         <p>Verifica-ti mailul periodic caci vrei primi notificari atunci cand statusul unei aplicatii se va schimba</p>
+         
+         <p>Succes</p>
+         </body>
 
 
 </html>

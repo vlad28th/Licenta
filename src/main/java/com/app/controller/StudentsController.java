@@ -40,6 +40,7 @@ public class StudentsController {
 		MyUser curentUser = (MyUser) principal;
 
 		model.addAttribute("mesaj", "Bine ai venit , " + curentUser.getUsername());
+		model.addAttribute("student", curentUser.getUser().getStudent());
 
 		return "/students/studentWelcome";
 	}
