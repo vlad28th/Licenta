@@ -20,9 +20,15 @@ public interface TeacherRepository extends JpaRepository<Teacher, Integer>{
 	public void updateDetails(@Param("userID") int userID , @Param("departament") String departament, @Param("slots") String slots);
 	 
 	 @Transactional
-	 @Modifying
-	@Query("update profesori p set p.comment =:comment where p.user.userID = :userID")
-	public void updateComment(@Param("userID") int userID , @Param("comment") String comment);
+	 @Modifying(clearAutomatically = true)
+	 @Query("update profesori p set p.comment =:comment where p.user.userID = :userID")
+	 public void updateComment(@Param("userID") int userID , @Param("comment") String comment);
+	 
+	 @Transactional
+	 @Modifying(clearAutomatically = true)
+	@Query("update profesori p set p.slots =:slots where p.user.userID = :userID")
+	public void updateSlots(@Param("userID") int userID , @Param("slots") String slots);
+	 
 	
 	@Query("FROM profesori u WHERE u.user.userID = :userID ")
 	public List<Teacher> findByUserID(@Param("userID") int userID);

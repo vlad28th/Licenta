@@ -109,14 +109,24 @@ public class TeachersController {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser curentUser = (MyUser) principal;
 			int teacherID = curentUser.getUser().getTeacher().getIdprofesori();
-					
+			int newSlots = Integer.valueOf(curentUser.getUser().getTeacher().getSlots()) -1;
+			
+			
 			Student targetStudent = studentRepo.findByIdstudenti(Integer.parseInt(studentID));
+			
 			
 			//update req status in DB
 			requestRepo.updateRequestStatus(status, Integer.valueOf(studentID), teacherID);
 			
+			//update teacher slots 
+			if(status.equalsIgnoreCase("Acceptat")) teacherRepo.updateSlots(curentUser.getUser().getUserID(), String.valueOf(newSlots));
 			//send mail to Student
-			sendMail.sendReqStatus(targetStudent.getUser().getEmail(), curentUser.getUsername(),status);
+			//sendMail.sendReqStatus(targetStudent.getUser().getEmail(), curentUser.getUsername(),status);
+			
+			
+			//reload teacher to model attribute
+			Authentication authentication = new UsernamePasswordAuthenticationToken(principal, curentUser.getPassword());
+			SecurityContextHolder.getContext().setAuthentication(authentication);
 			
 			return "redirect:/viewRequests";
 			
