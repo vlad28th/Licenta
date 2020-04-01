@@ -19,6 +19,7 @@ import com.app.repository.RequestRepository;
 import com.app.repository.StudentRepository;
 import com.app.repository.TeacherRepository;
 import com.app.repository.UserRepository;
+import com.app.services.SendMail;
 
 @Controller
 public class TeachersController {
@@ -34,6 +35,9 @@ public class TeachersController {
 	
 	@Autowired
 	RequestRepository requestRepo;
+	
+	@Autowired
+	SendMail sendMail;
 	
 	@RequestMapping("/teachers")
 	public String displayTeachers(Model model, @RequestParam(required = false, value="departament") String departament, @RequestParam(required = false, value="name") String name) {
@@ -106,12 +110,13 @@ public class TeachersController {
 			MyUser curentUser = (MyUser) principal;
 			int teacherID = curentUser.getUser().getTeacher().getIdprofesori();
 					
-			System.out.println("raspunsul este catre userul ->" + studentRepo.findByIdstudenti(Integer.valueOf(studentID)).getUser().getUsername());
-			System.out.println("raspunsul este -> " + status);
+			Student targetStudent = studentRepo.findByIdstudenti(Integer.parseInt(studentID));
 			
-		
+			//update req status in DB
 			requestRepo.updateRequestStatus(status, Integer.valueOf(studentID), teacherID);
 			
+			//send mail to Student
+			sendMail.sendReqStatus(targetStudent.getUser().getEmail(), curentUser.getUsername(),status);
 			
 			return "redirect:/viewRequests";
 			

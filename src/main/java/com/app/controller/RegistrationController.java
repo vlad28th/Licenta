@@ -30,7 +30,7 @@ public class RegistrationController
     public String handleRegistration(User user) {
     	
         userRepo.save(user);
-        sendMail.sendEmail(user.getEmail(),user.getUsername(),user.getPassword());
+        sendMail.sendCredentials(user.getEmail(),user.getUsername(),user.getPassword());
         return "redirect:/login";
     }
 }
