@@ -33,7 +33,13 @@ public class RegistrationController
     		redirectAttributes.addFlashAttribute("usernameExists", "?");
     		return "redirect:/registration";
     	}
-        
+    	
+    	/*
+    	if(userRepo.findByEmail(user.getEmail()) != null) {
+    		redirectAttributes.addFlashAttribute("emailExists", "?");
+    		return "redirect:/registration";
+    	}
+        */
         try {
         sendMail.sendCredentials(user.getEmail(),user.getUsername(),user.getPassword());
         userRepo.save(user);
