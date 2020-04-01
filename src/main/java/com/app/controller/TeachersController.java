@@ -19,6 +19,7 @@ import com.app.repository.RequestRepository;
 import com.app.repository.StudentRepository;
 import com.app.repository.TeacherRepository;
 import com.app.repository.UserRepository;
+import com.app.services.DateUtil;
 import com.app.services.SendMail;
 
 @Controller
@@ -116,10 +117,11 @@ public class TeachersController {
 			
 			
 			//update req status in DB
-			requestRepo.updateRequestStatus(status, Integer.valueOf(studentID), teacherID);
+			requestRepo.updateRequestStatus(status+"  " + DateUtil.getDate(), Integer.valueOf(studentID), teacherID);
 			
 			//update teacher slots 
 			if(status.equalsIgnoreCase("Acceptat")) teacherRepo.updateSlots(curentUser.getUser().getUserID(), String.valueOf(newSlots));
+			
 			//send mail to Student
 			sendMail.sendReqStatus(targetStudent.getUser().getEmail(), curentUser.getUsername(),status);
 			
