@@ -18,6 +18,7 @@ import com.app.repository.StudentRepository;
 import com.app.repository.TeacherRepository;
 import com.app.repository.UserRepository;
 import com.app.services.DateUtil;
+import com.app.services.SendMail;
 
 @Controller
 public class StudentsController {
@@ -33,6 +34,9 @@ public class StudentsController {
 	
 	@Autowired
 	UserRepository userRepo;
+	
+	@Autowired
+	SendMail sendMail;
 
 	@RequestMapping("/studentWelcome")
 	public String welcomeStudent(Model model) {
@@ -70,6 +74,7 @@ public class StudentsController {
 			return "redirect:/teachers";
 		} else
 			requestRepo.save(request);
+			sendMail.notifyTeacher(targetTeacher.getUser().getEmail(), targetTeacher.getUser().getUsername(), curentUser.getUser().getUsername());
 
 		return "redirect:/teachers";
 	}

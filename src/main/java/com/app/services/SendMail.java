@@ -36,10 +36,24 @@ public void sendReqStatus(String destination, String teacherName, String status)
         if(status.equalsIgnoreCase("respins"))msg.setText(KOcontent);
         if(status.equalsIgnoreCase("acceptat"))msg.setText(OKcontent);
         
-        
-        
+        javaMailSender.send(msg);
 
     }
 
 
+public void notifyTeacher(String destination, String teacherName, String studentName){
+	
+	String content = String.format("Ati primit o cerere din partea studentului %s!",studentName);
+	
+    SimpleMailMessage msg = new SimpleMailMessage();
+    msg.setTo(destination);
+    msg.setSubject("no-reply@licenta2020");
+    msg.setText(content);
+    
+    javaMailSender.send(msg);
+
 }
+
+}
+
+
