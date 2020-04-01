@@ -1,6 +1,5 @@
 package com.app.repository;
 
-import java.io.File;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -15,7 +14,7 @@ import com.app.model.User;
 
 public interface UserRepository extends JpaRepository<User, Integer>{
 	
-	User findByUsername(String username);
+	
 	
 	@Query("FROM users u WHERE u.role = :role")
 	List<User> findByRole(@Param("role") Role role);
@@ -34,5 +33,8 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	@Query("update users u set u.email = :email where u.userID = :userID")
 	void setEmail(@Param("email") String email, @Param("userID")int userID);
 	
+	
+	User findByEmail(String email);
+	User findByUsername(String username);
 	
 }

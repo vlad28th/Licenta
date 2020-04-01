@@ -13,7 +13,7 @@ public class SendMail {
 	@Autowired
     private JavaMailSender javaMailSender;
 	
-	public void sendCredentials(String destination, String username, String password) {
+	public void sendCredentials(String destination, String username, String password) throws Exception{
 		
 		content=String.format("Contul tau a fost creat cu succces!\r\n Username -> %s\r\n Parola ta este -> %s",username,password);
 		
@@ -26,7 +26,7 @@ public class SendMail {
 
     }
 	
-public void sendReqStatus(String destination, String teacherName, String status) {
+public void sendReqStatus(String destination, String teacherName, String status) throws Exception{
 		
 		String OKcontent=String.format("Profesorul %s ti-a acceptat cererea! Succes in continuare!",teacherName);
 		String KOcontent=String.format("Din pacate, profesorul %s ti-a respins cererea.",teacherName);
@@ -35,8 +35,9 @@ public void sendReqStatus(String destination, String teacherName, String status)
         msg.setSubject("no-reply@licenta2020");
         if(status.equalsIgnoreCase("respins"))msg.setText(KOcontent);
         if(status.equalsIgnoreCase("acceptat"))msg.setText(OKcontent);
-
-        javaMailSender.send(msg);
+        
+        
+        
 
     }
 

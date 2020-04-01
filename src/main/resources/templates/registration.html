@@ -30,7 +30,11 @@
 
     <!-- Login Form -->
    <form th:action="@{/registration}" th:object="${user}" method="post">
+   
+  	  <div th:if="${usernameExists}">This username is already used!</div>
       <input type="text" id="login" class="fadeIn second" name="username" placeholder="username" th:field="*{username}" required>
+      <div th:if="${emailExists}">This email is already used!</div>	
+      <div th:if="${incorectEmail}">Enter a valid email adress!</div>	
       <input type="text" id="email" class="fadeIn third" name="email" placeholder="email" th:field="*{email}" required>
       <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" th:field="*{password}" required>
       <input type="password" id="confirmPassword" class="fadeIn third" name="password" placeholder="confirm password" th:field="*{confirmPassword}" required>
