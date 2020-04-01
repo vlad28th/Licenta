@@ -79,6 +79,7 @@
   border-bottom: 1px solid #e5e5e5;
 }
 
+
 .form-row .name {
 
   width: 188px;
@@ -94,6 +95,7 @@
   width: -moz-calc(100% - 188px);
   width: calc(100% - 188px);
 }
+
 
 @media (max-width: 767px) {
   .form-row {
