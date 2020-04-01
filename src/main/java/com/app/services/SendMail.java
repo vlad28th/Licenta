@@ -26,7 +26,7 @@ public class SendMail {
 
     }
 	
-public void sendReqStatus(String destination, String teacherName, String status) throws Exception{
+public void sendReqStatus(String destination, String teacherName, String status){
 		
 		String OKcontent=String.format("Profesorul %s ti-a acceptat cererea! Succes in continuare!",teacherName);
 		String KOcontent=String.format("Din pacate, profesorul %s ti-a respins cererea.",teacherName);
