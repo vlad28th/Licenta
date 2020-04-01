@@ -23,7 +23,9 @@
 </head>
 
  <div th:replace="fragments/headerStudent :: header">...</div>
-	 
+<div th:if="${nullCV}">
+	<script> alert("Selecteaza un CV!") </script>
+	</div>
 
 <body>
     <div class="page-wrapper bg-dark p-t-100 p-b-50">

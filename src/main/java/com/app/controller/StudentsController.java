@@ -58,7 +58,6 @@ public class StudentsController {
 
 		Teacher targetTeacher = teacherRepo.findByIdprofesori(Integer.parseInt(teacherID));
 
-		System.out.println("vreau sa fac cerere catre profesorul -> " + targetTeacher.getUser().getUsername());
 		Request request = new Request();
 		request.setStatus("In asteptare (" + DateUtil.getDate() + ")");
 		request.setStudent(curentUser.getUser().getStudent());

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.app.model.MyUser;
 import com.app.repository.StudentRepository;
@@ -36,13 +37,17 @@ public class CvController {
 	}
 
 	@PostMapping("/submitCV")
-	public String uploadForm(@RequestParam("cv") MultipartFile cv) throws Exception {
+	public String uploadForm(@RequestParam("cv") MultipartFile cv, RedirectAttributes redirectAttributes) throws Exception {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser) principal;
 		int userID = curentUser.getUserID();
 		
 		byte[] cvFromWeb = cv.getBytes();
+		System.out.println(cvFromWeb.length);
 		
+		if( cvFromWeb.length == 0) { redirectAttributes.addFlashAttribute("nullCV", "Selecteaza un fisier");
+									 return "redirect:/completeDetailsStudent";
+		}
 		cvRepo.setCV(cvFromWeb, userID);
 
 		return "redirect:/studentWelcome";
@@ -50,14 +55,19 @@ public class CvController {
 	}
 
 	@RequestMapping("/viewCV")
-	public ResponseEntity<byte[]> viewCV(@RequestParam(required = false, value="userID") String userIDfromWeb) {
+	public ResponseEntity<byte[]> viewCV(@RequestParam(required = false, value="userID") String userIDfromWeb, RedirectAttributes redirectAttributes) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser) principal;
 		int userID = curentUser.getUserID();
 		if(userIDfromWeb != null) userID = Integer.valueOf(userIDfromWeb);
 		
 		byte[] cvFromDB = cvRepo.getCV(userID);
-
+		
+			
+		
+		if( cvFromDB.length == 0) return new ResponseEntity("CV-ul nu este incarcat", HttpStatus.INTERNAL_SERVER_ERROR);
+								
+		
 		HttpHeaders headers = new HttpHeaders();
 
 		headers.setContentLength(cvFromDB.length);
