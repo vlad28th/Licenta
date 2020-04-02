@@ -32,6 +32,9 @@ public class Teacher implements Serializable{
 
 	@OneToMany(mappedBy="teacher")
 	private List<Request> cereri;
+	
+	@OneToMany(mappedBy="teacher")
+	private List<Project> teme;
 
 	private String departament;
 

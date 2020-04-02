@@ -26,7 +26,10 @@ public class Request {
 	private Teacher teacher;
 
 	private String status;
-
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idteme")
+	private Project tema;
 	
 	public int getIdcereri() {
 		return idcereri;

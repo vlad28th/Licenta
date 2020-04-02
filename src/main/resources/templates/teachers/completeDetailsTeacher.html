@@ -59,6 +59,20 @@
                         <div class="card-footer">
                     <button class="btn btn--radius-2 btn--blue-2" type="submit">Submit</button>
                 		</div>
+                		
+                		
+                		<div class="form-row">
+                            <div class="name">Incarca tema</div>
+                            <div class="value">
+                                <div class="input-group js-input-file">
+                                	<form th:action="@{/x}" enctype="multipart/form-data" method="post">
+                                	<input class="input-file" type="file" id="file_tema" name="tema">	
+                                   <button class="btn btn--radius-2 btn--blue-2" type="submit">Submit project</button>
+                                </form>
+                                </div>
+                                <div class="label--desc">Max file size 50 MB</div>
+                            </div>
+                        </div>
                         
                             </div>
                         </div>
