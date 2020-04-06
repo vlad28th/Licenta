@@ -11,6 +11,9 @@
 	</head>
 <div th:replace="fragments/headerStudent :: header">...</div>
 
+<div th:if="${errorMessage}">
+	<script> alert("[[${errorMessage}]]") </script>
+	</div>
 
 <body>
     <div class="page-wrapper bg-dark p-t-100 p-b-50">
@@ -51,14 +54,39 @@
                             </div>
                  </div>
                   <br>
+				  <p style="text-align:center;"><b>Teme disponibile</b></p>
+				   <br>
+				<div class="temeDisponibile">
+                 		<div th:each="project : ${projects}">
+                 		    <form th:action = "@{/viewProject}">
+                   			 <input type="hidden" th:value="${project.nume}" th:name="numeTema">
+                   			 <button class="btn btn--radius-2 btn--blue-2" type="submit">[[${project.nume}]]</button>
+                   			 </form>
+                   			 <br>
+           			    </div>
+           			    
+           			    
+				 </div>
+				 
+				 <br>
 				 <br>
 				 
-                 <form th:action = "@{/submitRequest}" style="text-align:center">
-						<input type="hidden" th:name="teacherID" th:value="${teacher.idprofesori}">
-						<button class="btn btn--radius-2 btn--blue-2" type="submit" style="text-align:center">Aplica</button>
+				  <div style="text-align:center;">
+				  <form th:action="@{/submitRequest}" >
+				 		 <label for="apply">Alege o tema</label>
+						 <select id="apply" th:name="numeTema">
+						    <option selected >Aplica fara tema</option>
+                   			<option th:each="project : ${projects}" th:value="${project.nume}" th:text="${project.nume}"></option>
+           			    </select>
+           			    <br>
+           			    <input type="hidden" th:name="teacherID" th:value="${teacher.idprofesori}">
+						<button class="btn btn--radius-2 btn--blue-2" type="submit">Aplica</button>
+						
 				 </form>
-				 <br>
-				 <br>
+				 
+				  </div>
+				
+				
 </div>
 
 </div>
@@ -66,5 +94,5 @@
 
 
 
-
+<script src="js/submitById.js"></script> 
 </html>

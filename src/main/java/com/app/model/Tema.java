@@ -15,20 +15,39 @@ import javax.persistence.ManyToOne;
 
 import org.springframework.web.multipart.MultipartFile;
 
-@Entity(name="teme")
-public class Project implements MultipartFile{
+@Entity(name="proiecte")
+public class Tema implements MultipartFile{
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int idteme;
 	
 	@Lob
-	private byte[] proiect;
+	private byte[] tema;
+	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idprofesori")
 	private Teacher teacher;
 	
+	private String nume;
+	
+	public String getNume() {
+		return nume;
+	}
+
+	public void setNume(String nume) {
+		this.nume = nume;
+	}
+
+	public byte[] getTema() {
+		return tema;
+	}
+
+	public void setTema(byte[] tema) {
+		this.tema = tema;
+	}
 	
 	public int getIdteme() {
 		return idteme;
@@ -36,14 +55,6 @@ public class Project implements MultipartFile{
 
 	public void setIdteme(int idteme) {
 		this.idteme = idteme;
-	}
-
-	public byte[] getProiect() {
-		return proiect;
-	}
-
-	public void setProiect(byte[] proiect) {
-		this.proiect = proiect;
 	}
 
 	public Teacher getTeacher() {

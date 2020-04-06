@@ -29,8 +29,16 @@ public class Request {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idteme")
-	private Project tema;
+	private Tema tema;
 	
+	public Tema getTema() {
+		return tema;
+	}
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
+	}
+
 	public int getIdcereri() {
 		return idcereri;
 	}

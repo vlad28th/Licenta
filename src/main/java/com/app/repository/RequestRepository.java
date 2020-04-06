@@ -18,7 +18,7 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	
 	List<Request> findByStudentIdstudenti(int studentID);
 	
-	Request findByStudentIdstudentiAndTeacherIdprofesori(int studentID, int teacherID);
+	List<Request> findByStudentIdstudentiAndTeacherIdprofesori(int studentID, int teacherID);
 	
 	@Transactional
 	@Modifying
@@ -30,4 +30,6 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	@Query("update cereri c set c.status =:status where c.teacher.idprofesori=:teacherID and c.student.idstudenti=:studentID")
 	public void updateRequestStatus(@Param("status") String status, @Param("studentID") int studentID, @Param("teacherID") int teacherID);
 	
+	
+	public Request findByStudentIdstudentiAndTemaNume(int studentID, String numeTema);
 }

@@ -12,10 +12,6 @@
 
 <body>
 
-	<div th:if="${errorMessage}">
-	<script> alert("Ai facut deja o cerere catre acest profesor") </script>
-	</div>
-	
 	<div class="container"> 
 	
 	<form th:action="@{/teachers}" id="submitById" onchange="submit('submitById')">

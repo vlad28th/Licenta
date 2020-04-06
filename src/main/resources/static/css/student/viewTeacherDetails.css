@@ -89,6 +89,13 @@
   
 }
 
+.temeDisponibile{
+	display:flex;
+	flex-direction: row;
+	justify-content: space-around;
+	border-bottom: 1px solid #e5e5e5;
+}
+
 .form-row .value {
   width: -webkit-calc(100% - 188px);
   width: -moz-calc(100% - 188px);
@@ -468,7 +475,7 @@ input[type="date" i] {
 /* ==========================================================================
    #FORM
    ========================================================================== */
-input,
+
 textarea {
   outline: none;
   margin: 0;

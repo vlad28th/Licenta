@@ -34,7 +34,7 @@ public class Teacher implements Serializable{
 	private List<Request> cereri;
 	
 	@OneToMany(mappedBy="teacher")
-	private List<Project> teme;
+	private List<Tema> teme;
 
 	private String departament;
 

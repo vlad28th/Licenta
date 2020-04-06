@@ -21,6 +21,7 @@
 		<tr>
 			<th scope="col">Profesor</th>
 			<th scope="col">Status</th>
+			<th scope="col">Tema aleasa</th>
 
 		</tr>
 		<tr th:each="cerere: ${cereriStudent}">
@@ -29,10 +30,9 @@
 				<form th:action="@{/teacherDetails}" th:id="${cerere.teacher.user.userID}">
 					<input id="input" type="hidden" th:name="teacherID"
 						th:value="${cerere.teacher.idprofesori}"></td>
-			</form>
+			    </form>
 			<td th:text="${cerere.status}"></td>
-			
-
+			<td th:if="${cerere.tema}">[[${cerere.tema.nume}]]</td>
 		</tr>
 		
 		

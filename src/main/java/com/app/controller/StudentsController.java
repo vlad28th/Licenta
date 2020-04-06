@@ -1,5 +1,8 @@
 package com.app.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,6 +19,7 @@ import com.app.model.Teacher;
 import com.app.repository.RequestRepository;
 import com.app.repository.StudentRepository;
 import com.app.repository.TeacherRepository;
+import com.app.repository.TemeRepository;
 import com.app.repository.UserRepository;
 import com.app.services.DateUtil;
 import com.app.services.SendMail;
@@ -31,12 +35,15 @@ public class StudentsController {
 
 	@Autowired
 	StudentRepository studentRepo;
-	
+
 	@Autowired
 	UserRepository userRepo;
-	
+
 	@Autowired
 	SendMail sendMail;
+
+	@Autowired
+	TemeRepository projectRepo;
 
 	@RequestMapping("/studentWelcome")
 	public String welcomeStudent(Model model) {
@@ -53,30 +60,56 @@ public class StudentsController {
 	// in clasa asta avem declarat global id-ul profului selectat si avem nevoie de
 	// el ca sa facem o cerere
 
-//	<!--  input type="hidden" th:name="teacherID" th:value="${teacher.idprofesori}"-->
 	@RequestMapping("/submitRequest")
-	public String request(@RequestParam(value = "teacherID") String teacherID, RedirectAttributes redirectAttributes) {
+	public String request(@RequestParam(value = "teacherID") String teacherID,
+			@RequestParam(value = "numeTema", required = false) String numeTema,
+			RedirectAttributes redirectAttributes) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser) principal;
 		int studentID = curentUser.getUser().getStudent().getIdstudenti();
 
 		Teacher targetTeacher = teacherRepo.findByIdprofesori(Integer.parseInt(teacherID));
-
+		
+		
 		Request request = new Request();
 		request.setStatus("In asteptare (" + DateUtil.getDate() + ")");
 		request.setStudent(curentUser.getUser().getStudent());
 		request.setTeacher(targetTeacher);
+		if (!numeTema.contains("Aplica fara tema"))
+			request.setTema(projectRepo.findByNume(numeTema));
+		
+		List<Request> verifyRequest = new ArrayList();
+		String errorMessage = "";
+		
+		System.out.println(numeTema);
+		
+		//verificare aplicare fara tema
+		if (numeTema.contains("Aplica fara tema")) {
+			System.out.println("tema neselectata");
+			verifyRequest = requestRepo.findByStudentIdstudentiAndTeacherIdprofesori(studentID,
+					Integer.valueOf(teacherID));
+			errorMessage = "Ai facut deja o cerere catre acest profesor!";
+		}
 
-		Request verifyRequest = requestRepo.findByStudentIdstudentiAndTeacherIdprofesori(studentID,
-				Integer.valueOf(teacherID));
-		if (verifyRequest != null) {
-			redirectAttributes.addFlashAttribute("errorMessage", "Ai facut deja o cerere catre acest profesor!");
-			return "redirect:/teachers";
-		} else
+		//verificare aplicare cu tema
+		if (!numeTema.contains("Aplica fara tema")) {
+			System.out.println("tema selectata");
+			verifyRequest.add(requestRepo.findByStudentIdstudentiAndTemaNume(studentID, numeTema));
+			errorMessage = "Ai facut deja o cerere pentru aceasta tema!";
+		}
+		
+		//DECIZIE REDIRECT
+		redirectAttributes.addAttribute("teacherID", Integer.valueOf(teacherID));
+		if (verifyRequest.size() != 0) {
+			redirectAttributes.addFlashAttribute("errorMessage", errorMessage);
+			return "redirect:/teacherDetails";
+		} else {
 			requestRepo.save(request);
-			sendMail.notifyTeacher(targetTeacher.getUser().getEmail(), targetTeacher.getUser().getUsername(), curentUser.getUser().getUsername());
+			sendMail.notifyTeacher(targetTeacher.getUser().getEmail(), targetTeacher.getUser().getUsername(),
+					curentUser.getUser().getUsername());
 
-		return "redirect:/teachers";
+			return "redirect:/teacherDetails";
+		}
 	}
 
 	// metoda asta aduce din VIEW id-ul profului selectat. id-ul e variabila globala
@@ -86,6 +119,8 @@ public class StudentsController {
 
 		Teacher targetTeacher = teacherRepo.findByIdprofesori(Integer.parseInt(teacherID));
 		model.addAttribute("teacher", targetTeacher);
+		System.out.println(projectRepo.findByTeacherIdprofesori(Integer.valueOf(teacherID)).size());
+		model.addAttribute("projects", projectRepo.findByTeacherIdprofesori(Integer.valueOf(teacherID)));
 		return "/students/viewTeacherDetails";
 	}
 
@@ -102,8 +137,8 @@ public class StudentsController {
 
 	@RequestMapping("/submitDetailsStudent")
 	public String completeDetails(@RequestParam(value = "grupa") String grupa,
-			@RequestParam("specializare") String specializare,
-			@RequestParam(value = "username") String username, @RequestParam("email") String email) {
+			@RequestParam("specializare") String specializare, @RequestParam(value = "username") String username,
+			@RequestParam("email") String email) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser) principal;
 		int userID = curentUser.getUser().getUserID();
@@ -111,8 +146,7 @@ public class StudentsController {
 		studentRepo.setDetails(specializare, grupa, curentUser.getUser().getUserID());
 		userRepo.setUsername(username, userID);
 		userRepo.setEmail(email, userID);
-		
-		
+
 		Authentication authentication = new UsernamePasswordAuthenticationToken(principal, curentUser.getPassword());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
