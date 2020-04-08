@@ -1,7 +1,5 @@
 package com.app.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.app.model.MyUser;
 import com.app.model.Student;
 import com.app.model.Teacher;
-import com.app.model.User;
 import com.app.repository.RequestRepository;
 import com.app.repository.StudentRepository;
 import com.app.repository.TeacherRepository;
+import com.app.repository.TemeRepository;
 import com.app.repository.UserRepository;
 import com.app.services.DateUtil;
 import com.app.services.SendMail;
@@ -36,6 +34,9 @@ public class TeachersController {
 	
 	@Autowired
 	RequestRepository requestRepo;
+	
+	@Autowired
+	TemeRepository projectRepo;
 	
 	@Autowired
 	SendMail sendMail;
@@ -63,6 +64,7 @@ public class TeachersController {
 		
 		model.addAttribute("teacher", new Teacher());
         model.addAttribute("mesaj", "Bine ai venit, " + curentUser.getUsername() );
+        model.addAttribute("teme", projectRepo.findByTeacherIdprofesori(curentUser.getUser().getTeacher().getIdprofesori()));
         return "/teachers/teacherWelcome";
     }
 	/*
@@ -79,6 +81,7 @@ public class TeachersController {
 			MyUser curentUser = (MyUser) principal;
 			int currentUserID = curentUser.getUserID();
 			
+			
 			teacherRepo.updateDetails(currentUserID, departament, slots);
 			if(comment.length() != 0 ) teacherRepo.updateComment(currentUserID, comment);
 			
@@ -92,38 +95,47 @@ public class TeachersController {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser curentUser = (MyUser) principal;
 			model.addAttribute("teacher",curentUser.getUser().getTeacher());
+			model.addAttribute("teme", projectRepo.findByTeacherIdprofesori(curentUser.getUser().getTeacher().getIdprofesori()));
 			return "/teachers/completeDetailsTeacher";
 	}
 		
 		@RequestMapping("/studentDetails")
 		public String viewStudentDetails(@RequestParam(value="studentID") String studentID, Model model) {
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser curentUser = (MyUser) principal;
+			model.addAttribute("teme", projectRepo.findByTeacherIdprofesori(curentUser.getUser().getTeacher().getIdprofesori()));
 			
 			Student targetStudent = studentRepo.findByIdstudenti(Integer.valueOf(studentID));
 			model.addAttribute("student",targetStudent);
+			
+			model.addAttribute("cereri",requestRepo.findByStudentIdstudentiAndTeacherIdprofesori(targetStudent.getIdstudenti(), curentUser.getUser().getTeacher().getIdprofesori()));
 			
 			return "/teachers/viewStudentDetails";
 			
 		}
 		
 		@RequestMapping("/manageStudent")
-		public String manageStudent(@RequestParam(value="status") String status, @RequestParam(value="studentID") String studentID) {
+		public String manageStudent(@RequestParam(value="status") String status, @RequestParam(value="studentID") String studentID, @RequestParam(value="numeTema", required=false)String numeTema) {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser curentUser = (MyUser) principal;
 			int teacherID = curentUser.getUser().getTeacher().getIdprofesori();
 			int newSlots = Integer.valueOf(curentUser.getUser().getTeacher().getSlots()) -1;
 			
-			
 			Student targetStudent = studentRepo.findByIdstudenti(Integer.parseInt(studentID));
+			System.out.println("numele temei -> " + numeTema);
+			
+		
 			
 			
-			//update req status in DB
-			requestRepo.updateRequestStatus(status+"  " + DateUtil.getDate(), Integer.valueOf(studentID), teacherID);
+			//update req status in DB (aplicare fara tema)
+			if(numeTema.contains("Fara tema")) requestRepo.updateRequestStatus(status+"  " + DateUtil.getDate(), Integer.valueOf(studentID), teacherID);
+			if(!numeTema.contains("Fara tema")) requestRepo.updateRequestStatusWithProject(status+"  " + DateUtil.getDate(), Integer.valueOf(studentID), teacherID, requestRepo.findByTemaNume(numeTema).getTema().getIdteme());
 			
 			//update teacher slots 
 			if(status.equalsIgnoreCase("Acceptat")) teacherRepo.updateSlots(curentUser.getUser().getUserID(), String.valueOf(newSlots));
 			
 			//send mail to Student
-			sendMail.sendReqStatus(targetStudent.getUser().getEmail(), curentUser.getUsername(),status);
+			//sendMail.sendReqStatus(targetStudent.getUser().getEmail(), curentUser.getUsername(),status);
 			
 			
 			//reload teacher to model attribute

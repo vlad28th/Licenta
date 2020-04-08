@@ -56,18 +56,18 @@
                   <br>
 				  <p style="text-align:center;"><b>Teme disponibile</b></p>
 				   <br>
-				<div class="temeDisponibile">
-                 		<div th:each="project : ${projects}">
-                 		    <form th:action = "@{/viewProject}">
-                   			 <input type="hidden" th:value="${project.nume}" th:name="numeTema">
-                   			 <button class="btn btn--radius-2 btn--blue-2" type="submit">[[${project.nume}]]</button>
-                   			 </form>
-                   			 <br>
-           			    </div>
-           			    
-           			    
-				 </div>
+				   <div style="text-align:center;">
+				  <form id="veziTema" th:action = "@{/viewProject}" onchange="submit('veziTema')">
+				 		 <label for="apply">Vezi tema</label>
+						 <select id="apply" th:name="numeTema">
+						    <option selected >-----</option>
+                   			<option th:each="project : ${projects}" th:value="${project.nume}" th:text="${project.nume}"></option>
+           			    </select>
+           			    <br>
+				 </form>
 				 
+				  </div>
+				
 				 <br>
 				 <br>
 				 
@@ -85,14 +85,14 @@
 				 </form>
 				 
 				  </div>
+				  
+				  
 				
 				
 </div>
 
 </div>
 </div>
-
-
 
 <script src="js/submitById.js"></script> 
 </html>

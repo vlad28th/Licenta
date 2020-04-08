@@ -33,6 +33,7 @@
 			    </form>
 			<td th:text="${cerere.status}"></td>
 			<td th:if="${cerere.tema}">[[${cerere.tema.nume}]]</td>
+			<td th:unless="${cerere.tema}">Aplicare fara tema</td>
 		</tr>
 		
 		

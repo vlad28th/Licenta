@@ -79,6 +79,7 @@ public class StudentsController {
 			request.setTema(projectRepo.findByNume(numeTema));
 		
 		List<Request> verifyRequest = new ArrayList();
+		System.out.println("BEGINING -> " + verifyRequest.size());
 		String errorMessage = "";
 		
 		System.out.println(numeTema);
@@ -89,6 +90,7 @@ public class StudentsController {
 			verifyRequest = requestRepo.findByStudentIdstudentiAndTeacherIdprofesori(studentID,
 					Integer.valueOf(teacherID));
 			errorMessage = "Ai facut deja o cerere catre acest profesor!";
+			System.out.println("VLAD IS HERER");
 		}
 
 		//verificare aplicare cu tema
@@ -100,7 +102,7 @@ public class StudentsController {
 		
 		//DECIZIE REDIRECT
 		redirectAttributes.addAttribute("teacherID", Integer.valueOf(teacherID));
-		if (verifyRequest.size() != 0) {
+		if (verifyRequest.get(0) != null) {
 			redirectAttributes.addFlashAttribute("errorMessage", errorMessage);
 			return "redirect:/teacherDetails";
 		} else {
@@ -119,7 +121,6 @@ public class StudentsController {
 
 		Teacher targetTeacher = teacherRepo.findByIdprofesori(Integer.parseInt(teacherID));
 		model.addAttribute("teacher", targetTeacher);
-		System.out.println(projectRepo.findByTeacherIdprofesori(Integer.valueOf(teacherID)).size());
 		model.addAttribute("projects", projectRepo.findByTeacherIdprofesori(Integer.valueOf(teacherID)));
 		return "/students/viewTeacherDetails";
 	}

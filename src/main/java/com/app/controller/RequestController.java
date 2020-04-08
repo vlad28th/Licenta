@@ -12,12 +12,16 @@ import com.app.model.MyUser;
 import com.app.model.Request;
 import com.app.model.Role;
 import com.app.repository.RequestRepository;
+import com.app.repository.TemeRepository;
 
 @Controller
 public class RequestController {
 	
 	@Autowired
 	RequestRepository requestRepo;
+	
+	@Autowired
+	TemeRepository projectRepo;
 	
 	
 	@RequestMapping("/viewRequests")
@@ -49,6 +53,7 @@ public class RequestController {
 	public String viewTeacherRequest(Model model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser)principal;
+		model.addAttribute("teme", projectRepo.findByTeacherIdprofesori(curentUser.getUser().getTeacher().getIdprofesori()));
 		
 		List<Request> cereri = requestRepo.findByTeacherIdprofesori(curentUser.getUser().getTeacher().getIdprofesori());
 		

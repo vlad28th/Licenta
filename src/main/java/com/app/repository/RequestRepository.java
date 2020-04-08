@@ -27,9 +27,17 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	
 	@Transactional
 	@Modifying
-	@Query("update cereri c set c.status =:status where c.teacher.idprofesori=:teacherID and c.student.idstudenti=:studentID")
+	@Query("update cereri c set c.status =:status where c.teacher.idprofesori=:teacherID and c.student.idstudenti=:studentID and c.tema is null")
 	public void updateRequestStatus(@Param("status") String status, @Param("studentID") int studentID, @Param("teacherID") int teacherID);
 	
+	
+	@Transactional
+	@Modifying
+	@Query("update cereri c set c.status =:status where c.teacher.idprofesori=:teacherID and c.tema.idteme =:idTema and c.student.idstudenti=:studentID")
+	public void updateRequestStatusWithProject(@Param("status") String status, @Param("studentID") int studentID, @Param("teacherID") int teacherID, @Param("idTema") int idTema);
+	
+	
+	public Request findByTemaNume(String numeTema);
 	
 	public Request findByStudentIdstudentiAndTemaNume(int studentID, String numeTema);
 }
