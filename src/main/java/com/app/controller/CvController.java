@@ -48,9 +48,15 @@ public class CvController {
 		if( cvFromWeb.length == 0) { redirectAttributes.addFlashAttribute("nullCV", "Selecteaza un fisier");
 									 return "redirect:/completeDetailsStudent";
 		}
+		try {
 		cvRepo.setCV(cvFromWeb, userID);
-
-		return "redirect:/studentWelcome";
+		}
+		catch(Exception e) {
+			redirectAttributes.addFlashAttribute("error", "A aparut o eroare la incarcarea cv-ului!");
+			return "redirect:/completeDetailsStudent";
+		}
+		redirectAttributes.addFlashAttribute("succes", "CV-ul a fost adaugat cu succes!");
+		return "redirect:/completeDetailsStudent";
 
 	}
 

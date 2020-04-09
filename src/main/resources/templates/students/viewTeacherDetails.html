@@ -57,7 +57,7 @@
 				  <p style="text-align:center;"><b>Teme disponibile</b></p>
 				   <br>
 				   <div style="text-align:center;">
-				  <form id="veziTema" th:action = "@{/viewProject}" onchange="submit('veziTema')">
+				  <form id="veziTema" th:action = "@{/viewProject}" th:target="_blank" onchange="submit('veziTema')">
 				 		 <label for="apply">Vezi tema</label>
 						 <select id="apply" th:name="numeTema">
 						    <option selected >-----</option>
@@ -83,6 +83,9 @@
 						<button class="btn btn--radius-2 btn--blue-2" type="submit">Aplica</button>
 						
 				 </form>
+				 <br>
+				 <div style="align-content:right" th:if="${error}"><b>[[${error}]]</b></div>
+                 <div style="align-content:right" th:if="${succes}"><b>[[${succes}]]</b></div>
 				 
 				  </div>
 				  

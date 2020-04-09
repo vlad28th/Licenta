@@ -102,14 +102,14 @@ public class StudentsController {
 		
 		//DECIZIE REDIRECT
 		redirectAttributes.addAttribute("teacherID", Integer.valueOf(teacherID));
-		if (verifyRequest.get(0) != null) {
+		if (verifyRequest != null && verifyRequest.size() !=0 && verifyRequest.get(0) != null ) {
 			redirectAttributes.addFlashAttribute("errorMessage", errorMessage);
 			return "redirect:/teacherDetails";
 		} else {
 			requestRepo.save(request);
 			sendMail.notifyTeacher(targetTeacher.getUser().getEmail(), targetTeacher.getUser().getUsername(),
 					curentUser.getUser().getUsername());
-
+			redirectAttributes.addFlashAttribute("succes", "Cererea a fost facuta cu succes!");
 			return "redirect:/teacherDetails";
 		}
 	}
@@ -139,7 +139,7 @@ public class StudentsController {
 	@RequestMapping("/submitDetailsStudent")
 	public String completeDetails(@RequestParam(value = "grupa") String grupa,
 			@RequestParam("specializare") String specializare, @RequestParam(value = "username") String username,
-			@RequestParam("email") String email) {
+			@RequestParam("email") String email, RedirectAttributes redirectAttributes) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser) principal;
 		int userID = curentUser.getUser().getUserID();
@@ -151,7 +151,8 @@ public class StudentsController {
 		Authentication authentication = new UsernamePasswordAuthenticationToken(principal, curentUser.getPassword());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		return "redirect:/studentWelcome";
+		redirectAttributes.addFlashAttribute("succesDetalii", "Detalii actualizate cu succes!");
+		return "redirect:/completeDetailsStudent";
 	}
 
 }

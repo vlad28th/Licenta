@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
 
     <!-- Main CSS-->
-    <link href="css/completeStudentDetails.css" rel="stylesheet" media="all">
+    <link href="css/student/completeStudentDetails.css" rel="stylesheet" media="all">
     
     <link rel="stylesheet" type="text/css" th:href="@{/css/headerStudent.css}"/>
 </head>
@@ -63,22 +63,29 @@
                                     <input class="input--style-6" type="text" th:name="grupa" placeholder="grupa" th:value="${student.grupa}" required>
                                 </div>
                         </div>
-                        
-                        <div class="card-footer">
-                    <button class="btn btn--radius-2 btn--blue-2" type="submit">Submit</button>
-                		</div>
-                        </form>
-                        <div class="form-row">
-                            <div class="name">Incarca CV</div>
-                            <div class="value">
-                                <div class="input-group js-input-file">
+                     
+                     <div style="text-align:center; border-bottom: 1px solid #e5e5e5;" name="buton submit detalii">
+                     	 <br>
+                   		 <button class="btn btn--radius-2 btn--blue-2" type="submit">Submit Details</button>
+                   		 
+                   		 <div style="align-content:right" th:if="${succesDetalii}"><b>[[${succesDetalii}]]</b></div>
+                   		 <br>
+                   		 <br>
+                    </div>
+                   </form>      
+                        <div style="text-align:center; align-items:center; self-align:center;">
+                        	<br>
+                            <div><b>Incarca CV</b></div>
+                            		<br><br>
                                 	<form th:action="@{/submitCV}" enctype="multipart/form-data" method="post">
-                                	<input class="input-file" type="file" id="file_cv" name="cv">	
-                                   <button class="btn btn--radius-2 btn--blue-2" type="submit">Submit CV</button>
+                                	<input style="text-align:center; align-items:center; self-align:center;" type="file" id="file_cv" name="cv">	
+                                    <br><br>
+                                    <button class="btn btn--radius-2 btn--blue-2" type="submit">Submit CV</button>
                                 </form>
-                                </div>
-                                <div class="label--desc">Max file size 50 MB</div>
-                            </div>
+                                <div class="label--desc">Max file size 16MB</div>
+                                
+                                <div style="align-content:right" th:if="${error}"><b>[[${error}]]</b></div>
+                                <div style="align-content:right" th:if="${succes}"><b>[[${succes}]]</b></div>
                         </div>
                             </div>
                         </div>
