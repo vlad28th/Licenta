@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" type="text/css" th:href="@{/css/headerStudent.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/student/forum.css}"/>
+</head>
+<div th:replace="fragments/headerStudent :: header">...</div>
+
+
+ 
+<body>
+	
+	<p>mesaj de la [[${mesaj.request.student.user.username}]]
+	<p>mesaj catre [[${mesaj.request.teacher.user.username}]]
+	<p>mesaj : [[${mesaj.content}]]
+	<p> tema : [[${mesaj.request.tema.nume}]]
+</body>
+</html>

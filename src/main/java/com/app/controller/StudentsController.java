@@ -117,8 +117,8 @@ public class StudentsController {
 	// metoda asta aduce din VIEW id-ul profului selectat. id-ul e variabila globala
 	// in clasa asta
 	@RequestMapping("/teacherDetails")
-	public String displayTeacher(@RequestParam(value = "teacherID") String teacherID, Model model) {
-
+	public String displayTeacher(@RequestParam(value = "teacherID") String teacherID, Model model, @RequestParam(value="variabilaTest", required = false) String variabilaTest) {
+		System.out.println("TEST VLAD ->" + variabilaTest);
 		Teacher targetTeacher = teacherRepo.findByIdprofesori(Integer.parseInt(teacherID));
 		model.addAttribute("teacher", targetTeacher);
 		model.addAttribute("projects", projectRepo.findByTeacherIdprofesori(Integer.valueOf(teacherID)));

@@ -4,7 +4,6 @@
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" th:href="@{/css/headerStudent.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/studentViewReq.css}" />
  <link rel="stylesheet" type="text/css" th:href="@{/css/student/viewSentRequests.css}"/>
 <script type="text/javascript">
 	function submit(x){
@@ -17,23 +16,24 @@
 <body>
 
 <div class="container"> 
-	<table class="responsive-table" border="1">
+	<table class="responsive-table table-striped table-hover" border="1">
 		<tr>
 			<th scope="col">Profesor</th>
-			<th scope="col">Status</th>
 			<th scope="col">Tema aleasa</th>
+			<th scope="col">Status</th>
 
 		</tr>
-		<tr th:each="cerere: ${cereriStudent}">
-		<td><a th:text="${cerere.teacher.user.username}" href="#"
-				th:onclick="'submit(\'' + ${cerere.teacher.user.userID} + '\');'"></a>
-				<form th:action="@{/teacherDetails}" th:id="${cerere.teacher.user.userID}">
-					<input id="input" type="hidden" th:name="teacherID"
-						th:value="${cerere.teacher.idprofesori}"></td>
+		<tr th:each="cerere: ${cereriStudent}" class="clickable" th:onclick="'submit(\'' + ${cerere.idcereri} + '\');'">
+		<td><a th:text="${cerere.teacher.user.username}"></a>
+				<form th:action="@{/test}" th:id="${cerere.idcereri}">
+					<input id="input" type="hidden" th:name="idCerere"
+						th:value="${cerere.idcereri}">
 			    </form>
-			<td th:text="${cerere.status}"></td>
+		</td>
+			
 			<td th:if="${cerere.tema}">[[${cerere.tema.nume}]]</td>
 			<td th:unless="${cerere.tema}">Aplicare fara tema</td>
+			<td th:text="${cerere.status}"></td>
 		</tr>
 		
 		

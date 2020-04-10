@@ -1,5 +1,7 @@
 package com.app.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity(name = "cereri")
 public class Request {
@@ -31,6 +34,22 @@ public class Request {
 	@JoinColumn(name = "idteme")
 	private Tema tema;
 	
+	
+	
+	@OneToMany(mappedBy = "request")
+	private List<Message> message;
+	
+	private String data;
+	
+	
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
 	public Tema getTema() {
 		return tema;
 	}
