@@ -47,11 +47,12 @@ public class ForumController {
 	MessageRepository messageRepo;
 	
 	@RequestMapping("/viewRequest")
-	public String redirect(@RequestParam("idCerere") String idCerere, @RequestParam("studentID") String studentID, RedirectAttributes redirectAttributes) {
+	public String redirect(@RequestParam("idCerere") String idCerere, @RequestParam(value="studentID", required = false) String studentID, RedirectAttributes redirectAttributes) {
 	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	MyUser curentUser = (MyUser)principal;
 		redirectAttributes.addAttribute("idCerere", idCerere);
-		if(curentUser.getRole().equals(Role.STUDENT))return "redirect:/studentViewRequest";
+		if(curentUser.getRole().equals(Role.STUDENT)) return "redirect:/studentViewRequest";
+		
 		if(curentUser.getRole().equals(Role.TEACHER)) { 
 									redirectAttributes.addAttribute("studentID", studentID);
 									return "redirect:/teacherViewRequest";
@@ -60,13 +61,13 @@ public class ForumController {
 	}
 	
 	@RequestMapping("/studentViewRequest")
-	public String studentViewRequest(Model model, @RequestParam("idCerere") String idCerere, @RequestParam("studentID") String studentID) {
+	public String studentViewRequest(Model model, @RequestParam("idCerere") String idCerere) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser) principal;
 		
 		
 		model.addAttribute("cerere",requestRepo.findByIdcereri(Integer.valueOf(idCerere)));
-
+		model.addAttribute("mesaje", messageRepo.findByRequestIdcereri(Integer.valueOf(idCerere)));
 		
 		return "/students/viewRequest";
 	}
@@ -79,7 +80,6 @@ public class ForumController {
 		Student targetStudent = studentRepo.findByIdstudenti(Integer.valueOf(studentID));
 		model.addAttribute("student",targetStudent);
 		model.addAttribute("cerere",requestRepo.findByIdcereri(Integer.valueOf(idCerere)));
-		
 		model.addAttribute("mesaje", messageRepo.findByRequestIdcereri(Integer.valueOf(idCerere)));
 		
 		return "/teachers/viewRequest";
