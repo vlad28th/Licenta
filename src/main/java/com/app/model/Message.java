@@ -1,5 +1,6 @@
 package com.app.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,12 +18,20 @@ public class Message {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idcereri")
-	Request request;
+	private Request request;
 	
-	String content;
+	private String content;
 	
+	private String direction;
 	
-	
+	public String getDirection() {
+		return direction;
+	}
+
+	public void setDirection(String messageDirection) {
+		this.direction = messageDirection;
+	}
+
 	public int getIdmesaje() {
 		return idmesaje;
 	}

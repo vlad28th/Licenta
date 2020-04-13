@@ -7,13 +7,20 @@
 </head>
 <div th:replace="fragments/headerStudent :: header">...</div>
 
-
- 
+<br>
+<br>
+<div>
+		<p>profesor : [[${cerere.teacher.user.username}]] </p>
+		<p>tema : [[${cerere.tema.nume}]]</p>
+</div>
+ <br>
+ <br>
+ <br>
 <body>
 	
 	<p>mesaj de la [[${mesaj.request.student.user.username}]]
 	<p>mesaj catre [[${mesaj.request.teacher.user.username}]]
 	<p>mesaj : [[${mesaj.content}]]
-	<p> tema : [[${mesaj.request.tema.nume}]]
+	<p> 
 </body>
 </html>

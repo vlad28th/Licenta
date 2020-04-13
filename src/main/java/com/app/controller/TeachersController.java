@@ -106,8 +106,8 @@ public class TeachersController {
 			model.addAttribute("teme", projectRepo.findByTeacherIdprofesori(curentUser.getUser().getTeacher().getIdprofesori()));
 			
 			Student targetStudent = studentRepo.findByIdstudenti(Integer.valueOf(studentID));
-			model.addAttribute("student",targetStudent);
 			
+			model.addAttribute("student",targetStudent);
 			model.addAttribute("cereri",requestRepo.findByStudentIdstudentiAndTeacherIdprofesori(targetStudent.getIdstudenti(), curentUser.getUser().getTeacher().getIdprofesori()));
 			
 			return "/teachers/viewStudentDetails";
@@ -115,7 +115,7 @@ public class TeachersController {
 		}
 		
 		@RequestMapping("/manageStudent")
-		public String manageStudent(@RequestParam(value="status") String status, @RequestParam(value="studentID") String studentID, @RequestParam(value="numeTema", required=false)String numeTema) {
+		public String manageStudent(@RequestParam(value="status") String status, @RequestParam(value="studentID") String studentID, @RequestParam(value="numeTema")String numeTema) {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser curentUser = (MyUser) principal;
 			int teacherID = curentUser.getUser().getTeacher().getIdprofesori();
@@ -123,9 +123,6 @@ public class TeachersController {
 			
 			Student targetStudent = studentRepo.findByIdstudenti(Integer.parseInt(studentID));
 			System.out.println("numele temei -> " + numeTema);
-			
-		
-			
 			
 			//update req status in DB (aplicare fara tema)
 			if(numeTema.contains("Fara tema")) requestRepo.updateRequestStatus(status+"  " + DateUtil.getDate(), Integer.valueOf(studentID), teacherID);

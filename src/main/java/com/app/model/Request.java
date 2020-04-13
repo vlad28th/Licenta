@@ -35,7 +35,6 @@ public class Request {
 	private Tema tema;
 	
 	
-	
 	@OneToMany(mappedBy = "request")
 	private List<Message> message;
 	
