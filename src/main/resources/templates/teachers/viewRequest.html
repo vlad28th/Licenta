@@ -16,12 +16,12 @@
         <div class="wrapper wrapper--w900">
             <div class="card card-6">
                 <div class="card-heading">
-                    <h2 class="title">Detalii student</h2>
+                    <h2 class="title">Detalii cerere</h2>
                 </div>
                 
                 <div class="card-body">
                  <div class="form-row">
-                            <div class="name">Nume complet</div>
+                            <div class="name">Nume Prenume</div>
                             <div class="value">
                                 <p>[[${student.user.username}]]</p>
                             </div>
@@ -48,12 +48,15 @@
                  <form th:action="@{viewCV}" th:target = "_blank" style="text-align:center">
 					<input type="hidden" th:name="userID" th:value="${student.user.userID}" required = "false">
 					<button class="btn btn--radius-2 btn--blue-2" type="submit">Vezi CV</button>
+				 </form>
+				
+				<form th:action = "@{/viewProject}" id="viewProject" th:target = "_blank" >
+					<h4 th:if="${cerere.tema}" style="text-align:center;">Aplicatie pentru tema<a href="#" onclick="submit('viewProject')"> [[${cerere.tema.nume}]]</a></h4>
+					<h4 th:unless="${cerere.tema}" style="text-align:center;" >Aplicare fara tema</h4>
+					<input th:if=${cerere.tema} type="hidden" name="numeTema" th:value="${cerere.tema.nume}">
 				</form>
 				
-				<h2 th:if="${cerere.tema}">Aplicatie pentru tema [[${cerere.tema.nume}]]</h2>
-				<h2 th:unless="${cerere.tema}">Aplicare fara tema</h2>
-				
-				
+				<div th:if="${#strings.contains(cerere.status,'asteptare')}" class="butoane"> 
 				<form id="formDecline" th:action="@{/manageStudent}" style="text-align:left; display:inline-block;">
 					<input type="hidden" th:name="status" value="Respins">
     				<input type="hidden" th:name="studentID" th:value="${student.idstudenti}">
@@ -70,19 +73,25 @@
     				
     				<button class="btn btn--radius-2 btn--green" type="submit" onclick = "return confirmSubmit('Acceptati studentul?')" >Accepta</button>
 				</form>
+				 </div>
 				 
-				 
-				<div class="container" th:each="mesaj: ${mesaje}">
-					<p th:if="${mesaj.direction} == 'toMaster'"><b>[[${mesaj.request.student.user.username}]]</b></p>
-					<p th:if="${mesaj.direction} == 'toSlave'" class="sender">[[${mesaj.content}]]
-					<p th:if="${mesaj.direction} == 'toMaster'" class="receiver">[[${mesaj.content}]]
+				<div class="container" style="align-self:center;" th:each="mesaj: ${mesaje}">
+					<div  th:if="${mesaj.direction} == 'toMaster'" class="receiver">
+						<p class="name"><b>[[${mesaj.request.student.user.username}]]</b></p>
+						<p>[[${mesaj.content}]]
+					</div>
+					<div th:if="${mesaj.direction} == 'toSlave'" class="sender">	
+						<p>[[${mesaj.content}]]
+					</div>
+					
+					
 				</div>
 				
 				
 				<form th:action="@{/submitMessage}">
-				 <textarea class="input--style-6" rows="3" cols="50" placeholder="Trimiteti un mesaj" th:name="mesaj" required></textarea>
+				 <textarea class="content" rows="3" cols="50" placeholder="Trimiteti un mesaj" th:name="mesaj" required></textarea>
 				 <input type="hidden" th:name="idCerere" th:value="${cerere.idcereri}">
-				 <button class="btn btn--radius-2 btn--blue-2" type="submit">Trimite</button>
+				 <button class="btn btn--radius-2 btn--blue-2 btnSubmit" type="submit">Trimite</button>
 				</form>
 </body>
 

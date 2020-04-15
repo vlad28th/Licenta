@@ -2,41 +2,95 @@
  
  .container{
 
- 	width:75%;
  	display:flex;
  	flex-direction:column;
- 	align-self:center;
+ 	
+ 	width: 65%;
+ 	border-left: 5px solid #dedede;
+ 	border-right: 5px solid #dedede;	
+ 	
+ 	position: relative;
+ 	left: 18%;
+ 	
+ 	padding-top: 1%;
+ 	 
  }
  
 .sender {
   border: 2px solid #dedede;
   background-color: #f1f1f1;
   border-radius: 5px;
-  padding: 10px;
-  margin: 10px 0;
+  padding: 7px;
+  margin-right:1.5%;
   text-align: right;
   
   width:max-content; !important;
   
   display:flex;
-  
+  flex-direction:column;
   align-self: flex-end;
   
+  padding-top: 1%;
+  
   }
-
-/* Darker chat container */
-.receiver {
+  
+  .receiver {
 	
   border: 2px solid #dedede;
   border-radius: 5px;
-  padding: 10px;
-  margin: 10px 0;
+  padding: 7px;
+  margin-left:1.5%;
   width:max-content;
+  
+  padding-top: 1%;
+}
+  
+  .name{
+  	font-weight: 350;
+  }
+  
+  
+  .content {
+  background: transparent;
+  line-height: 38px;
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  color: #666;
+  font-size: 15px;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  padding: 0 20px;
+  
+  display:flex;
+  flex-direction: column;
+  width:50%;
+  align-self: flex-end;
+  position: relative;
+  left: 45%;
+  margin-bottom:2%;
+}
+
+.btnSubmit{
+	display:flex;
+	position: relative;
+ 	 left: 75%;
+}
+
+.butoane{
+	display:inline-blocks;
+}
+
+
 
   border-color: #ccc;
   background-color: #ddd;
   
   display:flex;
+  flex-direction:column;
   
 }
 

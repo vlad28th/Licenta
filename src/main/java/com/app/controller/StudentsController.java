@@ -56,69 +56,10 @@ public class StudentsController {
 		return "/students/studentWelcome";
 	}
 
-	// asta trebuie sa ramana aici
-	// in clasa asta avem declarat global id-ul profului selectat si avem nevoie de
-	// el ca sa facem o cerere
-
-	@RequestMapping("/submitRequest")
-	public String request(@RequestParam(value = "teacherID") String teacherID,
-			@RequestParam(value = "numeTema", required = false) String numeTema,
-			RedirectAttributes redirectAttributes) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		MyUser curentUser = (MyUser) principal;
-		int studentID = curentUser.getUser().getStudent().getIdstudenti();
-
-		Teacher targetTeacher = teacherRepo.findByIdprofesori(Integer.parseInt(teacherID));
-		
-		
-		Request request = new Request();
-		request.setStatus("In asteptare (" + DateUtil.getDate() + ")");
-		request.setStudent(curentUser.getUser().getStudent());
-		request.setTeacher(targetTeacher);
-		if (!numeTema.contains("Aplica fara tema"))
-			request.setTema(projectRepo.findByNume(numeTema));
-		
-		List<Request> verifyRequest = new ArrayList();
-		System.out.println("BEGINING -> " + verifyRequest.size());
-		String errorMessage = "";
-		
-		System.out.println(numeTema);
-		
-		//verificare aplicare fara tema
-		if (numeTema.contains("Aplica fara tema")) {
-			System.out.println("tema neselectata");
-			verifyRequest = requestRepo.findByStudentIdstudentiAndTeacherIdprofesori(studentID,
-					Integer.valueOf(teacherID));
-			errorMessage = "Ai facut deja o cerere catre acest profesor!";
-			System.out.println("VLAD IS HERER");
-		}
-
-		//verificare aplicare cu tema
-		if (!numeTema.contains("Aplica fara tema")) {
-			System.out.println("tema selectata");
-			verifyRequest.add(requestRepo.findByStudentIdstudentiAndTemaNume(studentID, numeTema));
-			errorMessage = "Ai facut deja o cerere pentru aceasta tema!";
-		}
-		
-		//DECIZIE REDIRECT
-		redirectAttributes.addAttribute("teacherID", Integer.valueOf(teacherID));
-		if (verifyRequest != null && verifyRequest.size() !=0 && verifyRequest.get(0) != null ) {
-			redirectAttributes.addFlashAttribute("errorMessage", errorMessage);
-			return "redirect:/teacherDetails";
-		} else {
-			requestRepo.save(request);
-			sendMail.notifyTeacher(targetTeacher.getUser().getEmail(), targetTeacher.getUser().getUsername(),
-					curentUser.getUser().getUsername());
-			redirectAttributes.addFlashAttribute("succes", "Cererea a fost facuta cu succes!");
-			return "redirect:/teacherDetails";
-		}
-	}
-
 	// metoda asta aduce din VIEW id-ul profului selectat. id-ul e variabila globala
 	// in clasa asta
 	@RequestMapping("/teacherDetails")
-	public String displayTeacher(@RequestParam(value = "teacherID") String teacherID, Model model, @RequestParam(value="variabilaTest", required = false) String variabilaTest) {
-		System.out.println("TEST VLAD ->" + variabilaTest);
+	public String displayTeacher(@RequestParam(value = "teacherID") String teacherID, Model model) {
 		Teacher targetTeacher = teacherRepo.findByIdprofesori(Integer.parseInt(teacherID));
 		model.addAttribute("teacher", targetTeacher);
 		model.addAttribute("projects", projectRepo.findByTeacherIdprofesori(Integer.valueOf(teacherID)));
@@ -131,7 +72,7 @@ public class StudentsController {
 		MyUser curentUser = (MyUser) principal;
 
 		model.addAttribute("student", curentUser.getUser().getStudent());
-
+		
 		return "/students/completeDetailsStudent";
 
 	}

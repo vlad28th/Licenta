@@ -61,6 +61,8 @@
   }
 }
 
+
+
 .form-row {
   display: -webkit-box;
   display: -webkit-flex;
@@ -508,6 +510,7 @@ textarea {
   transition: all 0.4s ease;
   padding: 0 20px;
   flex-direction: column;
+  padding-top:5%;
 }
 
 .input--style-6::-webkit-input-placeholder,

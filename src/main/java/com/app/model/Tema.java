@@ -26,13 +26,26 @@ public class Tema implements MultipartFile{
 	@Lob
 	private byte[] tema;
 	
+	private String nume;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idprofesori")
 	private Teacher teacher;
 	
-	private String nume;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idstudenti")
+	private Student student;
 	
+	
+	
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
 	public String getNume() {
 		return nume;
 	}

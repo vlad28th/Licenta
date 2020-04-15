@@ -35,17 +35,22 @@
                  </div>
                  
                  
-                 	<div th:each="mesaj: ${mesaje}">
-                 	<p th:if="${mesaj.direction} == 'toSlave'"><b>[[${mesaj.request.teacher.user.username}]]</b></p>
-					<p th:if="${mesaj.direction} == 'toSlave'" class="receiver">[[${mesaj.content}]]
-					<p th:if="${mesaj.direction} == 'toMaster'" class="sender">[[${mesaj.content}]]
+                 	<div class ="container" th:each="mesaj: ${mesaje}">
+                 		<div th:if="${mesaj.direction} == 'toSlave'" class="receiver" >
+                 			<p class="name"><b>[[${mesaj.request.teacher.user.username}]]</b></p>
+							<p>[[${mesaj.content}]]
+                 		</div>
+                 		<div th:if="${mesaj.direction} == 'toMaster'" class="sender">
+                 			<p>[[${mesaj.content}]]
+                 		</div>
+					
 				</div>
 				
 				
 				<form th:action="@{/submitMessage}">
-				 <textarea class="input--style-6" rows="3" cols="50" placeholder="Trimiteti un mesaj" th:name="mesaj" required></textarea>
+				 <textarea class="content" rows="3" cols="50" placeholder="Trimiteti un mesaj" th:name="mesaj" required></textarea>
 				 <input type="hidden" th:name="idCerere" th:value="${cerere.idcereri}">
-				 <button class="btn btn--radius-2 btn--blue-2" type="submit">Trimite</button>
+				 <button class="btn btn--radius-2 btn--blue-2 btnSubmit" type="submit">Trimite</button>
 				</form>
                  
                  
