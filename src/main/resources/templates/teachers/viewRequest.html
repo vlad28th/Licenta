@@ -12,7 +12,7 @@
 
 
 <body>
-    <div class="page-wrapper bg-dark p-t-20 p-b-50">
+    <div class="page-wrapper bg-dark p-t-100 p-b-50">
         <div class="wrapper wrapper--w900">
             <div class="card card-6">
                 <div class="card-heading">
@@ -75,24 +75,36 @@
 				</form>
 				 </div>
 				 
-				<div class="container" style="align-self:center;" th:each="mesaj: ${mesaje}">
-					<div  th:if="${mesaj.direction} == 'toMaster'" class="receiver">
-						<p class="name"><b>[[${mesaj.request.student.user.username}]]</b></p>
-						<p>[[${mesaj.content}]]
-					</div>
-					<div th:if="${mesaj.direction} == 'toSlave'" class="sender">	
-						<p>[[${mesaj.content}]]
-					</div>
+				
+				
+				 <div class="chatBox">
+                 	<div class="scrollable">
+                 	<div class ="container" th:each="mesaj: ${mesaje}">
+                 		<div  th:if="${mesaj.direction} == 'toMaster'" class="receiver">
+                 			<p class="name"><b>[[${mesaj.request.student.user.username}]]</b></p>
+							<p>[[${mesaj.content}]]
+                 		</div>
+                 		<div th:if="${mesaj.direction} == 'toSlave'" class="sender">	
+                 			<p>[[${mesaj.content}]]
+                 		</div>
 					
+				   </div>
+				   </div>
+				   <div class="typeMessage">
+				  	 <form th:action="@{/submitMessage}">
+				 		<textarea rows="1" placeholder="Trimiteti un mesaj" th:name="mesaj" required></textarea>
+						 <input type="hidden" th:name="idCerere" th:value="${cerere.idcereri}">
+				 		<button class="btn btn--radius-2 btn--blue-2 btnSubmit" type="submit">Trimite</button>
+					</form>
 					
 				</div>
+				</div>
+				<br>
+				<br>
+				<br>
 				
+				</div>
 				
-				<form th:action="@{/submitMessage}">
-				 <textarea class="content" rows="3" cols="50" placeholder="Trimiteti un mesaj" th:name="mesaj" required></textarea>
-				 <input type="hidden" th:name="idCerere" th:value="${cerere.idcereri}">
-				 <button class="btn btn--radius-2 btn--blue-2 btnSubmit" type="submit">Trimite</button>
-				</form>
 </body>
 
 <script>

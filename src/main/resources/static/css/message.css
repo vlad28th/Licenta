@@ -1,19 +1,24 @@
  /* Chat containers */
  
- .container{
-
- 	display:flex;
- 	flex-direction:column;
- 	
+ 
+ .chatBox{
+	margin-top:5%;
+	display:block;
+	border:2px solid #dedede;
  	width: 65%;
- 	border-left: 5px solid #dedede;
- 	border-right: 5px solid #dedede;	
- 	
  	position: relative;
  	left: 18%;
  	
- 	padding-top: 1%;
- 	 
+ 	height:600px; 	
+ }
+ 
+ 
+ .container{
+ 	display:flex;
+ 	flex-direction:column;
+ 	padding-top: 2%;
+ 	padding-bottom:2%;
+ 	width:100%; 
  }
  
 .sender {
@@ -22,16 +27,17 @@
   border-radius: 5px;
   padding: 7px;
   margin-right:1.5%;
+  margin-left:1.5%;
   text-align: right;
-  
-  width:max-content; !important;
   
   display:flex;
   flex-direction:column;
   align-self: flex-end;
-  
+ 
   padding-top: 1%;
-  
+
+  word-wrap:break-word;  
+  word-break: break-word;
   }
   
   .receiver {
@@ -40,17 +46,31 @@
   border-radius: 5px;
   padding: 7px;
   margin-left:1.5%;
-  width:max-content;
-  
+  margin-right:1.5%;
+ 
   padding-top: 1%;
+  
+  
+  display:flex;
+  flex-direction:column;
+  align-self: flex-start;
+  
+  word-wrap:break-word;
+  word-break: break-word;
+ 
 }
   
   .name{
   	font-weight: 350;
   }
   
+  .scrollable{
+  height:500px;
+  overflow-y: scroll;
   
-  .content {
+  }
+  
+  .typeMessage {
   background: transparent;
   line-height: 38px;
   border: 1px solid #cccccc;
@@ -66,24 +86,24 @@
   padding: 0 20px;
   
   display:flex;
-  flex-direction: column;
-  width:50%;
-  align-self: flex-end;
-  position: relative;
-  left: 45%;
-  margin-bottom:2%;
+  flex-direction: row;
+  align-items:flex-start;
+  margin-left:5%;
+  width:80%;
+  
+  z-index:999;
+    
+  
 }
 
 .btnSubmit{
-	display:flex;
 	position: relative;
- 	 left: 75%;
+ 	left: 75%;
 }
 
 .butoane{
 	display:inline-blocks;
 }
-
 
 
   border-color: #ccc;

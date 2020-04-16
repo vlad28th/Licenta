@@ -212,7 +212,7 @@ public class RequestController {
 		if(status.equalsIgnoreCase("Acceptat")) teacherRepo.updateSlots(curentUser.getUser().getUserID(), String.valueOf(newSlots));
 		
 		//send mail to Student
-		//sendMail.sendReqStatus(targetStudent.getUser().getEmail(), curentUser.getUsername(),status);
+		sendMail.sendReqStatus(targetStudent.getUser().getEmail(), curentUser.getUsername(),status);
 		
 		
 		//reload teacher to model attribute

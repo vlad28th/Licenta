@@ -41,8 +41,8 @@ public class RegistrationController
     	}
         */
         try {
-        sendMail.sendCredentials(user.getEmail(),user.getUsername(),user.getPassword());
         userRepo.save(user);
+        sendMail.sendCredentials(user.getEmail(),user.getUsername(),user.getPassword());
         }
         catch(Exception e) {
         	 redirectAttributes.addFlashAttribute("incorectEmail","?");
