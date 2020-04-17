@@ -6,13 +6,8 @@
 
 <head>
 <link rel="stylesheet" type="text/css" th:href="@{/css/headerTeacher.css}" />
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
 
-<script type="text/javascript">
-	function submit(x){
-		document.getElementById(x).submit();
-			}
-</script>
+
 </head>
 
 <form th:action="@{/welcome}" method="get" id="welcome"></form>
@@ -40,4 +35,6 @@
 	<a href="#" th:onclick="submit('cereri')" >Vezi cereri primite</a> 
 	<a href="#" th:onclick="submit('logout')" >Logout</a> 
 </div>
+
+<script src="js/submitById.js"></script> 
 </html>
