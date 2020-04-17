@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/headerTeacher.css}"/>
+	</head>
+	
+<div th:replace="fragments/headerTeacher :: header">...</div>
+
+
+<p th:text="${mesaj}"></p>
+
+<body>
+	<form th:action="@{/submitDetailsTeacher}">
+		<label>Departament</label> <input type="text" th:name="departament"/>
+		<label>Locuri Disponibile</label> <input type="text" th:name="slots" />
+		<button type="submit">Confirma modificari</button>
+	</form>
+</body>
+</html>
