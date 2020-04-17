@@ -1,87 +1,93 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <!-- Required meta tags-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Colorlib Templates">
-    <meta name="author" content="Colorlib">
-    <meta name="keywords" content="Colorlib Templates">
+<!-- Required meta tags-->
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Colorlib Templates">
+<meta name="author" content="Colorlib">
+<meta name="keywords" content="Colorlib Templates">
 
-    <!-- Title Page-->
-    <title>Complete details</title>
+<title>Complete details</title>
 
-    <!-- Font special for pages-->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
 
-    <!-- Main CSS-->
-    <link href="css/teacher/completeTeacherDetails.css" rel="stylesheet" media="all">
-    
-    <link rel="stylesheet" type="text/css" th:href="@{/css/headerTeacher.css}"/>
+<link href="css/teacher/completeTeacherDetails.css" rel="stylesheet"
+	media="all">
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/headerTeacher.css}" />
 </head>
 
- <div th:replace="fragments/headerTeacher :: header">...</div>
-	 
+<div th:replace="fragments/headerTeacher :: header">...</div>
+
 <div th:if="${nullProject}">
 	<script> alert("Selecteaza un fisier!") </script>
-	</div>	 
-	 
-	 
+</div>
 
 <body>
-    <div class="page-wrapper bg-dark p-t-100 p-b-50">
-        <div class="wrapper wrapper--w900">
-            <div class="card card-6">
-                <div class="card-heading">
-                    <h2 class="title">Completeaza profilul</h2>
-                </div>
-                <div class="card-body">
-                        <form th:action = "@{/submitDetailsTeacher}">
-                        <div class="form-row">
-                            <div class="name">Departament</div><br>
-                                <div class="input-group">
-                                    <input class="input--style-6" type="text" th:name="departament" placeholder="Departament" th:value="${teacher.departament}" required>
-                                </div>
-                        </div>
-                        
-                         <div class="form-row">
-                            <div class="name">Locuri disponibile</div><br>
-                                <div class="input-group">
-                                    <input class="input--style-6" type="text" th:name="slots" placeholder="Locuri disponibile" th:value="${teacher.slots}"  required>
-                                </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="name">Alte mentiuni</div><br>
-                                <div class="input-group">
-                                    <textarea class="input--style-6" rows="3" cols="50" placeholder="Introduceti alte precizari" th:name="comment">[[${teacher.comment}]]</textarea>
-                                </div>
-                                <button style="float:center;" class="btn btn--radius-2 btn--blue-2" type="submit">Actualizeaza Detalii</button>
-                		</form>
-                        </div>
-                        
-                         
-                		
-                		<div class="form-row">
-                            <div class="name">Incarca tema</div>
-                            <div class="value">
- 								<div class="input-group js-input-file">
-                                	<form th:action="@{/submitTema}" enctype="multipart/form-data" method="post">
-                                	<input class="input--style-6" type="text" th:name="numeTema" placeholder="Numele temei" required>
-                                	<input class="input-file" type="file" id="file_tema" name="tema">	
-                                   <button class="btn btn--radius-2 btn--blue-2" type="submit">Submit CV</button>
-                                </form>                                </div>
-                                <div class="label--desc">Max file size 50 MB</div>
-                            </div>
-                        </div>
-                        </form>
-                            </div>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="page-wrapper bg-dark p-t-100 p-b-50">
+		<div class="wrapper wrapper--w900">
+			<div class="card card-6">
+				<div class="card-heading">
+					<h2 class="title">Completeaza profilul</h2>
+				</div>
+				<div class="card-body">
+					<form th:action="@{/submitDetailsTeacher}">
+						<div class="form-row">
+							<div class="name">Departament</div>
+							<br>
+							<div class="input-group">
+								<input class="input--style-6" type="text" th:name="departament"
+									placeholder="Departament" th:value="${teacher.departament}"
+									required>
+							</div>
+						</div>
 
+						<div class="form-row">
+							<div class="name">Locuri disponibile</div>
+							<br>
+							<div class="input-group">
+								<input class="input--style-6" type="text" th:name="slots"
+									placeholder="Locuri disponibile" th:value="${teacher.slots}"
+									required>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="name">Alte mentiuni</div>
+							<br>
+							<div class="input-group">
+								<textarea class="input--style-6" rows="3" cols="50"
+									placeholder="Introduceti alte precizari" th:name="comment">[[${teacher.comment}]]</textarea>
+							</div>
+							<button style="float: center;"
+								class="btn btn--radius-2 btn--blue-2" type="submit">Actualizeaza
+								Detalii</button>
+					</form>
+				</div>
+
+
+
+				<div class="form-row">
+					<div class="name">Incarca tema</div>
+					<div class="value">
+						<div class="input-group js-input-file">
+							<form th:action="@{/submitTema}" enctype="multipart/form-data"
+								method="post">
+								<input class="input--style-6" type="text" th:name="numeTema"
+									placeholder="Numele temei" required> <input
+									class="input-file" type="file" id="file_tema" name="tema">
+								<button class="btn btn--radius-2 btn--blue-2" type="submit">Submit
+									CV</button>
+							</form>
+						</div>
+						<div class="label--desc">Max file size 50 MB</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </html>
