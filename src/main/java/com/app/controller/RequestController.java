@@ -114,18 +114,15 @@ public class RequestController {
 		
 		
 		List<Request> verifyRequest = new ArrayList();
-		System.out.println("BEGINING -> " + verifyRequest.size());
 		String errorMessage = "";
 		
-		System.out.println(numeTema);
 		
 		//verificare aplicare fara tema
 		if (!numeTema.equals("custom") && numeTema.contains("Aplica fara tema")) {
 			System.out.println("tema neselectata");
-			verifyRequest = requestRepo.findByStudentIdstudentiAndTeacherIdprofesori(studentID,
-					Integer.valueOf(teacherID));
+			verifyRequest.add(requestRepo.findByStudentIdstudentiAndTeacherIdprofesoriAndTema(studentID,
+							Integer.valueOf(teacherID),null));
 			errorMessage = "Ai facut deja o cerere catre acest profesor!";
-			System.out.println("VLAD IS HERER");
 		}
 
 		//verificare aplicare cu tema
@@ -159,10 +156,10 @@ public class RequestController {
 		
 		Teacher targetTeacher = teacherRepo.findByIdprofesori(Integer.valueOf(teacherID));
 		
-		System.out.println("SUNT AICI");
 		
 		if(temaPDF.getBytes().length == 0) {
 			redirectAttributes.addFlashAttribute("nullProject", "Selecteaza un fisier");
+			redirectAttributes.addAttribute("teacherID", Integer.valueOf(teacherID));
 			return "redirect:/teacherDetails";
 		}
 		
@@ -177,6 +174,11 @@ public class RequestController {
 		
 		projectRepo.save(newProject);
 		project = newProject;
+		}
+		else {
+			redirectAttributes.addFlashAttribute("errorMessage", "Ai facut deja o cerere cu aceasta tema!");
+			redirectAttributes.addAttribute("teacherID", Integer.valueOf(teacherID));
+			return "redirect:/teacherDetails";
 		}
 		
 		

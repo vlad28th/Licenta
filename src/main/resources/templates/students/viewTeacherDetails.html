@@ -53,10 +53,11 @@
                                 <p>[[${teacher.comment}]]</p>
                             </div>
                  </div>
-                  <br>
-				  <p style="text-align:center;"><b>Teme disponibile</b></p>
-				   <br>
-				   <div style="text-align:center;">
+                 
+                  <div class="submitBox">
+				  <p><b>Teme disponibile</b></p>
+				  
+				  <div class="viewProject">
 				  <form id="veziTema" th:action = "@{/viewProject}" th:target="_blank" onchange="submit('veziTema')">
 				 		 <label for="x">Vezi tema</label>
 						 <select id="x" th:name="numeTema">
@@ -65,38 +66,39 @@
            			    </select>
            			    <br>
 				 </form>
+				 </div>
 				 
-				  </div>
-				
-				 <br>
-				 <br>
 				 
-				  <div style="text-align:center;">
-				  <form th:action="@{/submitRequest}" id="submitForm" method="post">
-				 		 <label for="apply">Alege o tema</label>
-						 <select id="apply" th:name="numeTema" onchange="ifSelected()">
-						    <option selected >Aplica fara tema</option>
-						    <option value="custom">Aplica cu tema personala</option>
-                   			<option th:each="project : ${projects}" th:value="${project.nume}" th:text="${project.nume}"></option>
-           			    </select>
+			 		 <form th:action="@{/submitRequest}" id="submitForm" method="post" class="submitRequest">
+			 		 	<div class="smallContainer">
+				 			 <label for="apply">Alege o tema</label>
+						 	<select id="apply" th:name="numeTema" onchange="ifSelected()">
+						  	  <option selected >Aplica fara tema</option>
+						   	  <option value="custom">Aplica cu tema personala</option>
+                   		   	  <option th:each="project : ${projects}" th:value="${project.nume}" th:text="${project.nume}"></option>
+           			  		  </select>
+           			    </div>
            			    <input type="hidden" th:name="teacherID" th:value="${teacher.idprofesori}">
-           			    <button style="text-align:center;" id="btnForm1" class="btn btn--radius-2 btn--blue-2" type="submit">Aplica</button>
-           			    <br>
-				 </form>
-				 <form th:action="@{/submitRequestMyProject}" style="display:none;" id="submitFormMyProject" enctype="multipart/form-data" method="post">
-           			    <input style="float:center;" type="file" id="inputFile" name="temaPDF">
-           			    <input style="float:center;" type="text" name="numeTema">
+           			    <button id="btnForm1" class="btn btn--radius-2 btn--blue-2 btnSubmit" type="submit">Aplica</button>
+					 </form>
+				 
+				 
+				 
+				 <form th:action="@{/submitRequestMyProject}" style="display:none;" class="submitRequestMyProject" id="submitFormMyProject"  enctype="multipart/form-data" method="post">
+           			    <input type="file" id="inputFile" name="temaPDF">
+           			    <div class="smallContainer">
+           			    	<label for="textTema">Nume tema:</label>
+           			    	<input type="text" name="numeTema" id="textTema">
+           			    </div>
+           			    <button class="btn btn--radius-2 btn--blue-2 btnSubmit" type="submit">Aplica</button>
            			    <input type="hidden" name="teacherID" th:name="teacherID"  th:value="${teacher.idprofesori}">
-           			    <br>
-           			    <button style="text-align:center;" class="btn btn--radius-2 btn--blue-2" type="submit">Aplica</button>
 				 </form>
-				 
-				 
-				 <br>
-				 <div style="align-content:right" th:if="${error}"><b>[[${error}]]</b></div>
-                 <div style="align-content:right" th:if="${succes}"><b>[[${succes}]]</b></div>
-                 <div style="align-content:right" th:if="${nullProject}"><b>[[${nullProject}]]</b></div>
-                 
+				 </div>
+				 <div class="messages">
+					<div th:if="${error}"><b>[[${error}]]</b></div>
+                 	<div th:if="${succes}"><b>[[${succes}]]</b></div>
+                 	<div th:if="${nullProject}"><b>[[${nullProject}]]</b></div>
+                 </div>
 				 
 				  </div>
 				  
@@ -113,10 +115,13 @@
 function ifSelected() {
     var x = document.getElementById("apply").value;
     if(x == "custom"){
-       document.getElementById("submitFormMyProject").style.display="block";
+       document.getElementById("submitFormMyProject").style.display="flex";
        document.getElementById("btnForm1").style.display="none";
-       alert("SUNT AICI");
     }
+    else {
+    	document.getElementById("submitFormMyProject").style.display="none";
+        document.getElementById("btnForm1").style.display="block";
+        }
     
 }
 </script>

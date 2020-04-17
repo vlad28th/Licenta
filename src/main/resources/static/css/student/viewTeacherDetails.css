@@ -61,6 +61,60 @@
   }
 }
 
+
+.submitBox{
+	display:flex;
+	align-items:center;
+	flex-direction:column;
+	flex-wrap:wrap;
+	margin-top:3%;
+	width:100%;
+}
+
+.container{
+	display:flex;
+	flex-direction:row;
+
+	}
+
+.submitRequest{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	align-text:center;
+	margin-top:2%;
+}
+
+.viewProject{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	align-text:center;
+	width:inherit;
+	margin-top:2%;
+	padding-bottom:3%;
+    border-bottom: 1px solid #e5e5e5;
+}
+	
+.submitRequestMyProject{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	width:inherit;
+	margin-top:3%;
+	
+}
+
+.btnSubmit{
+	margin-top:5%;
+	margin-bottom:5%;
+	}
+	
+.messages{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+}
 .form-row {
   display: -webkit-box;
   display: -webkit-flex;
