@@ -36,13 +36,13 @@
 			<th scope="col">Locuri disponibile</th>
 
 		</tr>
-		<tr th:each="teacher: ${teachers}">
-			<td><a th:text="${teacher.user.username}" href="#"
-				th:onclick="'submit(\'' + ${teacher.user.userID} + '\');'"></a>
+		<tr th:each="teacher: ${teachers}" class="clickable" th:onclick="'submit(\'' + ${teacher.user.userID} + '\');'">
+			<td><a th:text="${teacher.user.username}"></a>
 				<form th:action="@{/teacherDetails}" th:id="${teacher.user.userID}">
 					<input id="input" type="hidden" th:name="teacherID"
-						th:value="${teacher.idprofesori}"></td>
-			</form>
+						th:value="${teacher.idprofesori}">
+				</form>
+			</td>
 			<td th:text="${teacher.user.email}"></td>
 			<td th:text="${teacher.departament}"></td>
 			<td th:text="${teacher.slots}"></td>
