@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -46,7 +47,7 @@ public class ForumController {
 	@Autowired
 	MessageRepository messageRepo;
 	
-	@RequestMapping("/viewRequest")
+	@RequestMapping(value="/viewRequest")
 	public String redirect(@RequestParam("idCerere") String idCerere, @RequestParam(value="studentID", required = false) String studentID, RedirectAttributes redirectAttributes) {
 	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	MyUser curentUser = (MyUser)principal;
@@ -60,7 +61,7 @@ public class ForumController {
     return "";
 	}
 	
-	@RequestMapping("/studentViewRequest")
+	@RequestMapping(value="/studentViewRequest")
 	public String studentViewRequest(Model model, @RequestParam("idCerere") String idCerere) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser) principal;

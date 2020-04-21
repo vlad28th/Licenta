@@ -1,79 +1,91 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-
 <head>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/headerStudent.css}"/>
-		 <link rel="stylesheet" type="text/css" th:href="@{/css/student/viewRequest.css}"/>
-		 <link rel="stylesheet" type="text/css" th:href="@{/css/message.css}"/>
-	</head>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/headerStudent.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/student/viewRequest.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/message.css}" />
+</head>
 <div th:replace="fragments/headerStudent :: header">...</div>
+
+<div th:if="${nullProject}">
+	<script> alert("Incarca un fisier!") </script>
+</div>
 
 
 <body>
-    <div class="page-wrapper bg-dark p-t-100 p-b-50">
-        <div class="wrapper wrapper--w900">
-            <div class="card card-6">
-                <div class="card-heading">
-                    <h2 class="title">Detalii profesor</h2>
-                </div>
-                <div class="card-body">
-                 <div class="form-row">
-                            <div class="name">Nume profesor</div>
-                            <div class="value">
-                                <p>[[${cerere.teacher.user.username}]]</p>
-                            </div>
-                 </div>
-                 <div class="form-row">
-                            <div class="name">Tema</div>
-                            <div class="value">
-                            <p th:if="${cerere.tema}">[[${cerere.tema.nume}]]</p>
+	<div class="page-wrapper bg-dark p-t-100 p-b-50">
+		<div class="wrapper wrapper--w900">
+			<div class="card card-6">
+				<div class="card-heading">
+					<h2 class="title">Detalii profesor</h2>
+				</div>
+				<div class="card-body">
+					<div class="form-row">
+						<div class="name">Nume profesor</div>
+						<div class="value">
+							<p>[[${cerere.teacher.user.username}]]</p>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="name">Tema</div>
+						<div class="value">
+							<p th:if="${cerere.tema}">[[${cerere.tema.nume}]]</p>
 							<p th:unless="${cerere.tema}">Aplicare fara tema</p>
-							<button class="btn btn--radius-2 btn--blue-2 btnModify" type="submit">Modifica tema</button>
-                            </div>
-                 </div>
-                 
-                 <div class="chatBox">
-                 	<div class="scrollable">
-                 	<div class ="container" th:each="mesaj: ${mesaje}">
-                 		<div th:if="${mesaj.direction} == 'toSlave'" class="receiver" >
-                 			<p class="name"><b>[[${mesaj.request.teacher.user.username}]]</b></p>
-							<p>[[${mesaj.content}]]
-                 		</div>
-                 		<div th:if="${mesaj.direction} == 'toMaster'" class="sender">
-                 			<p>[[${mesaj.content}]]
-                 		</div>
-					
-				   </div>
-				   </div>
-				   <div class="typeMessage">
-				  	 <form th:action="@{/submitMessage}">
-				 		<textarea rows="1" placeholder="Trimiteti un mesaj" th:name="mesaj" required></textarea>
-						 <input type="hidden" th:name="idCerere" th:value="${cerere.idcereri}">
-				 		<button class="btn btn--radius-2 btn--blue-2 btnSubmit" type="submit">Trimite</button>
-					</form>
-					
-				</div>
-				</div>
-				
-				
-				
-				<br>
-				<br>
-				<br>
-				
-                 
-                 
-				  
-				  
-				
-				
-</div>
+							<div th:if="${succes}"><b>[[${succes}]]</b></div>
+							<button th:if="${cerere.tema} and ${cerere.tema.teacher}==null and ${succes}==null" class="btn btn--radius-2 btn--blue-2 btnModify" id="btnModify" onclick="modifyProject()">Modifica tema</button>
+							<form th:if="${cerere.tema}" th:action="@{/modifyRequestProject}" id="formModify" style="display:none;" enctype="multipart/form-data" method="post">
+								<input type="file" id="inputFile" name="temaPDF">
+								<input type="hidden" name="numeTema" th:value="${cerere.tema.nume}">
+								<button class="btn btn--radius-2 btn--blue-2" type="submit">Incarca</button>
+								<input type="hidden" name="requestID" th:value="${cerere.idcereri}">
+							</form>
+						</div>
+					</div>
 
-</div>
-</div>
+					<div class="chatBox">
+						<div class="scrollable">
+							<div class="container" th:each="mesaj: ${mesaje}">
+								<div th:if="${mesaj.direction} == 'toSlave'" class="receiver">
+									<p class="name">
+										<b>[[${mesaj.request.teacher.user.username}]]</b>
+									</p>
+									<p>[[${mesaj.content}]]
+								</div>
+								<div th:if="${mesaj.direction} == 'toMaster'" class="sender">
+									<p>[[${mesaj.content}]]
+								</div>
 
-<script src="js/submitById.js"></script> 
+							</div>
+						</div>
+						<div class="typeMessage">
+							<form th:action="@{/submitMessage}">
+								<textarea rows="1" placeholder="Trimiteti un mesaj"
+									th:name="mesaj" required></textarea>
+								<input type="hidden" th:name="idCerere"
+									th:value="${cerere.idcereri}">
+								<button class="btn btn--radius-2 btn--blue-2 btnSubmit"
+									type="submit">Trimite</button>
+							</form>
+
+						</div>
+					</div>
+
+
+				</div>
+
+			</div>
+		</div>
+
+		<script src="js/submitById.js"></script>
+		<script>
+		function modifyProject(){
+			document.getElementById("btnModify").style.display="none";
+			document.getElementById("formModify").style.display="flex";
+				}
+		</script>
 </html>

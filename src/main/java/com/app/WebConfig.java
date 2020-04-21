@@ -1,5 +1,6 @@
 package com.app;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -8,9 +9,17 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.app.services.PrivacyInterceptor;
+
 @Configuration
 public class WebConfig implements WebMvcConfigurer
 {
+	
+	@Bean
+	public PrivacyInterceptor privacyInterceptor() {
+		return new PrivacyInterceptor();
+	}
+	
     @Override
     public void addViewControllers(ViewControllerRegistry registry){
       //  registry.addViewController("/login").setViewName("/login");
@@ -38,8 +47,8 @@ public class WebConfig implements WebMvcConfigurer
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        //Add additional interceptors here
-    }
+    	registry.addInterceptor(privacyInterceptor()).addPathPatterns("/studentViewRequest");
+    	}
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

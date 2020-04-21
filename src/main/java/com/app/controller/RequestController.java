@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.app.model.MyUser;
@@ -225,5 +224,18 @@ public class RequestController {
 		
 	}
 	
+	@RequestMapping("/modifyRequestProject")
+	public String updateRequestProject(@RequestParam("numeTema")String numeTema, @RequestParam("requestID") String requestID, @RequestParam(value="temaPDF") MultipartFile temaPDF, RedirectAttributes redirectAttributes ) throws IOException {
+		
+		redirectAttributes.addAttribute("idCerere", requestID);
+		if(temaPDF.getBytes().length == 0) {
+			redirectAttributes.addFlashAttribute("nullProject", "Selecteaza un fisier");
+			return "redirect:/studentViewRequest";
+		}
+		
+		projectRepo.update(temaPDF.getBytes(), numeTema);
+		redirectAttributes.addFlashAttribute("succes", "Tema a fost modificata!");
+		return "redirect:/studentViewRequest";
+	}
 
 }

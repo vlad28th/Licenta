@@ -42,7 +42,7 @@ public class Student implements MultipartFile, Serializable{
 	private String grupa;
 	
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userID")
 	private User user;
 	
