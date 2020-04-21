@@ -2,12 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<head>
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/headerStudent.css}" />
 <link rel="stylesheet" type="text/css"
-	th:href="@{/css/student/viewRequest.css}" />
+	th:href="@{/css/student/viewRequest.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/css/message.css}" />
 </head>
 <div th:replace="fragments/headerStudent :: header">...</div>
@@ -36,13 +34,21 @@
 						<div class="value">
 							<p th:if="${cerere.tema}">[[${cerere.tema.nume}]]</p>
 							<p th:unless="${cerere.tema}">Aplicare fara tema</p>
-							<div th:if="${succes}"><b>[[${succes}]]</b></div>
-							<button th:if="${cerere.tema} and ${cerere.tema.teacher}==null and ${succes}==null" class="btn btn--radius-2 btn--blue-2 btnModify" id="btnModify" onclick="modifyProject()">Modifica tema</button>
-							<form th:if="${cerere.tema}" th:action="@{/modifyRequestProject}" id="formModify" style="display:none;" enctype="multipart/form-data" method="post">
-								<input type="file" id="inputFile" name="temaPDF">
-								<input type="hidden" name="numeTema" th:value="${cerere.tema.nume}">
+							<div th:if="${succes}">
+								<b>[[${succes}]]</b>
+							</div>
+							<button
+								th:if="${cerere.tema} and ${cerere.tema.teacher}==null and ${succes}==null"
+								class="btn btn--radius-2 btn--blue-2 btnModify" id="btnModify"
+								onclick="modifyProject()">Modifica tema</button>
+							<form th:if="${cerere.tema}" th:action="@{/modifyRequestProject}"
+								id="formModify" style="display: none;"
+								enctype="multipart/form-data" method="post">
+								<input type="file" id="inputFile" name="temaPDF"> <input
+									type="hidden" name="numeTema" th:value="${cerere.tema.nume}">
 								<button class="btn btn--radius-2 btn--blue-2" type="submit">Incarca</button>
-								<input type="hidden" name="requestID" th:value="${cerere.idcereri}">
+								<input type="hidden" name="requestID"
+									th:value="${cerere.idcereri}">
 							</form>
 						</div>
 					</div>
@@ -77,12 +83,12 @@
 
 
 				</div>
-
 			</div>
 		</div>
+	</div>
 
-		<script src="js/submitById.js"></script>
-		<script>
+	<script src="js/submitById.js"></script>
+	<script>
 		function modifyProject(){
 			document.getElementById("btnModify").style.display="none";
 			document.getElementById("formModify").style.display="flex";
