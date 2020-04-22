@@ -3,11 +3,12 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <link rel="stylesheet" type="text/css"
-	th:href="@{/css/headerStudent.css}" />
+	th:href="@{/css/headerStudent.css}"/>
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/student/viewRequest.css}"/>
-<link rel="stylesheet" type="text/css" th:href="@{/css/message.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/message.css}"/>
 </head>
+
 <div th:replace="fragments/headerStudent :: header">...</div>
 
 <div th:if="${nullProject}">
@@ -70,24 +71,25 @@
 							</div>
 						</div>
 						<div class="typeMessage">
-							<form th:action="@{/submitMessage}" class="typedMessage">
-							<input type="hidden" th:name="idCerere"
-									th:value="${cerere.idcereri}">
-								<textarea placeholder="Trimiteti un mesaj"
+							<form th:action="@{/submitMessage}">
+								<textarea rows="1" placeholder="Trimiteti un mesaj"
 									th:name="mesaj" required></textarea>
-								
-							<button class="btn btn--radius-2 btn--blue-2 btnSubmit"
+								<input type="hidden" th:name="idCerere"
+									th:value="${cerere.idcereri}">
+								<button class="btn btn--radius-2 btn--blue-2 btnSubmit"
 									type="submit">Trimite</button>
 							</form>
 
 						</div>
+						
+						</div>
+						
 					</div>
 
 
 				</div>
 			</div>
 		</div>
-	</div>
 
 	<script src="js/submitById.js"></script>
 	<script>
