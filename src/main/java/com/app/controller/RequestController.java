@@ -206,8 +206,8 @@ public class RequestController {
 		System.out.println("numele temei -> " + numeTema);
 		
 		//update req status in DB (aplicare fara tema)
-		if(numeTema.contains("Fara tema")) requestRepo.updateRequestStatus(status+"  " + DateUtil.getDate(), Integer.valueOf(studentID), teacherID);
-		if(!numeTema.contains("Fara tema")) requestRepo.updateRequestStatusWithProject(status+"  " + DateUtil.getDate(), Integer.valueOf(studentID), teacherID, requestRepo.findByTemaNume(numeTema).getTema().getIdteme());
+		if(numeTema.contains("fara tema")) requestRepo.updateRequestStatus(status+"  " + DateUtil.getDate(), Integer.valueOf(studentID), teacherID);
+		if(!numeTema.contains("fara tema")) requestRepo.updateRequestStatusWithProject(status+"  " + DateUtil.getDate(), Integer.valueOf(studentID), teacherID, requestRepo.findByTemaNume(numeTema).getTema().getIdteme());
 		
 		//update teacher slots 
 		if(status.equalsIgnoreCase("Acceptat")) teacherRepo.updateSlots(curentUser.getUser().getUserID(), String.valueOf(newSlots));
