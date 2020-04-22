@@ -32,7 +32,8 @@
 					<div class="form-row">
 						<div class="name">Tema</div>
 						<div class="value">
-							<p th:if="${cerere.tema}">[[${cerere.tema.nume}]]</p>
+							<p th:if="${cerere.tema} != null and ${cerere.tema.student}==null">[[${cerere.tema.nume}]]</p>
+							<p th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null">[[${cerere.tema.nume}]] (tema personala)</p>
 							<p th:unless="${cerere.tema}">Aplicare fara tema</p>
 							<div th:if="${succes}">
 								<b>[[${succes}]]</b>

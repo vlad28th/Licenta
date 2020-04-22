@@ -35,7 +35,8 @@
 			</form>
 			</td>
 			<td th:text="${cerere.status}"></td>
-			<td th:if="${cerere.tema}">[[${cerere.tema.nume}]]</td>
+			<td th:if="${cerere.tema} != null and ${cerere.tema.student}==null">[[${cerere.tema.nume}]]</td>
+			<td th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null">[[${cerere.tema.nume}]] (tema personala)</td>
 			<td th:unless="${cerere.tema}">Aplicare fara tema</td>
 		</tr>
 		

@@ -58,28 +58,26 @@
 								<textarea class="input--style-6" rows="3" cols="50"
 									placeholder="Introduceti alte precizari" th:name="comment">[[${teacher.comment}]]</textarea>
 							</div>
-							<button style="float: center;"
-								class="btn btn--radius-2 btn--blue-2" type="submit">Actualizeaza
-								Detalii</button>
-					</form>
-				</div>
-
-
-
-				<div class="form-row">
-					<div class="name">Incarca tema</div>
-					<div class="value">
-						<div class="input-group js-input-file">
-							<form th:action="@{/submitTema}" enctype="multipart/form-data"
-								method="post">
-								<input class="input--style-6" type="text" th:name="numeTema"
-									placeholder="Numele temei" required> <input
-									class="input-file" type="file" id="file_tema" name="tema">
-								<button class="btn btn--radius-2 btn--blue-2" type="submit">Submit
-									CV</button>
-							</form>
 						</div>
-						<div class="label--desc">Max file size 50 MB</div>
+						
+						<div class="btnSubmitDetails">
+						<button class="btn btn--radius-2 btn--blue-2" type="submit">Actualizeaza Detalii</button>
+						</div>
+					</form>
+					
+		<form th:action="@{/submitTema}" enctype="multipart/form-data" method="post" class="formSubmitProject">
+						<p><b>Incarca o tema</b></p>
+						<div class="custom">
+								<input class="input--style-6" type="text" th:name="numeTema"
+									placeholder="Numele temei" required> 
+									<input type="file" id="file_tema" name="tema">
+								<button class="btn btn--radius-2 btn--blue-2 btnSubmitProject" type="submit">Submit
+									CV</button>
+						<div class="label--desc">Max file size 16 MB</div>
+						</div>
+						
+	  </form>
+						
 					</div>
 				</div>
 			</div>

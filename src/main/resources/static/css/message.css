@@ -102,9 +102,17 @@
 }
 
 .butoane{
-	display:inline-blocks;
+	display:flex;
+	flex-direction:row;
+	justify-content:space-evenly;
+	
+	margin-top:4%;
 }
 
+
+#viewCV{
+	margin-top:4%;
+}
 
   border-color: #ccc;
   background-color: #ddd;
