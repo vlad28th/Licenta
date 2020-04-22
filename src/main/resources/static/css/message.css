@@ -38,6 +38,8 @@
 
   word-wrap:break-word;  
   word-break: break-word;
+  
+  max-width:87%;
   }
   
   .receiver {
@@ -50,7 +52,7 @@
  
   padding-top: 1%;
   
-  
+  max-width:87%;
   display:flex;
   flex-direction:column;
   align-self: flex-start;
@@ -72,34 +74,49 @@
   
   .typeMessage {
   background: transparent;
-  line-height: 38px;
-  border: 1px solid #cccccc;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
-  border-radius: 3px;
   color: #666;
   font-size: 15px;
   -webkit-transition: all 0.4s ease;
   -o-transition: all 0.4s ease;
   -moz-transition: all 0.4s ease;
   transition: all 0.4s ease;
-  padding: 0 20px;
+  border-top:1px solid #cccccc;
   
   display:flex;
   flex-direction: row;
-  align-items:flex-start;
-  margin-left:5%;
-  width:80%;
-  
+  align-items:center;  
+  padding-left:3%;  
   z-index:5;
-    
+}
+ 
+ .typedMessage{
+ 	display:flex;
+ 	flex-direction: row;
+ 	align-items:center;
+ }
+
+textarea{
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  font-size: 14px;
+  font-family: inherit;
+  resize:none;
+  border: 2px solid #dedede;
   
+  width:410px;
+  height:70px;
+  margin-top:3%;
+
 }
 
 .btnSubmit{
-	position: relative;
- 	left: 75%;
-}
+	position:relative;
+	bottom:23px;
+	left:20px;
+	}
 
 .butoane{
 	display:flex;

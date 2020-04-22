@@ -98,6 +98,9 @@
   width: calc(100% - 188px);
 }
 
+.typedMessage{
+	
+}
 
 @media (max-width: 767px) {
   .form-row {
@@ -472,8 +475,9 @@ input[type="date" i] {
 /* ==========================================================================
    #FORM
    ========================================================================== */
-input,
-textarea {
+input
+
+{
   outline: none;
   margin: 0;
   border: none;
@@ -485,9 +489,6 @@ textarea {
   font-family: inherit;
 }
 
-textarea {
-  resize: none;
-}
 
 .input-group {
   position: relative;
