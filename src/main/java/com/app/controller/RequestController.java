@@ -217,8 +217,8 @@ public class RequestController {
 		
 		
 		//reload teacher to model attribute
-		Authentication authentication = new UsernamePasswordAuthenticationToken(principal, curentUser.getPassword());
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+		//Authentication authentication = new UsernamePasswordAuthenticationToken(principal, curentUser.getPassword());
+		//SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		return "redirect:/viewRequests";
 		

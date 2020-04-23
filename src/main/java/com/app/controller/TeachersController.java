@@ -85,8 +85,8 @@ public class TeachersController {
 			teacherRepo.updateDetails(currentUserID, departament, slots);
 			if(comment.length() != 0 ) teacherRepo.updateComment(currentUserID, comment);
 			
-			Authentication authentication = new UsernamePasswordAuthenticationToken(principal, curentUser.getPassword());
-			SecurityContextHolder.getContext().setAuthentication(authentication);
+			//Authentication authentication = new UsernamePasswordAuthenticationToken(principal, curentUser.getPassword());
+			//SecurityContextHolder.getContext().setAuthentication(authentication);
 			
 			return "redirect:/teacherWelcome";
 		}
