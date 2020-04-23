@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.app.model.MyUser;
 import com.app.model.Student;
@@ -76,7 +77,8 @@ public class TeachersController {
 */		
 	
 		@RequestMapping("/submitDetailsTeacher")
-		public String submitDetails(@RequestParam(value = "departament") String departament , @RequestParam(value = "slots") String slots, @RequestParam("comment") String comment) {
+		public String submitDetails(@RequestParam(value = "departament") String departament , @RequestParam(value = "slots") String slots, @RequestParam("comment") String comment,
+				RedirectAttributes redirectAttributes) {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser curentUser = (MyUser) principal;
 			int currentUserID = curentUser.getUserID();
@@ -87,8 +89,8 @@ public class TeachersController {
 			
 			//Authentication authentication = new UsernamePasswordAuthenticationToken(principal, curentUser.getPassword());
 			//SecurityContextHolder.getContext().setAuthentication(authentication);
-			
-			return "redirect:/teacherWelcome";
+			redirectAttributes.addFlashAttribute("succes","Detalii actualizate cu succes! Acestea vor putea fi vizulizate dupa un nou login!");
+			return "redirect:/completeDetailsTeacher";
 		}
 		@RequestMapping("/completeDetailsTeacher")
 		public String completeDetails(Model model) {
