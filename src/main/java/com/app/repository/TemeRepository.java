@@ -33,4 +33,8 @@ public interface TemeRepository extends JpaRepository<Tema, Integer>{
 	
 	public Tema findByNume(String projectName);
 	
+	public Tema findByNumeAndStudentIdstudenti(String nume, int studentID);
+	
+	public Tema findByNumeAndTeacherIdprofesori(String nume, int teacherID);
+	
 }

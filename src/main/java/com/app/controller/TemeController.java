@@ -23,6 +23,8 @@ public class TemeController {
 	@Autowired
 	TemeRepository projectRepo;
 	
+	
+	// only teachers will acces it
 	@PostMapping("/submitTema")
 	public String uploadProject(@RequestParam("tema") MultipartFile tema, @RequestParam("numeTema") String numeTema, RedirectAttributes redirectAttributes) throws Exception{
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -40,7 +42,7 @@ public class TemeController {
 									 return "redirect:/completeDetailsTeacher";
 		}
 		
-		if(projectRepo.findByNume(numeTema) == null)
+		if(projectRepo.findByNumeAndTeacherIdprofesori(numeTema,teacherID) == null)
 		{
 			Tema projectToSave = new Tema();
 			projectToSave.setTeacher(curentUser.getUser().getTeacher());
@@ -59,6 +61,8 @@ public class TemeController {
 	
 	
 	
+	
+	
 	@RequestMapping("/viewProject")
 	public ResponseEntity<byte[]> viewCV(@RequestParam("numeTema") String numeTema) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -66,7 +70,6 @@ public class TemeController {
 		//int teacherID = curentUser.getUser().getTeacher().getIdprofesori();
 		
 		
-		System.out.println(projectRepo.findByNume(numeTema).getTema());
 		byte[] projectFromDB = projectRepo.findByNume(numeTema).getTema();
 		
 	

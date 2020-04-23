@@ -146,7 +146,7 @@ public class RequestController {
 		}
 	
 	
-	
+	//only students will acces it
 	@PostMapping("/submitRequestMyProject")
 		public String saveRequestWithProject(@RequestParam(value="teacherID", required=false)String teacherID, @RequestParam("numeTema")String numeTema,  @RequestParam(value="temaPDF") MultipartFile temaPDF, RedirectAttributes redirectAttributes ) throws IOException {
 		
@@ -163,7 +163,7 @@ public class RequestController {
 		}
 		
 		
-		Tema project = projectRepo.findByNume(numeTema);
+		Tema project = projectRepo.findByNumeAndStudentIdstudenti(numeTema, curentUser.getUser().getStudent().getIdstudenti());
 		if(project == null) {
 		//crearea temei studentului, caci ea nu exista + salvare in BD
 		Tema newProject = new Tema();
