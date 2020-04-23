@@ -57,6 +57,8 @@ public class RegistrationController
         	 redirectAttributes.addFlashAttribute("incorectEmail","?");
         	 return "redirect:/registration";
         }
+        
+        redirectAttributes.addFlashAttribute("succes","#");
         return "redirect:/login";
     }
 }
