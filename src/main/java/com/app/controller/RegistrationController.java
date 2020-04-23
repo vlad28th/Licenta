@@ -1,6 +1,8 @@
 package com.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,9 @@ public class RegistrationController
 	@Autowired
 	UserRepository userRepo;
 	
+	
+	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	
     @GetMapping("/registration")
     public String registrationForm(Model model) {
         model.addAttribute("user", new User());
@@ -40,9 +45,13 @@ public class RegistrationController
     		return "redirect:/registration";
     	}
         */
+    	String password = user.getPassword();
+    	String encryptedPassword = passwordEncoder.encode(password);
         try {
+        	
+        user.setPassword(encryptedPassword);
         userRepo.save(user);
-        sendMail.sendCredentials(user.getEmail(),user.getUsername(),user.getPassword());
+        sendMail.sendCredentials(user.getEmail(),user.getUsername(),password);
         }
         catch(Exception e) {
         	 redirectAttributes.addFlashAttribute("incorectEmail","?");
