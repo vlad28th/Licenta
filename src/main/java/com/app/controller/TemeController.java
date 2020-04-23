@@ -47,11 +47,14 @@ public class TemeController {
 			projectToSave.setTema(projectFromWeb);
 			projectToSave.setNume(numeTema);
 			projectRepo.save(projectToSave);
+			redirectAttributes.addFlashAttribute("succesUploadProject", "Tema a fost incarcata cu succes");
 		}
-		else 
+		else {
 			projectRepo.updateTema(projectFromWeb, teacherID,numeTema);
+			redirectAttributes.addFlashAttribute("succesUploadProject", "Tema a fost incarcata cu succes");
+		}
 		
-		return "redirect:/teacherWelcome";
+		return "redirect:/completeDetailsTeacher";
 	}
 	
 	
