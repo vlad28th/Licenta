@@ -127,11 +127,11 @@ public class RequestController {
 		//verificare aplicare cu tema
 		if (!numeTema.equals("custom") && !numeTema.contains("Aplica fara tema")) {
 			System.out.println("tema selectata");
-			verifyRequest.add(requestRepo.findByStudentIdstudentiAndTemaNume(studentID, numeTema));
+			verifyRequest = requestRepo.findByStudentIdstudentiAndTemaNume(studentID, numeTema);
 			//daca s-a gasit vreo cerere facuta de student cu numele temei X, se verifica daca tema apartinea studentului. daca da, se sterge. 
 			//aici se cauta daca studentul a aplicat pe tema unui profesor. pot exista 2 teme cu acelasi nume. diferenta este cine a postat-o
 			for(int i=0;i<verifyRequest.size();i++)
-				if(verifyRequest.get(i)!=null && verifyRequest.get(i).getTema().getStudent() == null) verifyRequest.clear();
+				if(verifyRequest.get(i)!=null && verifyRequest.get(i).getTema().getStudent() != null) verifyRequest.remove(i);
 			errorMessage = "Ai facut deja o cerere pentru aceasta tema!";
 		}
 		

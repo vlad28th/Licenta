@@ -1,8 +1,6 @@
 package com.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +16,6 @@ import com.app.repository.StudentRepository;
 import com.app.repository.TeacherRepository;
 import com.app.repository.TemeRepository;
 import com.app.repository.UserRepository;
-import com.app.services.DateUtil;
 import com.app.services.SendMail;
 
 @Controller
@@ -116,9 +113,21 @@ public class TeachersController {
 			
 		}
 		
-		
-		
-	
-		
-		
+		@RequestMapping("/deleteProject")
+		public String deleteProject(@RequestParam("numeTema") String numeTema, RedirectAttributes redirectAttributes) {
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MyUser curentUser = (MyUser) principal;
+			
+			
+			try {
+			projectRepo.delete(projectRepo.findByNumeAndTeacherIdprofesori(numeTema, curentUser.getUser().getTeacher().getIdprofesori()));
+			redirectAttributes.addFlashAttribute("successDeleteProject","Tema a fost stearsa cu succes");
+			return "redirect:/completeDetailsTeacher";
+			}
+			catch (Exception e) {
+				redirectAttributes.addFlashAttribute("failedDeleteProject","Tema nu a putut fi stearsa");
+				return "redirect:/completeDetailsTeacher";
+			}
+			
+		}
 }

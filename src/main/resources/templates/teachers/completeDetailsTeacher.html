@@ -58,12 +58,13 @@
 								<textarea class="input--style-6" rows="3" cols="50"
 									placeholder="Introduceti alte precizari" th:name="comment">[[${teacher.comment}]]</textarea>
 							</div>
+							<div class="btnSubmitDetails">
+						<button class="btn btn--radius-2 btn--blue-2" type="submit">Actualizeaza Detalii</button>
+						<div th:if="${succes}"><b>[[${succes}]]</b></div>
+						</div>
 						</div>
 						
-						<div class="btnSubmitDetails">
-						<button class="btn btn--radius-2 btn--blue-2" type="submit">Actualizeaza Detalii</button>
-						 <div th:if="${succes}"><b>[[${succes}]]</b></div>
-						</div>
+						
 					</form>
 					
 		<form th:action="@{/submitTema}" enctype="multipart/form-data" method="post" class="formSubmitProject">
@@ -72,16 +73,40 @@
 								<input class="input--style-6" type="text" th:name="numeTema"
 									placeholder="Numele temei" required> 
 									<input type="file" id="file_tema" name="tema">
-								<button class="btn btn--radius-2 btn--blue-2 btnSubmitProject" type="submit">Submit
-									CV</button>
+								<button class="btn btn--radius-2 btn--blue-2 btnSubmitProject" type="submit">Incarca tema</button>
 						<div class="label--desc">Max file size 16 MB</div>
 						<div th:if="${succesUploadProject}"><b>[[${succesUploadProject}]]</b></div>
 						</div>
 						
 	  </form>			
+	  
+	  
+	  <form th:action="@{/deleteProject}" class="formDeleteProject">
+	  	 <p><b>Sterge o tema</b></p>
+	  	 <div class="custom">
+	  		  <select id="x" th:name="numeTema" required>
+						    <option selected disabled>-----</option>
+                   			<option th:each="project : ${teme}" th:value="${project.nume}" th:text="${project.nume}"></option>
+      	      </select>
+        	  <input type="hidden" name="techerID" th:value="${teacher.idprofesori}">
+       		  <button class="btn btn--radius-2 btn--blue-2 btnSubmitProject" type="submit" onclick="return confirmSubmit()">Sterge tema</button>
+       		  <div th:if="${successDeleteProject}"><b>[[${successDeleteProject}]]</b></div>
+       		  <div th:if="${failedDeleteProject}"><b>[[${failedDeleteProject}]]</b></div>
+         </div>
+ 	  </form>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+		
+		<script>
+function confirmSubmit()
+{
+var agree=confirm("Este posibil sa aveti stundeti care au facut cerere pt aceasta tema, cererile vor fi sterse. Continuati?");
+if (agree)
+ return true ;
+else
+ return false ;
+}
+</script>
 </html>
