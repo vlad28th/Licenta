@@ -203,29 +203,22 @@ public class RequestController {
 	}
 
 	@RequestMapping("/manageStudent")
-	public String manageStudent(@RequestParam(value="status") String status, @RequestParam(value="studentID") String studentID, @RequestParam(value="numeTema")String numeTema) {
+	public String manageStudent(@RequestParam(value="status") String status, @RequestParam(value="studentID") String studentID, @RequestParam(value="idCerere") String idCerere) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser) principal;
 		int teacherID = curentUser.getUser().getTeacher().getIdprofesori();
 		int newSlots = Integer.valueOf(curentUser.getUser().getTeacher().getSlots()) -1;
 		
 		Student targetStudent = studentRepo.findByIdstudenti(Integer.parseInt(studentID));
-		System.out.println("numele temei -> " + numeTema);
 		
-		//update req status in DB (aplicare fara tema)
-		if(numeTema.contains("fara tema")) requestRepo.updateRequestStatus(status+"  " + DateUtil.getDate(), Integer.valueOf(studentID), teacherID);
-		if(!numeTema.contains("fara tema")) requestRepo.updateRequestStatusWithProject(status+"  " + DateUtil.getDate(), Integer.valueOf(studentID), teacherID, requestRepo.findByTemaNume(numeTema).getTema().getIdteme());
+		//update req status in DB
+		requestRepo.updateStatus(status+"  " + DateUtil.getDate(), Integer.valueOf(idCerere));
 		
 		//update teacher slots 
 		if(status.equalsIgnoreCase("Acceptat")) teacherRepo.updateSlots(curentUser.getUser().getUserID(), String.valueOf(newSlots));
 		
 		//send mail to Student
 		sendMail.sendReqStatus(targetStudent.getUser().getEmail(), curentUser.getUsername(),status);
-		
-		
-		//reload teacher to model attribute
-		//Authentication authentication = new UsernamePasswordAuthenticationToken(principal, curentUser.getPassword());
-		//SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		return "redirect:/viewRequests";
 		

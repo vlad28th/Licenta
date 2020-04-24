@@ -33,6 +33,10 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	@Query("update cereri c set c.status =:status where c.teacher.idprofesori=:teacherID and c.student.idstudenti=:studentID and c.tema is null")
 	public void updateRequestStatus(@Param("status") String status, @Param("studentID") int studentID, @Param("teacherID") int teacherID);
 	
+	@Transactional
+	@Modifying
+	@Query("update cereri c set c.status =:status where c.idcereri=:requestID")
+	public void updateStatus(@Param("status") String status, @Param("requestID") int requestID);
 	
 	@Transactional
 	@Modifying
