@@ -27,15 +27,26 @@
 					<div class="form-row">
 						<div class="name">Nume profesor</div>
 						<div class="value">
-							<p>[[${cerere.teacher.user.username}]]</p>
+							<form th:action="@{/teacherDetails}" id="viewTeacher">
+								<p><a href="#" onclick="submit('viewTeacher')">[[${cerere.teacher.user.username}]]</a></p>
+								<input type="hidden" name="teacherID" th:value="${cerere.teacher.idprofesori}"> 
+							</form>
 						</div>
 					</div>
 					<div class="form-row">
 						<div class="name">Tema</div>
 						<div class="value">
-							<p th:if="${cerere.tema} != null and ${cerere.tema.student}==null">[[${cerere.tema.nume}]]</p>
-							<p th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null">[[${cerere.tema.nume}]] (tema personala)</p>
-							<p th:unless="${cerere.tema}">Aplicare fara tema</p>
+							<form th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null" th:action="@{/viewAStudentProject}" id="viewStudentProject"> 
+								<p th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null" ><a href="#" onclick="submit('viewStudentProject')">[[${cerere.tema.nume}]] (tema personala)</a></p>
+								<input th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null" type="hidden" name="studentID" th:value="${cerere.student.idstudenti}">
+								<input type="hidden" name="numeTema" th:value="${cerere.tema.nume}">
+							</form>
+							<form th:if="${cerere.tema} != null and ${cerere.tema.student}==null" th:action="@{/viewATeacherProject}" id="viewTeacherProject">
+								<p th:if="${cerere.tema} != null and ${cerere.tema.student}==null"><a href="#" onclick="submit('viewTeacherProject')">[[${cerere.tema.nume}]]</a></p>
+								<input th:if="${cerere.tema} != null and ${cerere.tema.student}==null" type="hidden" name="teacherID" th:value="${cerere.teacher.idprofesori}">
+								<input type="hidden" name="numeTema" th:value="${cerere.tema.nume}">
+							</form>
+								<p th:unless="${cerere.tema}">Aplicare fara tema</p>
 							<div th:if="${succes}">
 								<b>[[${succes}]]</b>
 							</div>
