@@ -52,7 +52,7 @@ public class CvController {
 		cvRepo.setCV(cvFromWeb, userID);
 		}
 		catch(Exception e) {
-			redirectAttributes.addFlashAttribute("error", "A aparut o eroare la incarcarea cv-ului!");
+			redirectAttributes.addFlashAttribute("error", "Dimensiune prea mare!");
 			return "redirect:/completeDetailsStudent";
 		}
 		redirectAttributes.addFlashAttribute("succes", "CV-ul a fost adaugat cu succes!");

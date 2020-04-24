@@ -27,7 +27,7 @@
 					<div class="form-row">
 						<div class="name">Nume profesor</div>
 						<div class="value">
-							<form th:action="@{/teacherDetails}" id="viewTeacher">
+							<form th:action="@{/teacherDetails}" id="viewTeacher" target="_blank">
 								<p><a href="#" onclick="submit('viewTeacher')">[[${cerere.teacher.user.username}]]</a></p>
 								<input type="hidden" name="teacherID" th:value="${cerere.teacher.idprofesori}"> 
 							</form>
@@ -36,12 +36,12 @@
 					<div class="form-row">
 						<div class="name">Tema</div>
 						<div class="value">
-							<form th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null" th:action="@{/viewAStudentProject}" id="viewStudentProject"> 
+							<form th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null" th:action="@{/viewAStudentProject}" id="viewStudentProject" target="_blank"> 
 								<p th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null" ><a href="#" onclick="submit('viewStudentProject')">[[${cerere.tema.nume}]] (tema personala)</a></p>
 								<input th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null" type="hidden" name="studentID" th:value="${cerere.student.idstudenti}">
 								<input type="hidden" name="numeTema" th:value="${cerere.tema.nume}">
 							</form>
-							<form th:if="${cerere.tema} != null and ${cerere.tema.student}==null" th:action="@{/viewATeacherProject}" id="viewTeacherProject">
+							<form th:if="${cerere.tema} != null and ${cerere.tema.student}==null" th:action="@{/viewATeacherProject}" id="viewTeacherProject" target="_blank">
 								<p th:if="${cerere.tema} != null and ${cerere.tema.student}==null"><a href="#" onclick="submit('viewTeacherProject')">[[${cerere.tema.nume}]]</a></p>
 								<input th:if="${cerere.tema} != null and ${cerere.tema.student}==null" type="hidden" name="teacherID" th:value="${cerere.teacher.idprofesori}">
 								<input type="hidden" name="numeTema" th:value="${cerere.tema.nume}">
@@ -50,8 +50,11 @@
 							<div th:if="${succes}">
 								<b>[[${succes}]]</b>
 							</div>
+							<div th:if="${error}">
+								<b>[[${error}]]</b>
+							</div>
 							<button
-								th:if="${cerere.tema} and ${cerere.tema.teacher}==null and ${succes}==null"
+								th:if="${cerere.tema} and ${cerere.tema.teacher}==null and ${succes}==null and ${error} == null"
 								class="btn btn--radius-2 btn--blue-2 btnModify" id="btnModify"
 								onclick="modifyProject()">Modifica tema</button>
 							<form th:if="${cerere.tema}" th:action="@{/modifyRequestProject}"

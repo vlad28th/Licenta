@@ -48,15 +48,22 @@ public class TemeController {
 			projectToSave.setTeacher(curentUser.getUser().getTeacher());
 			projectToSave.setTema(projectFromWeb);
 			projectToSave.setNume(numeTema);
+			try {
 			projectRepo.save(projectToSave);
 			redirectAttributes.addFlashAttribute("succesUploadProject", "Tema a fost incarcata cu succes");
+			return "redirect:/completeDetailsTeacher";
+			}
+			catch (Exception e) {
+				redirectAttributes.addFlashAttribute("error", "Tema nu a fost incarcata! Dimensiune prea mare!");
+				return "redirect:/completeDetailsTeacher";
+			}
 		}
 		else {
 			projectRepo.updateTema(projectFromWeb, teacherID,numeTema);
 			redirectAttributes.addFlashAttribute("succesUploadProject", "Tema a fost incarcata cu succes");
+			return "redirect:/completeDetailsTeacher";
 		}
 		
-		return "redirect:/completeDetailsTeacher";
 	}
 	
 	

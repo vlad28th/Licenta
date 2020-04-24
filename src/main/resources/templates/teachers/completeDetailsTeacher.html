@@ -76,6 +76,7 @@
 								<button class="btn btn--radius-2 btn--blue-2 btnSubmitProject" type="submit">Incarca tema</button>
 						<div class="label--desc">Max file size 16 MB</div>
 						<div th:if="${succesUploadProject}"><b>[[${succesUploadProject}]]</b></div>
+						<div th:if="${error}"><b>[[${error}]]</b></div>
 						</div>
 						
 	  </form>			
