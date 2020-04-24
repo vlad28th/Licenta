@@ -62,18 +62,9 @@
 }
 
 .form-row {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-box-align: start;
-  -webkit-align-items: flex-start;
-  -moz-box-align: start;
-  -ms-flex-align: start;
+  align-items: flex-start;
   padding: 12px 55px;
   border-bottom: 1px solid #e5e5e5;
 }
@@ -94,12 +85,19 @@
 }
 
 .btnSubmitDetails{
-	position:relative;
-	left:37%;
-	margin-top:3%;
+	display:flex;
+	flex-direction:column;
+    flex-wrap: wrap;
+	align-items:center;
+	align-self:center;
+	justify-content:center;
+	margin-top:1%;
+	padding-bottom:2%;
+	 border-bottom: 1px solid #e5e5e5;
 	
 	}
 	
+
 .formSubmitProject{
 	display:flex;
 	align-items:center;	

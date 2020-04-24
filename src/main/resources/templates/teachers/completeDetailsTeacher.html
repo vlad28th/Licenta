@@ -51,19 +51,19 @@
 							</div>
 						</div>
 
-						<div class="form-row">
+						<div class="form-row" style="border-bottom:none">
 							<div class="name">Alte mentiuni</div>
 							<br>
 							<div class="input-group">
 								<textarea class="input--style-6" rows="3" cols="50"
 									placeholder="Introduceti alte precizari" th:name="comment">[[${teacher.comment}]]</textarea>
 							</div>
-							<div class="btnSubmitDetails">
-						<button class="btn btn--radius-2 btn--blue-2" type="submit">Actualizeaza Detalii</button>
-						<div th:if="${succes}"><b>[[${succes}]]</b></div>
-						</div>
-						</div>
 						
+						</div>
+						<div class="btnSubmitDetails">
+							<button class="btn btn--radius-2 btn--blue-2" type="submit">Actualizeaza Detalii</button>
+							<div th:if="${succes}"><b>[[${succes}]]</b></div>
+						</div>
 						
 					</form>
 					
