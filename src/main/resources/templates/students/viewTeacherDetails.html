@@ -58,13 +58,15 @@
 				  <p><b>Teme disponibile</b></p>
 				  
 				  <div class="viewProject">
-				  <form id="veziTema" th:action = "@{/viewProject}" th:target="_blank" onchange="submit('veziTema')">
+				  <form id="veziTema" th:action = "@{/viewATeacherProject}" th:target="_blank" onchange="submit('veziTema')">
 				 		 <label for="x">Vezi tema</label>
 						 <select id="x" th:name="numeTema">
 						    <option selected >-----</option>
                    			<option th:each="project : ${projects}" th:value="${project.nume}" th:text="${project.nume}"></option>
+                   			
            			    </select>
            			    <br>
+           			    <input type="hidden" name="teacherID" th:value="${teacher.idprofesori}">
 				 </form>
 				 </div>
 				 

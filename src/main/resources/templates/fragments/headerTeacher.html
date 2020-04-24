@@ -28,9 +28,10 @@
 		<a  th:each="tema: ${teme}" th:text="${tema.nume}" href="#"
 				th:onclick="'submit(\'' + ${tema.idteme} + '\');'">
 		</a>
-		<form th:action="@{/viewProject}" th:id="${tema.idteme}">
+		<form th:action="@{/viewATeacherProject}" th:id="${tema.idteme}">
 					<input id="input" type="hidden" th:name="numeTema"
 						th:value="${tema.nume}">
+					<input type="hidden" th:name="teacherID" th:value="${tema.teacher.idprofesori}">
 			</form>
     </div>
   </div>

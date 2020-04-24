@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.app.model.Request;
+import com.app.model.Tema;
 
 public interface RequestRepository extends JpaRepository<Request, Integer> {
 	
@@ -43,5 +44,5 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	
 	public Request findByStudentIdstudentiAndTemaNume(int studentID, String numeTema);
 	
-	public Request findByStudentIdstudentiAndTeacherIdprofesoriAndTema(int studentID, int teacherID, Request request);
+	public Request findByStudentIdstudentiAndTeacherIdprofesoriAndTema(int studentID, int teacherID, Tema project);
 }

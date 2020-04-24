@@ -63,16 +63,14 @@ public class TemeController {
 	
 	
 	
-	@RequestMapping("/viewProject")
-	public ResponseEntity<byte[]> viewCV(@RequestParam("numeTema") String numeTema) {
+	@RequestMapping("/viewATeacherProject")
+	public ResponseEntity<byte[]> viewTeacherCV(@RequestParam("numeTema") String numeTema, @RequestParam("teacherID") String teacherID) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser) principal;
 		//int teacherID = curentUser.getUser().getTeacher().getIdprofesori();
 		
 		
-		byte[] projectFromDB = projectRepo.findByNume(numeTema).getTema();
-		
-	
+		byte[] projectFromDB = projectRepo.findByNumeAndTeacherIdprofesori(numeTema,Integer.valueOf(teacherID)).getTema();
 		
 		if( projectFromDB.length == 0) return new ResponseEntity("Tema nu este incarcata", HttpStatus.INTERNAL_SERVER_ERROR);
 								
@@ -89,5 +87,29 @@ public class TemeController {
 
 	}
 	
+	
+	@RequestMapping("/viewAStudentProject")
+	public ResponseEntity<byte[]> viewStudentCV(@RequestParam("numeTema") String numeTema, @RequestParam("studentID") String studentID) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MyUser curentUser = (MyUser) principal;
+		//int teacherID = curentUser.getUser().getTeacher().getIdprofesori();
+		
+		
+		byte[] projectFromDB = projectRepo.findByNumeAndStudentIdstudenti(numeTema,Integer.valueOf(studentID)).getTema();
+		
+		if( projectFromDB.length == 0) return new ResponseEntity("Tema nu este incarcata", HttpStatus.INTERNAL_SERVER_ERROR);
+								
+		
+		HttpHeaders headers = new HttpHeaders();
+
+		headers.setContentLength(projectFromDB.length);
+		headers.setContentType(MediaType.parseMediaType("application/pdf"));
+		headers.set("Content-Disposition", "inline; filename=test.pdf");
+		headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+		headers.set("Expires","0");
+		ResponseEntity<byte[]> responseE = new ResponseEntity<byte[]>(projectFromDB, headers, HttpStatus.OK);
+		return responseE;
+
+	}
 
 }

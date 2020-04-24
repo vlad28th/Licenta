@@ -24,8 +24,8 @@ public interface TemeRepository extends JpaRepository<Tema, Integer>{
 	
 	@Transactional
 	@Modifying
-	@Query("UPDATE proiecte t SET t.tema =:file WHERE t.nume =:numeTema")
-	public void update(@Param("file") byte[] file, @Param("numeTema") String numeTema);
+	@Query("UPDATE proiecte t SET t.tema =:file WHERE t.nume =:numeTema and t.tema.student.idstudenti = :studentID")
+	public void updateStudentProject(@Param("file") byte[] file, @Param("numeTema") String numeTema, @Param("studentID") int studentID);
 	
 	@Query("select tema from proiecte t where t.teacher.idprofesori = :teacherID")
 	byte[] getProject(@Param("teacherID") int teacherID);
