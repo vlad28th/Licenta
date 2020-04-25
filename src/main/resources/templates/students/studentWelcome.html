@@ -9,23 +9,68 @@
 	</head>
  <div th:replace="fragments/headerStudent :: header">...</div>
 	 
-	   <h1 id="titlu">Hai noroc, [[${student.user.username}]]!</h1>
+	   
 	 
     <body>
     
-      
-               
-         <p>Aceasta este <b>"platforma de practica"</b> venita in ajutorul tau. 
-         Aici gasesti profesorii disponibili sa colaboreze cu tine impreuna cu detaliile lor.
-         Adresa de email, numarul de locuri disponibile pentru studenti, cerinte suplimentare din partea lor.</p>
+    <div class="page-wrapper bg-dark p-t-100 p-b-50">
+        <div class="wrapper wrapper--w900">
+            <div class="card card-6">
+            <div class="card-heading">
+            	 <h2 class="title">Hai noroc, [[${student.user.username}]]!</h2>
+            </div>
+            
+             <div class="card-body">
+            
+           
+      <div class="present">
+         <p>Aceasta este <b>"platforma de licenta"</b> venita in ajutorul tau. 
+         Aici gasesti profesorii disponibili sa colaboreze cu tine pentru a-ti realiza proiectul de licenta!</p> 
+       </div>
+       	
+       <div class="container">
+        <div class="modify">
+        	<img src="img/modify.png" id="img">
+        	<p><b>Modifica profil</b></p>
+        		<ul>
+        		<li>Aici iti vei completa informatii precum specializare, grupa si iti poti adauga un CV.</li>
+        		<li>Acesta va fi vizualizat de profesor atunci cand faci o cerere.</li>
+        		<li>Nu te rezuma la CV-ul standardizat, ci personalizeaza-l asa cum crezi tu astfel incat sa iti scoti in evidenta abilitatile tehnice necesare pentru a-ti realiza proiectul de diploma.</li>
+        		<li>De asemenea, pune la dispozitia profesorului informatii care ii va usura decizia. Numarul de restane, proiecte personale , etc.</li>
+    	    </ul>  
+	 </div> 
+        
+        <div class="apply">
+       	 <img src="img/apply.png" id="img">
+        	<p><b>Trimite cereri</b></p>
+        	<ul>
+        	<li>In sectiunea profesori disponibili vei gasi un tabel cu toti profesorii inregistrati in baza de date.</li>
+        	<li>Selecteaza unul dintre ei si vei gasi informatii detaliate : email, locuri disponibile, criterii de selectie, eventuale teme propuse de profesor.</li>
+        	<li>Poti aplica pentru o anumita tema a profesorului, poti atasa o tema personala in cerere, sau daca nu esti hotarat, poti aplica fara o tema.</li>
+       		</ul>
+        </div>
+        
+        <div class="wait">
+        <img src="img/view.png" id="img">
+       
+        	<p><b>Urmareste cererile trimise</b></p>
+        	 <ul>
+        		<li>In sectiunea "cereri trimise" vei gasi cererile trimise catre profesori.
+        		<li>Poti selecta fiecare cerere si vei gasi informatii detaliate despre aceasta.</li>
+        		<li>Platforma pune la dispozitia ta si a profesorului un mic chat in care puteti conversa.</li>
+        		<li>Lasa-i profesorului informatii detaliate despre intentia ta de a colabora, asteptarile pe care le ai, sau pune intrebari.</li>
+        		<li>Daca ai aplicat cu o tema proprie iar aceasta necesita modificari ulterioare, o poti modifica selectand cererea respectiva.</li>
+       	 </ul>
+       	 </div>
+         </div>
          
-         <p>Incarca-ti cv-ul, daca ai vreo tema la care te-ai gandit pentru licenta, 
-         incarc-o aici si trimite cereri profesorilor pe care ii crezi potriviti pentru tine </p>
+         <div class="footer">
+          <p><b>Verificat-ti mailul periodic!</b>Vei primi notificari atunci cand apar schimbari privind cererile trimise.</p>
+         </div>
          
-         <p>Verifica-ti mailul periodic caci vrei primi notificari atunci cand statusul unei aplicatii se va schimba</p>
-         
-         <p>Succes</p>
-         </body>
-
-
+		</div>
+		</div>
+	</div>
+	</div>
+</body>
 </html>

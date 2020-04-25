@@ -2,7 +2,8 @@
 /* BASIC */
 
 html {
-  background-color: #56baed;
+  background-color: #1a1a1a;
+  overflow: hidden;
 }
 
 body {
@@ -36,7 +37,6 @@ h2 {
   align-items: center;
   flex-direction: column; 
   justify-content: center;
-  width: 100%;
   min-height: 100%;
   padding: 20px;
 }
@@ -116,7 +116,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
 }
 
 input[type=text], input[type=password] {
-  background-color: #f6f6f6;
+  background-color: #e6f5fc;
   border: none;
   color: #0d0d0d;
   padding: 15px 25px;
@@ -137,8 +137,8 @@ input[type=text], input[type=password] {
 }
 
 input[type=text]:focus, input[type=password]:focus {
-  background-color: #fff;
-  border-bottom: 2px solid #5fbae9;
+  background-color: #f7fcfe;
+  border: 2px solid #56baed;
 }
 
 input[type=text]:placeholder , input[type=password]:placeholder{

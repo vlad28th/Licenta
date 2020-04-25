@@ -54,32 +54,25 @@
 						<button class="btn btn--radius-2 btn--blue-2 viewCV" type="submit">Vezi
 							CV</button>
 					</form>
-
-					<div th:if="${cerere.tema.student}">
+						
+						<h4 th:unless="${cerere.tema}" style="text-align: center;">Aplicare
+								fara tema</h4>
+			
 						<form th:action="@{/viewAStudentProject}" id="viewProject"
 							th:target="_blank">
-							<h4
-								th:if="${cerere.tema} != null and ${cerere.tema.student}==null"
-								style="text-align: center;">
-								Aplicatie pentru tema<a href="#" onclick="submit('viewProject')">
-									[[${cerere.tema.nume}]]</a>
-							</h4>
-							<h4
-								th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null"
+							
+							<h4 th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null"
 								style="text-align: center;">
 								Aplicatia cu tema proprie: <a href="#"
 									onclick="submit('viewProject')"> [[${cerere.tema.nume}]]</a>
 							</h4>
-							<h4 th:unless="${cerere.tema}" style="text-align: center;">Aplicare
-								fara tema</h4>
+							
 							<input th:if=${cerere.tema} type="hidden" name="numeTema"
 								th:value="${cerere.tema.nume}">
-								<input type="hidden" name="studentID" th:value="${cerere.student.idstudenti}">
+							<input type="hidden" name="studentID" th:value="${cerere.student.idstudenti}">
 						</form>
-					</div>
 
-					<div th:if="${cerere.tema.teacher}">
-						<form th:action="@{/viewATeacherProject}" id="viewProject"
+					<form th:action="@{/viewATeacherProject}" id="viewProject"
 							th:target="_blank">
 							<h4
 								th:if="${cerere.tema} != null and ${cerere.tema.student}==null"
@@ -87,19 +80,10 @@
 								Aplicatie pentru tema<a href="#" onclick="submit('viewProject')">
 									[[${cerere.tema.nume}]]</a>
 							</h4>
-							<h4
-								th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null"
-								style="text-align: center;">
-								Aplicatia cu tema proprie: <a href="#"
-									onclick="submit('viewProject')"> [[${cerere.tema.nume}]]</a>
-							</h4>
-							<h4 th:unless="${cerere.tema}" style="text-align: center;">Aplicare
-								fara tema</h4>
 							<input th:if=${cerere.tema} type="hidden" name="numeTema"
 								th:value="${cerere.tema.nume}">
 							<input type="hidden" name="teacherID" th:value="${cerere.teacher.idprofesori}">
 						</form>
-					</div>
 					<div th:if="${#strings.contains(cerere.status,'asteptare')}"
 						class="butoane">
 						<div class="decline">

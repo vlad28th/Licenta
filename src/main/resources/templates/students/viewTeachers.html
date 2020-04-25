@@ -38,7 +38,7 @@
 		</tr>
 		<tr th:each="teacher: ${teachers}" class="clickable" th:onclick="'submit(\'' + ${teacher.user.userID} + '\');'">
 			<td><a th:text="${teacher.user.username}"></a>
-				<form th:action="@{/teacherDetails}" th:id="${teacher.user.userID}" method="post">
+				<form th:action="@{/teacherDetails}" th:id="${teacher.user.userID}">
 					<input id="input" type="hidden" th:name="teacherID"
 						th:value="${teacher.idprofesori}" >
 				</form>
