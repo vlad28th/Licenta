@@ -582,6 +582,7 @@ textarea {
   -ms-transform: translateY(-3px);
   -o-transform: translateY(-3px);
   transform: translateY(-3px);
+  border: 2px solid #56baed;
 }
 
 .textarea--style-6 {

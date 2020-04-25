@@ -10,7 +10,14 @@
 
 
 <body>
-
+	
+	<div class="page-wrapper bg-dark p-t-100 p-b-50">
+        <div class="wrapper wrapper--w900">
+            <div class="card card-6">
+                <div class="card-heading">
+                    <h2 class="title">Profesori coordonatori</h2>
+                </div>
+                <div class="card-body">
 	<div class="container"> 
 	
 	<form th:action="@{/teachers}" id="submitById" onchange="submit('submitById')">
@@ -22,15 +29,16 @@
     </select>
 	</form>
 	
-	<form th:action="@{/teachers}" id="searchByName">
-	<label for="searchByName">Cauta dupa nume</label>
-	<input type="text" th:name="name" th:placeholder="${name}">
-	<input type="submit" value="Cauta">
+	<div >
+	<form th:action="@{/teachers}" id="searchByName" class="searchByName">
+		<label for="searchByName">Cauta dupa nume</label>
+		<input type="text" th:name="name" th:placeholder="${name}">
+		<input type="submit" value="Cauta">
 	</form>
-	
+	</div>
 	<table class="responsive-table" border="1">
 		<tr>
-			<th scope="col">Nume</th>
+			<th scope="col">Nume(click pentru detalii)</th>
 			<th scope="col">Email</th>
 			<th scope="col">Departament</th>
 			<th scope="col">Locuri disponibile</th>
@@ -49,6 +57,9 @@
 
 		</tr>
 	</table>
+</div>
+</div>
+</div>
 </div>
 </body>
 
