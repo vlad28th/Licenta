@@ -48,5 +48,5 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	
 	public List<Request> findByStudentIdstudentiAndTemaNume(int studentID, String numeTema);
 	
-	public Request findByStudentIdstudentiAndTeacherIdprofesoriAndTema(int studentID, int teacherID, Tema project);
+	public Request findByStudentIdstudentiAndTeacherIdprofesoriAndTemaNume(int studentID, int teacherID, String projectName);
 }

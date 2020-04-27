@@ -38,8 +38,8 @@
 						<div class="value">
 							<form th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null" th:action="@{/viewAStudentProject}" id="viewStudentProject" target="_blank"> 
 								<p th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null" ><a href="#" onclick="submit('viewStudentProject')">[[${cerere.tema.nume}]] (tema personala)</a></p>
-								<input th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null" type="hidden" name="studentID" th:value="${cerere.student.idstudenti}">
-								<input type="hidden" name="numeTema" th:value="${cerere.tema.nume}">
+								<input type="hidden" name="projectID" th:value="${cerere.tema.idteme}">
+								
 							</form>
 							<form th:if="${cerere.tema} != null and ${cerere.tema.student}==null" th:action="@{/viewATeacherProject}" id="viewTeacherProject" target="_blank">
 								<p th:if="${cerere.tema} != null and ${cerere.tema.student}==null"><a href="#" onclick="submit('viewTeacherProject')">[[${cerere.tema.nume}]]</a></p>
@@ -60,8 +60,7 @@
 							<form th:if="${cerere.tema}" th:action="@{/modifyRequestProject}"
 								id="formModify" style="display: none;"
 								enctype="multipart/form-data" method="post">
-								<input type="file" id="inputFile" name="temaPDF"> <input
-									type="hidden" name="numeTema" th:value="${cerere.tema.nume}">
+								<input type="file" id="inputFile" name="temaPDF"> 
 								<button class="btn btn--radius-2 btn--blue-2" type="submit">Incarca</button>
 								<input type="hidden" name="requestID"
 									th:value="${cerere.idcereri}">

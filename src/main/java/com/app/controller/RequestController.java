@@ -116,7 +116,7 @@ public class RequestController {
 		// verificare aplicare fara tema
 		if (!numeTema.equals("custom") && numeTema.contains("Aplica fara tema")) {
 			System.out.println("tema neselectata");
-			verifyRequest.add(requestRepo.findByStudentIdstudentiAndTeacherIdprofesoriAndTema(studentID,
+			verifyRequest.add(requestRepo.findByStudentIdstudentiAndTeacherIdprofesoriAndTemaNume(studentID,
 					Integer.valueOf(teacherID), null));
 			errorMessage = "Ai facut deja o cerere catre acest profesor!";
 		}
@@ -168,27 +168,23 @@ public class RequestController {
 			return "redirect:/teacherDetails";
 		}
 
-		Tema project = projectRepo.findByNumeAndStudentIdstudenti(numeTema,
-				curentUser.getUser().getStudent().getIdstudenti());
-		if (project == null) {
 			// crearea temei studentului, caci ea nu exista + salvare in BD
-			Tema newProject = new Tema();
-			newProject.setTema(temaPDF.getBytes());
-			newProject.setStudent(curentUser.getUser().getStudent());
-			newProject.setNume(numeTema);
+			Tema project = new Tema();
+			project.setTema(temaPDF.getBytes());
+			project.setStudent(curentUser.getUser().getStudent());
+			project.setNume(numeTema);
 
 			try {
-				projectRepo.save(newProject);
+				projectRepo.save(project);
 			} catch (Exception e) {
 				redirectAttributes.addFlashAttribute("errorMessage", "Tema nu a fost incarcata! Dimensiune prea mare!");
 				return "redirect:/teacherDetails";
 			}
-			project = newProject;
 
-		}
+		
 
-		if (requestRepo.findByStudentIdstudentiAndTeacherIdprofesoriAndTema(
-				curentUser.getUser().getStudent().getIdstudenti(), Integer.valueOf(teacherID), project) != null) {
+		if (requestRepo.findByStudentIdstudentiAndTeacherIdprofesoriAndTemaNume(
+				curentUser.getUser().getStudent().getIdstudenti(), Integer.valueOf(teacherID), project.getNume()) != null) {
 			redirectAttributes.addFlashAttribute("errorMessage", "Ai facut deja o cerere cu aceasta tema!");
 			redirectAttributes.addAttribute("teacherID", Integer.valueOf(teacherID));
 			return "redirect:/teacherDetails";
@@ -232,7 +228,7 @@ public class RequestController {
 	}
 
 	@RequestMapping("/modifyRequestProject")
-	public String updateRequestProject(@RequestParam("numeTema") String numeTema,
+	public String updateRequestProject(
 			@RequestParam("requestID") String requestID, @RequestParam(value = "temaPDF") MultipartFile temaPDF,
 			RedirectAttributes redirectAttributes) throws IOException {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -244,9 +240,10 @@ public class RequestController {
 			return "redirect:/studentViewRequest";
 		}
 		
+		
 		try {
-		projectRepo.updateStudentProject(temaPDF.getBytes(), numeTema,
-				curentUser.getUser().getStudent().getIdstudenti());
+		Request targetRequest = requestRepo.findByIdcereri(Integer.valueOf(requestID));
+		projectRepo.updateStudentProject(temaPDF.getBytes(),targetRequest.getTema().getIdteme());
 		redirectAttributes.addFlashAttribute("succes", "Tema a fost modificata!");
 		return "redirect:/studentViewRequest";
 		}

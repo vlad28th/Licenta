@@ -16,6 +16,7 @@ public interface TemeRepository extends JpaRepository<Tema, Integer>{
 	
 	public List<Tema> findByTeacherIdprofesori(int teacherID);
 	
+	public Tema findByIdteme(int projectID);
 	
 	@Transactional
 	@Modifying
@@ -24,8 +25,8 @@ public interface TemeRepository extends JpaRepository<Tema, Integer>{
 	
 	@Transactional
 	@Modifying
-	@Query("UPDATE proiecte t SET t.tema =:file WHERE t.nume =:numeTema and t.tema.student.idstudenti = :studentID")
-	public void updateStudentProject(@Param("file") byte[] file, @Param("numeTema") String numeTema, @Param("studentID") int studentID);
+	@Query("UPDATE proiecte t SET t.tema =:file WHERE t.idteme =:projectID")
+	public void updateStudentProject(@Param("file") byte[] file, @Param("projectID") int projectID);
 	
 	@Query("select tema from proiecte t where t.teacher.idprofesori = :teacherID")
 	byte[] getProject(@Param("teacherID") int teacherID);

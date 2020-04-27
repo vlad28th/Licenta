@@ -48,7 +48,7 @@
 					</div>
 
 					<form th:action="@{viewCV}" th:target="_blank"
-						style="text-align: center" id="viewCV">
+						style="text-align: center" id="viewCV" >
 						<input type="hidden" th:name="userID"
 							th:value="${student.user.userID}">
 						<button class="btn btn--radius-2 btn--blue-2 viewCV" type="submit">Vezi
@@ -59,7 +59,7 @@
 								fara tema</h4>
 			
 						<form th:action="@{/viewAStudentProject}" id="viewProject"
-							th:target="_blank">
+							th:target="_blank" th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null">
 							
 							<h4 th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null"
 								style="text-align: center;">
@@ -67,13 +67,12 @@
 									onclick="submit('viewProject')"> [[${cerere.tema.nume}]]</a>
 							</h4>
 							
-							<input th:if=${cerere.tema} type="hidden" name="numeTema"
-								th:value="${cerere.tema.nume}">
-							<input type="hidden" name="studentID" th:value="${cerere.student.idstudenti}">
+							<input th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null" type="hidden" name="projectID"
+								th:value="${cerere.tema.idteme}">
 						</form>
 
 					<form th:action="@{/viewATeacherProject}" id="viewProject"
-							th:target="_blank">
+							th:target="_blank" th:if="${cerere.tema} != null and ${cerere.tema.student}==null">
 							<h4
 								th:if="${cerere.tema} != null and ${cerere.tema.student}==null"
 								style="text-align: center;">

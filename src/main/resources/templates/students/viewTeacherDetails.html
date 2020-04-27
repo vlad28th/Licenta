@@ -32,7 +32,7 @@
                  <div class="form-row">
                             <div class="name">Email</div>
                             <div class="value">
-                               <p>Email : [[${teacher.user.email}]]</p>
+                               <p>[[${teacher.user.email}]]</p>
                             </div>
                  </div>
                  <div class="form-row">
@@ -61,7 +61,7 @@
 				  <form id="veziTema" th:action = "@{/viewATeacherProject}" th:target="_blank" onchange="submit('veziTema')">
 				 		 <label for="x">Vezi tema</label>
 						 <select id="x" th:name="numeTema">
-						    <option selected >-----</option>
+						    <option selected disabled >-----</option>
                    			<option th:each="project : ${projects}" th:value="${project.nume}" th:text="${project.nume}"></option>
                    			
            			    </select>

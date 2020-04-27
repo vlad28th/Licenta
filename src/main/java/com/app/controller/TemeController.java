@@ -14,7 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.app.model.MyUser;
+import com.app.model.Request;
 import com.app.model.Tema;
+import com.app.repository.RequestRepository;
 import com.app.repository.TemeRepository;
 
 @Controller
@@ -22,6 +24,9 @@ public class TemeController {
 	
 	@Autowired
 	TemeRepository projectRepo;
+	
+	@Autowired
+	RequestRepository requestRepo;
 	
 	
 	// only teachers will acces it
@@ -69,7 +74,7 @@ public class TemeController {
 	
 	
 	
-	
+	//tema profesorului se gaseste dupa nume profesor + numeTema => combinatie unica 
 	@RequestMapping("/viewATeacherProject")
 	public ResponseEntity<byte[]> viewTeacherCV(@RequestParam("numeTema") String numeTema, @RequestParam("teacherID") String teacherID) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -94,15 +99,15 @@ public class TemeController {
 
 	}
 	
-	
+	//tema studentului se gaseste dupa id-ul temei. acesta este disponibil din CERERE
 	@RequestMapping("/viewAStudentProject")
-	public ResponseEntity<byte[]> viewStudentCV(@RequestParam("numeTema") String numeTema, @RequestParam("studentID") String studentID) {
+	public ResponseEntity<byte[]> viewStudentProject(@RequestParam("projectID") String projectID) throws Exception {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser) principal;
-		//int teacherID = curentUser.getUser().getTeacher().getIdprofesori();
 		
-		
-		byte[] projectFromDB = projectRepo.findByNumeAndStudentIdstudenti(numeTema,Integer.valueOf(studentID)).getTema();
+		Tema targetProject = projectRepo.findByIdteme(Integer.valueOf(projectID));
+		if(targetProject != null) System.out.println("abracadarabra " + targetProject.getNume());
+		byte[] projectFromDB = targetProject.getTema();
 		
 		if( projectFromDB.length == 0) return new ResponseEntity("Tema nu este incarcata", HttpStatus.INTERNAL_SERVER_ERROR);
 								
