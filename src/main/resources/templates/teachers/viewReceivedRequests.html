@@ -18,7 +18,37 @@
 </head>
 <div th:replace="fragments/headerTeacher :: header">...</div>
 
+
+<div class="page-wrapper bg-dark p-t-100 p-b-50">
+        <div class="wrapper wrapper--w900">
+            <div class="card card-6">
+                <div class="card-heading">
+                    <h2 class="title">Cereri primite</h2>
+                </div>
+                <div class="card-body">
+                
+                
 <div class="container"> 
+
+	<div>
+	<form th:action="@{/teachersRequests}" id="submitByStatus" onchange="submit('submitByStatus')">
+	<label for="selectStatus">Cauta dupa statusul cererii</label>
+	<select id="selectStatus" name="status">
+		<option disabled hidden selected >[[${status}]]</option>
+    	<option value="Respins" >Respins</option>
+    	<option value="Acceptat" >Acceptat</option>
+    	<option value="asteptare" >In asteptare</option>
+    </select>
+	</form>
+	</div>
+	<div >
+	<form th:action="@{/teachersRequests}" id="searchByName" class="searchByName">
+		<label for="searchByName">Cauta dupa nume</label>
+		<input type="text" th:name="studentName" th:value="${studentName}">
+		<input type="submit" value="Cauta">
+	</form>
+	</div>
+
 	<table class="responsive-table" border="1">
 		<tr>
 			<th scope="col">Student (click pentru detalii)</th>
@@ -46,4 +76,6 @@
 
 
 </body>
+
+ <script src="js/submitById.js"></script> 
 </html>

@@ -7,18 +7,63 @@
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
 	</head>
 	 <div th:replace="fragments/headerTeacher :: header">...</div>
-
-
-<body>
-	<p>Welcome</p>
-	<p th:text="${mesaj}">Message</p>
-
-<form th:action="@{/viewProject}" th:target="_blank" id="viewCV">
-	<input type="submit" value="vezi tema">
-	
-</form>
-
+	   
+	 
+    <body>
+    
+    <div class="page-wrapper bg-dark p-t-100 p-b-50">
+        <div class="wrapper wrapper--w900">
+            <div class="card card-6">
+            <div class="card-heading">
+            	 <h2 class="title">Bun venit, [[${teacher.user.username}]]!</h2>
+            </div>
+            
+             <div class="card-body">
+            
+           
+      <div class="present">
+         <p>Bun venit pe <b>"platforma de licenta"</b>. Vino in ajutorul studentilor pentru a-si gasi profesorul coordonator potrivit in cadrul proiectului de diploma.</p> 
+       </div>
+       	
+       <div class="container">
+        <div class="modify">
+        	<img src="img/modify.png" id="img">
+        	<p><b>Completeaza profil</b></p>
+        		<ul>
+        		<li>Completeaza-ti profilul cu detalii esentiale: departament, locuri disponibile pentru studenti.</li>
+        		<li>Mentioneaza-ti criteriile de selectie si orice alte detalii pe care un student ar trebui sa le stie in momentul in care face o cerere.</li>
+    	    	<li>Daca ai teme deja pregatite pentru studenti, inarca-le in format PDF. Acestea vor putea fi vizualizate de studenti si vor putea aplica pentru ele.</li>
+    	    </ul>  
+	 </div> 
+        
+        <div class="view">
+       	 <img src="img/apply.png" id="img">
+        	<p><b>Vezi cererile primite</b></p>
+        	<ul>
+        		<li>In sectiunea "cereri primite" vei putea vedea toate cererile facute de catre studenti. La selectia unei cereri sunt puse la dispozitie informatii despre studentul aplicant si un CV al acestuia.</li>
+        		<li>Cererile pot fi facute pentru o tema postata de tine, fie cu o tema personala a studentului, fie fara a mentiona vreo tema.</li>
+        		<li>In cazule in care cererea este facuta cu o tema personala a studentului, acest lucru va fi semnalat iar tema studentului va putea fi vizualizata</li>
+       		</ul>
+        </div>
+        
+        <div class="manage">
+        <img src="img/view.png" id="img">
+       
+        	<p><b>Selecteaza studentii</b></p>
+        	 <ul>
+        	 	<li>La selectia unei cereri, vei putea accepta sau refuza studentul aplicant.</li>
+        	 	<li>Ai la dispozitie un chat in care ii vei putea lasa studentului mesaje sau informatii despre statusul cererii sau pentru a cere detalii suplimentare ce te vor ajuta sa iei o decizie.</li>
+      	 	 </ul>
+       	 </div>
+         </div>
+         
+         <div class="footer">
+          <p><b>Verificat-ti mailul periodic!</b>Vei primi notificari atunci cand ai cereri sau mesaje noi.</p>
+         </div>
+         
+		</div>
+		</div>
+	</div>
+	</div>
 </body>
-
-
 </html>

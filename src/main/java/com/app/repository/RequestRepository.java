@@ -17,6 +17,14 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	
 	List<Request> findByTeacherIdprofesori(int teacherID);
 	
+	
+	@Query("from cereri c where c.teacher.idprofesori =:teacherID and c.student.user.username like %:studentName%")
+	public List<Request> findByTeacherIdprofesoriAndStudentUserUsernameLike(int teacherID,String studentName);
+	
+	@Query("from cereri c where c.student.idstudenti=:studentID and c.teacher.user.username like %:teacherName%")
+	public List<Request> findByStudentIdstudentiAndTeacherUserUsernameLike(int studentID,String teacherName);
+	
+	
 	List<Request> findByStudentIdstudenti(int studentID);
 	
 	Request findByIdcereri(int requestID);
@@ -43,6 +51,11 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	@Query("update cereri c set c.status =:status where c.teacher.idprofesori=:teacherID and c.tema.idteme =:idTema and c.student.idstudenti=:studentID")
 	public void updateRequestStatusWithProject(@Param("status") String status, @Param("studentID") int studentID, @Param("teacherID") int teacherID, @Param("idTema") int idTema);
 	
+	@Query("from cereri c where c.teacher.idprofesori =:teacherID and c.status like %:status%")
+	public List<Request> findByTeacherIdprofesoriAndStatusLike(int teacherID,  String status);
+	
+	@Query("from cereri c where c.student.idstudenti =:studentID and c.status like %:status%")
+	public List<Request> findByStudentIdstudentiAndStatusLike(int studentID,  String status);
 	
 	public Request findByTemaNume(String numeTema);
 	

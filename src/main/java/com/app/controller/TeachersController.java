@@ -38,40 +38,16 @@ public class TeachersController {
 	
 	@Autowired
 	SendMail sendMail;
-	
-	@RequestMapping("/teachers")
-	public String displayTeachers(Model model, @RequestParam(required = false, value="departament") String departament, @RequestParam(required = false, value="name") String name) {
-		
-		model.addAttribute("teachers", teacherRepo.findAll());
-		if( departament != null ) { model.addAttribute("teachers", teacherRepo.findByDepartament(departament));
-									model.addAttribute("departament",departament);
-		}
-		
-		if(name != null) { model.addAttribute("teachers", teacherRepo.findByUserUsernameLike(name));
-						   model.addAttribute("name",name);
-						}
-		
-		return "/students/viewTeachers";
-	}
-	
+
 	
 	@RequestMapping("/teacherWelcome")
     public String welcomeTeacher(Model model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser)principal;
 		
-		model.addAttribute("teacher", new Teacher());
-        model.addAttribute("mesaj", "Bine ai venit, " + curentUser.getUsername() );
-        model.addAttribute("teme", projectRepo.findByTeacherIdprofesori(curentUser.getUser().getTeacher().getIdprofesori()));
+		model.addAttribute("teacher", curentUser.getUser().getTeacher());
         return "/teachers/teacherWelcome";
     }
-	/*
-		@GetMapping("/teacherWelcome")
-		public String addUser(Model model) {
-			model.addAttribute("teacher", new Teacher());
-			return "/teacherWelcome";
-		}
-*/		
 	
 		@RequestMapping("/submitDetailsTeacher")
 		public String submitDetails(@RequestParam(value = "departament") String departament , @RequestParam(value = "slots") String slots, @RequestParam("comment") String comment,

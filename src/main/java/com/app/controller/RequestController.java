@@ -62,12 +62,30 @@ public class RequestController {
 
 	// cereri studenti
 	@RequestMapping("/studentsRequests")
-	public String viewStudentRequest(Model model) {
+	public String viewStudentRequest(Model model,@RequestParam(value="status", required=false) String status, @RequestParam(value="teacherName", required=false) String teacherName) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser) principal;
-
+		int studentID = curentUser.getUser().getStudent().getIdstudenti();
 		List<Request> cereri = requestRepo.findByStudentIdstudenti(curentUser.getUser().getStudent().getIdstudenti());
-
+		
+		if(status != null && status.contains("Respins")) {
+			cereri=requestRepo.findByStudentIdstudentiAndStatusLike(studentID,"Respins");
+			model.addAttribute("status","Respins");
+	}
+	if(status != null && status.contains("Acceptat")) {
+		cereri=requestRepo.findByStudentIdstudentiAndStatusLike(studentID,"Acceptat");
+		model.addAttribute("status","Acceptat");
+	}
+	if(status != null && status.contains("asteptare")) {
+		cereri=requestRepo.findByStudentIdstudentiAndStatusLike(studentID,"asteptare");
+		model.addAttribute("status","In asteptare");
+	}
+	
+	if(teacherName != null) {
+		cereri=requestRepo.findByStudentIdstudentiAndTeacherUserUsernameLike(studentID, teacherName);
+		model.addAttribute("teacherName",teacherName);
+	}
+		
 		model.addAttribute("cereriStudent", cereri);
 
 		return "/students/viewSentRequests";
@@ -75,14 +93,37 @@ public class RequestController {
 
 	// cereri profesori
 	@RequestMapping("/teachersRequests")
-	public String viewTeacherRequest(Model model) {
+	public String viewTeacherRequest(Model model, @RequestParam(value="status", required=false) String status, @RequestParam(value="studentName", required=false) String studentName) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser) principal;
+		int teacherID = curentUser.getUser().getTeacher().getIdprofesori();
+		
 		model.addAttribute("teme",
 				projectRepo.findByTeacherIdprofesori(curentUser.getUser().getTeacher().getIdprofesori()));
-
+		
 		List<Request> cereri = requestRepo.findByTeacherIdprofesori(curentUser.getUser().getTeacher().getIdprofesori());
-
+		
+		
+		
+		if(status != null && status.contains("Respins")) {
+				cereri=requestRepo.findByTeacherIdprofesoriAndStatusLike(teacherID,"Respins");
+				System.out.println(cereri.size());
+				model.addAttribute("status","Respins");
+		}
+		if(status != null && status.contains("Acceptat")) {
+			cereri=requestRepo.findByTeacherIdprofesoriAndStatusLike(teacherID,"Acceptat");
+			model.addAttribute("status","Acceptat");
+		}
+		if(status != null && status.contains("asteptare")) {
+			cereri=requestRepo.findByTeacherIdprofesoriAndStatusLike(teacherID,"asteptare");
+			model.addAttribute("status","In asteptare");
+		}
+		
+		if(studentName != null) {
+			cereri=requestRepo.findByTeacherIdprofesoriAndStudentUserUsernameLike(teacherID, studentName);
+			model.addAttribute("studentName",studentName);
+		}
+		
 		model.addAttribute("cereriProfesor", cereri);
 
 		return "/teachers/viewReceivedRequests";

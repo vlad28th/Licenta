@@ -21,6 +21,27 @@
                 <div class="card-body">
                 
 <div class="container"> 
+
+
+<div>
+	<form th:action="@{/studentsRequests}" id="submitByStatus" onchange="submit('submitByStatus')">
+	<label for="selectStatus">Cauta dupa statusul cererii</label>
+	<select id="selectStatus" name="status">
+		<option disabled hidden selected >[[${status}]]</option>
+    	<option value="Respins" >Respins</option>
+    	<option value="Acceptat" >Acceptat</option>
+    	<option value="asteptare" >In asteptare</option>
+    </select>
+	</form>
+	</div>
+	<div >
+	<form th:action="@{/studentsRequests}" id="searchByName" class="searchByName">
+		<label for="searchByName">Cauta dupa nume</label>
+		<input type="text" th:name="teacherName" th:value="${teacherName}">
+		<input type="submit" value="Cauta">
+	</form>
+	</div>
+	
 	<table class="responsive-table table-striped table-hover" border="1">
 		<tr>
 			<th scope="col">Profesor(click pentru detalii)</th>

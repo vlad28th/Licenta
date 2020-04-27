@@ -90,5 +90,22 @@ public class StudentsController {
 		redirectAttributes.addFlashAttribute("succesDetalii", "Detalii actualizate cu succes! Autetificati-va din nou pentru a vedea modificarile!");
 		return "redirect:/completeDetailsStudent";
 	}
+	
+	
+	@RequestMapping("/teachers")
+	public String displayTeachers(Model model, @RequestParam(required = false, value="departament") String departament, @RequestParam(required = false, value="name") String name) {
+		
+		model.addAttribute("teachers", teacherRepo.findAll());
+		if( departament != null ) { model.addAttribute("teachers", teacherRepo.findByDepartament(departament));
+									model.addAttribute("departament",departament);
+		}
+		
+		if(name != null) { model.addAttribute("teachers", teacherRepo.findByUserUsernameLike(name));
+						   model.addAttribute("name",name);
+						}
+		
+		return "/students/viewTeachers";
+	}
+	
 
 }
