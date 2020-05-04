@@ -5,11 +5,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.app.model.MyUser;
 import com.app.model.Request;
+import com.app.model.Role;
 import com.app.repository.RequestRepository;
 
 public class PrivacyInterceptor extends HandlerInterceptorAdapter{
@@ -33,10 +33,15 @@ public class PrivacyInterceptor extends HandlerInterceptorAdapter{
 			int requestID = Integer.valueOf(request.getParameter("idCerere"));
 			System.out.println(requestID);
 			Request studentRequest = requestRepo.findByIdcereri(requestID);
-			String idToVerify = studentRequest.getStudent().getUser().getUserID().toString();
+			
+			String idToVerify="";
+			if(curentUser.getUser().getRole().equals(Role.STUDENT))
+				 idToVerify = studentRequest.getStudent().getUser().getUserID().toString();
+			
+			else idToVerify = studentRequest.getTeacher().getUser().getUserID().toString();
 			
 			if(loggedUserID.equals(idToVerify)) return true;
-			else response.sendRedirect("/asd");
+			else response.sendRedirect("/welcome");
 	    		
 			return true;
 

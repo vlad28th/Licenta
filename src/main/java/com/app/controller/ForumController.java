@@ -107,6 +107,7 @@ public class ForumController {
 		messageToSave.setRequest(targetRequest);
 		messageToSave.setContent(mesaj);
 		messageToSave.setDirection(messageDirection);
+		messageToSave.setDate();
 		
 		messageRepo.save(messageToSave);
 		

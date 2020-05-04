@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.app.services.DateUtil;
+
 @Entity(name = "mesaje")
 public class Message {
 	
@@ -24,6 +26,18 @@ public class Message {
 	
 	private String direction;
 	
+	private String date;
+	
+	
+	
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate() {
+		this.date = DateUtil.getDate();
+	}
+
 	public String getDirection() {
 		return direction;
 	}

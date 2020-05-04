@@ -17,6 +17,23 @@
 	-webkit-border-top-left-radius: 3px;
 }
 
+.search{
+	display:flex;
+	flex-direction:row;
+	justify-content:space-between;
+}
+
+.search .status{
+	display:flex;
+	border: 1px solid #e5e5e5;
+	padding:10px;
+}
+
+.search .name{
+	display:flex;
+	border: 1px solid #e5e5e5;
+	padding:10px;
+}
 
 
 .responsive-table {
@@ -207,7 +224,7 @@
 	flex-direction: column;
     align-items:flex-start;	
     
-     margin: 5% 3%;
+    margin: 5% 3%;
 }
 
 

@@ -20,22 +20,26 @@
                 <div class="card-body">
 	<div class="container"> 
 	
-	<div>
-	<form th:action="@{/teachers}" id="submitById" onchange="submit('submitById')">
-	<label for="selectDepartament">Cauta dupa departament</label>
-	<select id="selectDepartament" th:name="departament">
-		<option disabled hidden selected >[[${departament }]]</option>
-    	<option value="DCAE" >DCAE</option>
-    	<option value="TEF" >TEF</option>
-    </select>
-	</form>
+	<div class="search">
+	<div class="departament">
+		<form th:action="@{/teachers}" id="submitById" onchange="submit('submitById')">
+		<label for="selectDepartament">Cauta dupa departament</label>
+		<select id="selectDepartament" th:name="departament">
+			<option disabled hidden selected >[[${departament }]]</option>
+    		<option value="DCAE" >DCAE</option>
+    		<option value="TEF" >TEF</option>
+    		<option value="Telecomunicatii" >Telecomunicatii</option>
+    		<option value="Electronica aplicata si Ingineria Informatiei" >Electronica aplicata si Ingineria Informatiei</option>
+    	</select>
+		</form>
 	</div>
-	<div >
-	<form th:action="@{/teachers}" id="searchByName" class="searchByName">
-		<label for="searchByName">Cauta dupa nume</label>
-		<input type="text" th:name="name" th:placeholder="${name}">
-		<input type="submit" value="Cauta">
-	</form>
+	<div class="name">
+		<form th:action="@{/teachers}" id="searchByName" class="searchByName">
+			<label for="searchByName">Cauta dupa nume</label>
+			<input type="text" th:name="name" th:value="${name}">
+			<input type="submit" value="Cauta">
+		</form>
+	</div>
 	</div>
 	<table class="responsive-table" border="1">
 		<tr>

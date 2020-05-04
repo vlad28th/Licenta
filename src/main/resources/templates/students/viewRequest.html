@@ -76,9 +76,11 @@
 										<b>[[${mesaj.request.teacher.user.username}]]</b>
 									</p>
 									<p>[[${mesaj.content}]]
+									<p class="date">[[${mesaj.date}]]
 								</div>
 								<div th:if="${mesaj.direction} == 'toMaster'" class="sender">
 									<p>[[${mesaj.content}]]
+									<p class="date">[[${mesaj.date}]]</p>
 								</div>
 
 							</div>

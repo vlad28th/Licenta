@@ -1,72 +1,87 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet" type="text/css" th:href="@{/css/headerStudent.css}" />
- <link rel="stylesheet" type="text/css" th:href="@{/css/student/viewSentRequests.css}"/>
- 
-<script src="js/submitById.js"></script> 
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/headerStudent.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/student/viewSentRequests.css}" />
+
+<script src="js/submitById.js"></script>
 
 <title>Cereri</title>
 </head>
 <div th:replace="fragments/headerStudent :: header">...</div>
 <body>
-<div class="page-wrapper bg-dark p-t-100 p-b-50">
-        <div class="wrapper wrapper--w900">
-            <div class="card card-6">
-                <div class="card-heading">
-                    <h2 class="title">Cereri trimise</h2>
-                </div>
-                <div class="card-body">
-                
-<div class="container"> 
+	<div class="page-wrapper bg-dark p-t-100 p-b-50">
+		<div class="wrapper wrapper--w900">
+			<div class="card card-6">
+				<div class="card-heading">
+					<h2 class="title">Cereri trimise</h2>
+				</div>
+				<div class="card-body">
+
+					<div class="container">
 
 
-<div>
-	<form th:action="@{/studentsRequests}" id="submitByStatus" onchange="submit('submitByStatus')">
-	<label for="selectStatus">Cauta dupa statusul cererii</label>
-	<select id="selectStatus" name="status">
-		<option disabled hidden selected >[[${status}]]</option>
-    	<option value="Respins" >Respins</option>
-    	<option value="Acceptat" >Acceptat</option>
-    	<option value="asteptare" >In asteptare</option>
-    </select>
-	</form>
+						<div class="search">
+							<div class="status"> 
+								<form th:action="@{/studentsRequests}" id="submitByStatus"
+									onchange="submit('submitByStatus')">
+									<label for="selectStatus">Cauta dupa statusul cererii</label> <select
+										id="selectStatus" name="status">
+										<option disabled hidden selected>[[${status}]]</option>
+										<option value="Respins">Respins</option>
+										<option value="Acceptat">Acceptat</option>
+										<option value="asteptare">In asteptare</option>
+									</select>
+								</form>
+
+							</div>
+							<div class="name">
+								<form th:action="@{/studentsRequests}" id="searchByName"
+									class="searchByName">
+									<label for="searchByName">Cauta dupa nume</label> <input
+										type="text" th:name="teacherName" th:value="${teacherName}">
+									<input type="submit" value="Cauta">
+								</form>
+							</div>
+						</div>
+
+						<table class="responsive-table table-striped table-hover"
+							border="1">
+							<tr>
+								<th scope="col">Profesor(click pentru detalii)</th>
+								<th scope="col">Tema aleasa</th>
+								<th scope="col">Status</th>
+
+							</tr>
+							<tr th:each="cerere: ${cereriStudent}" class="clickable"
+								th:onclick="'submit(\'' + ${cerere.idcereri} + '\');'">
+								<td><a th:text="${cerere.teacher.user.username}"></a>
+									<form th:action="@{/viewRequest}" th:id="${cerere.idcereri}">
+										<input id="input" type="hidden" th:name="idCerere"
+											th:value="${cerere.idcereri}">
+									</form></td>
+
+								<td
+									th:if="${cerere.tema} != null and ${cerere.tema.student}==null">[[${cerere.tema.nume}]]</td>
+								<td
+									th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null">[[${cerere.tema.nume}]]
+									(tema personala)</td>
+								<td th:unless="${cerere.tema}">Aplicare fara tema</td>
+								<td th:text="${cerere.status}"></td>
+							</tr>
+
+
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div >
-	<form th:action="@{/studentsRequests}" id="searchByName" class="searchByName">
-		<label for="searchByName">Cauta dupa nume</label>
-		<input type="text" th:name="teacherName" th:value="${teacherName}">
-		<input type="submit" value="Cauta">
-	</form>
-	</div>
-	
-	<table class="responsive-table table-striped table-hover" border="1">
-		<tr>
-			<th scope="col">Profesor(click pentru detalii)</th>
-			<th scope="col">Tema aleasa</th>
-			<th scope="col">Status</th>
-
-		</tr>
-		<tr th:each="cerere: ${cereriStudent}" class="clickable" th:onclick="'submit(\'' + ${cerere.idcereri} + '\');'">
-		<td><a th:text="${cerere.teacher.user.username}"></a>
-				<form th:action="@{/viewRequest}" th:id="${cerere.idcereri}">
-					<input id="input" type="hidden" th:name="idCerere"
-						th:value="${cerere.idcereri}">
-			    </form>
-		</td>
-			
-			<td th:if="${cerere.tema} != null and ${cerere.tema.student}==null">[[${cerere.tema.nume}]]</td>
-			<td th:if="${cerere.tema} != null and ${cerere.tema.teacher}==null">[[${cerere.tema.nume}]] (tema personala)</td>
-			<td th:unless="${cerere.tema}">Aplicare fara tema</td>
-			<td th:text="${cerere.status}"></td>
-		</tr>
-		
-		
-	</table>
-
-
 
 </body>
 </html>
