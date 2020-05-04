@@ -59,7 +59,8 @@ public class CvController {
 		return "redirect:/completeDetailsStudent";
 
 	}
-
+	
+	//userIDfromWeb is is needed if a teacher acces a student CV . (the cv is searched by userID)
 	@RequestMapping("/viewCV")
 	public ResponseEntity<byte[]> viewCV(@RequestParam(required = false, value="userID") String userIDfromWeb, RedirectAttributes redirectAttributes) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -71,7 +72,7 @@ public class CvController {
 		
 			
 		
-		if( cvFromDB.length == 0) return new ResponseEntity("CV-ul nu este incarcat", HttpStatus.INTERNAL_SERVER_ERROR);
+		if( cvFromDB == null) return new ResponseEntity("CV-ul nu este incarcat", HttpStatus.INTERNAL_SERVER_ERROR);
 								
 		
 		HttpHeaders headers = new HttpHeaders();

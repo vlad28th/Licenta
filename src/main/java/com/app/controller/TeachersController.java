@@ -62,14 +62,14 @@ public class TeachersController {
 			
 			//Authentication authentication = new UsernamePasswordAuthenticationToken(principal, curentUser.getPassword());
 			//SecurityContextHolder.getContext().setAuthentication(authentication);
-			redirectAttributes.addFlashAttribute("succes","Detalii actualizate cu succes! Acestea vor putea fi vizulizate dupa un nou login!");
+			redirectAttributes.addFlashAttribute("succes","Detalii actualizate cu succes!");
 			return "redirect:/completeDetailsTeacher";
 		}
 		@RequestMapping("/completeDetailsTeacher")
 		public String completeDetails(Model model) {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser curentUser = (MyUser) principal;
-			model.addAttribute("teacher",curentUser.getUser().getTeacher());
+			model.addAttribute("teacher",teacherRepo.findByIdprofesori(curentUser.getUser().getTeacher().getIdprofesori()));
 			model.addAttribute("teme", projectRepo.findByTeacherIdprofesori(curentUser.getUser().getTeacher().getIdprofesori()));
 			return "/teachers/completeDetailsTeacher";
 	}

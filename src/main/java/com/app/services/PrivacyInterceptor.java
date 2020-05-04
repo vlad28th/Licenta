@@ -31,7 +31,6 @@ public class PrivacyInterceptor extends HandlerInterceptorAdapter{
 			if(request.getParameter("idCerere")==null) return false;
 			
 			int requestID = Integer.valueOf(request.getParameter("idCerere"));
-			System.out.println(requestID);
 			Request studentRequest = requestRepo.findByIdcereri(requestID);
 			
 			String idToVerify="";

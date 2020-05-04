@@ -66,7 +66,7 @@ public class StudentsController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser) principal;
 
-		model.addAttribute("student", curentUser.getUser().getStudent());
+		model.addAttribute("student", studentRepo.findByIdstudenti(curentUser.getUser().getStudent().getIdstudenti()));
 		
 		return "/students/completeDetailsStudent";
 
@@ -87,7 +87,7 @@ public class StudentsController {
 	//	Authentication authentication = new UsernamePasswordAuthenticationToken(curentUser, curentUser.getPassword());
 	//	SecurityContextHolder.getContext().setAuthentication(authentication);
 		
-		redirectAttributes.addFlashAttribute("succesDetalii", "Detalii actualizate cu succes! Autetificati-va din nou pentru a vedea modificarile!");
+		redirectAttributes.addFlashAttribute("succesDetalii", "Detalii actualizate cu succes!");
 		return "redirect:/completeDetailsStudent";
 	}
 	

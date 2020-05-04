@@ -70,7 +70,9 @@
   }
   
   .date{
- 	 font-weight: 350;
+ 	 font-weight: 100;
+ 	   font-size: 12px;
+ 	 
   }
   
   .scrollable{

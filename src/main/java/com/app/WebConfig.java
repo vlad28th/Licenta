@@ -39,16 +39,12 @@ public class WebConfig implements WebMvcConfigurer
         registry.addViewController("/viewReceivedRequests").setViewName("/teachers/viewReceivedRequests");
         registry.addViewController("/submitProject").setViewName("/completeDetailsTeacher");
 
-
-        
-        
-        
     }	
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
     	registry.addInterceptor(privacyInterceptor()).addPathPatterns("/studentViewRequest").addPathPatterns("/teacherViewRequest");
-    	}
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
