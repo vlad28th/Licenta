@@ -48,9 +48,15 @@ public class CvController {
 		if( cvFromWeb.length == 0) { redirectAttributes.addFlashAttribute("nullCV", "Selecteaza un fisier");
 									 return "redirect:/completeDetailsStudent";
 		}
+		
+		if( !cv.getContentType().equals("application/pdf")) { redirectAttributes.addFlashAttribute("error", "Sunt acceptate doar fisiere PDF!");
+		 return "redirect:/completeDetailsStudent";
+}
+		
 		try {
 		cvRepo.setCV(cvFromWeb, userID);
 		}
+		
 		catch(Exception e) {
 			redirectAttributes.addFlashAttribute("error", "Dimensiune prea mare!");
 			return "redirect:/completeDetailsStudent";
