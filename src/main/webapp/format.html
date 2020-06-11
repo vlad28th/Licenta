@@ -1,0 +1,21 @@
+<table class="responsive-table table-striped table-hover" border="1">
+	<tr>
+		<th scope="col">Profesor(click pentru detalii)</th>
+		<th scope="col">Tema aleasa</th>
+		<th scope="col">Status</th>
+	</tr>
+	<tr th:each="cerere: ${cereriStudent}" class="clickable"
+		th:onclick="'submit(\'' + ${cerere.idcereri} + '\');'">
+		<td><a th:text="${cerere.teacher.user.username}"></a>
+			<form th:action="@{/viewRequest}" th:id="${cerere.idcereri}">
+				<input id="input" type="hidden" th:name="idCerere"
+					th:value="${cerere.idcereri}">
+			</form></td>
+
+		<td th:if="${cerere.tema} != null and   ${cerere.tema.student}==null">[[${cerere.tema.nume}]]</td>
+		<td
+			th:if="${cerere.tema} != null and     ${cerere.tema.teacher}==null">[[${cerere.tema.nume}]](tema
+			personala)</td>
+		<td th:unless="${cerere.tema}">Aplicare fara tema</td>
+		<td th:text="${cerere.status}"></td>
+	</tr>
