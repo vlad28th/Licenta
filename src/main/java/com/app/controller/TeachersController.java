@@ -46,6 +46,7 @@ public class TeachersController {
 		MyUser curentUser = (MyUser)principal;
 		
 		model.addAttribute("teacher", curentUser.getUser().getTeacher());
+		model.addAttribute("teme", projectRepo.findByTeacherIdprofesori(curentUser.getUser().getTeacher().getIdprofesori()));
         return "/teachers/teacherWelcome";
     }
 	
