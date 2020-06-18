@@ -65,13 +65,8 @@
 .form-row {
   display: flex;
   flex-direction: row;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-box-align: start;
-  -webkit-align-items: flex-start;
-  -moz-box-align: start;
-  -ms-flex-align: start;
+  justify-content:flext-start;
   align-items: center;
   padding: 12px 55px;
   border-bottom: 1px solid #e5e5e5;
@@ -92,6 +87,13 @@
   
 }
 
+.form-row .value {
+  display:flex;
+  flex-direction: row;
+  align-items:center;
+  justify-content:space-between;
+}
+
 .temeDisponibile{
 	display:flex;
 	flex-direction: row;
@@ -99,18 +101,16 @@
 }
 
 
-.form-row .value {
-  width: -webkit-calc(100% - 188px);
-  width: -moz-calc(100% - 188px);
-  width: calc(100% - 188px);
-  display:flex;
-  flex-direction: row;
-  align-items:center;
-  justify-content:space-between;
+
+
+.accept{
+	padding-top:15px;
+	text-align:center;
+	font-weight: 600;
+    font-size: 16px;
+    
 }
 
-.btnModify{
-}
 
 #formModify{
 	display:flex;

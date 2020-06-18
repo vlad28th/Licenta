@@ -3,8 +3,8 @@ package com.app.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 public class SendMail {
@@ -14,6 +14,7 @@ public class SendMail {
 	@Autowired
     private JavaMailSender javaMailSender;
 	
+	@Async
 	public void sendCredentials(String destination, String username, String password) throws Exception{
 		
 		content=String.format("Contul tau a fost creat cu succces!\r\n Username -> %s\r\n Parola ta este -> %s",username,password);
@@ -26,7 +27,7 @@ public class SendMail {
         javaMailSender.send(msg);
 
     }
-	
+	@Async
 public void sendReqStatus(String destination, String teacherName, String status){
 		
 		String OKcontent=String.format("Profesorul %s ti-a acceptat cererea! Succes in continuare!",teacherName);
@@ -41,7 +42,7 @@ public void sendReqStatus(String destination, String teacherName, String status)
 
     }
 
-
+	@Async
 public void notifyTeacher(String destination, String teacherName, String studentName){
 	
 	String content = String.format("Ati primit o cerere din partea studentului %s!",studentName);

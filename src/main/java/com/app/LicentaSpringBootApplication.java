@@ -4,8 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
+@EnableAsync
 public class LicentaSpringBootApplication extends SpringBootServletInitializer {
 
   @Override
@@ -13,6 +15,7 @@ public class LicentaSpringBootApplication extends SpringBootServletInitializer {
       return application.sources(LicentaSpringBootApplication.class);
   }
 
+  
   public static void main(String[] args) throws Exception {
       SpringApplication.run(LicentaSpringBootApplication.class, args);
   }

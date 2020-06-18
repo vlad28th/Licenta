@@ -38,16 +38,20 @@ public class Request {
 	@OneToMany(mappedBy = "request")
 	private List<Message> message;
 	
-	private String data;
 	
 	
-	public String getData() {
-		return data;
+	private Integer confirmed;
+	
+	
+	
+	public Integer getConfirmed() {
+		return confirmed;
 	}
 
-	public void setData(String data) {
-		this.data = data;
+	public void setConfirmed(int confirmedByStudent) {
+		this.confirmed = confirmedByStudent;
 	}
+
 
 	public Tema getTema() {
 		return tema;

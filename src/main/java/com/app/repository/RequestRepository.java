@@ -54,12 +54,23 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	@Query("from cereri c where c.teacher.idprofesori =:teacherID and c.status like %:status%")
 	public List<Request> findByTeacherIdprofesoriAndStatusLike(int teacherID,  String status);
 	
+	@Query("from cereri c where c.teacher.idprofesori =:teacherID and c.confirmed=1")
+	public List<Request> findByTeacherIdprofesoriAndConfirmed(int teacherID);
+	
 	@Query("from cereri c where c.student.idstudenti =:studentID and c.status like %:status%")
 	public List<Request> findByStudentIdstudentiAndStatusLike(int studentID,  String status);
+	
+	@Query("from cereri c where c.student.idstudenti =:studentID and c.confirmed = 1 ")
+	public List<Request> findByStudentIdstudentiAndConfirmed(int studentID);
 	
 	public Request findByTemaNume(String numeTema);
 	
 	public List<Request> findByStudentIdstudentiAndTemaNume(int studentID, String numeTema);
 	
 	public Request findByStudentIdstudentiAndTeacherIdprofesoriAndTemaNume(int studentID, int teacherID, String projectName);
+	
+	@Transactional
+	@Modifying
+	@Query("update cereri c set c.confirmed = 1 where c.idcereri=:requestID")
+	public void setConfirmedByStudent(@Param("requestID") int requestID);
 }

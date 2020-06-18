@@ -81,6 +81,11 @@ public class RequestController {
 		model.addAttribute("status","In asteptare");
 	}
 	
+	if(status != null && status.contains("Confirmat")) {
+		cereri=requestRepo.findByStudentIdstudentiAndConfirmed(studentID);
+		model.addAttribute("status","In asteptare");
+	}
+	
 	if(teacherName != null) {
 		cereri=requestRepo.findByStudentIdstudentiAndTeacherUserUsernameLike(studentID, teacherName);
 		model.addAttribute("teacherName",teacherName);
@@ -119,6 +124,11 @@ public class RequestController {
 			model.addAttribute("status","In asteptare");
 		}
 		
+		if(status != null && status.contains("Confirmat")) {
+			cereri=requestRepo.findByTeacherIdprofesoriAndConfirmed(teacherID);
+			model.addAttribute("status","In asteptare");
+		}
+		
 		if(studentName != null) {
 			cereri=requestRepo.findByTeacherIdprofesoriAndStudentUserUsernameLike(teacherID, studentName);
 			model.addAttribute("studentName",studentName);
@@ -137,15 +147,25 @@ public class RequestController {
 		// pregatire obiecte
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser) principal;
+		
 
 		int studentID = curentUser.getUser().getStudent().getIdstudenti();
 		Teacher targetTeacher = teacherRepo.findByIdprofesori(Integer.parseInt(teacherID));
+		
+		if(targetTeacher.getSlots().equals("0")) {
+				redirectAttributes.addFlashAttribute("errorMessage", "Profesorul nu mai are locuri disponibile!");
+				redirectAttributes.addAttribute("teacherID", Integer.valueOf(teacherID));
+				return "redirect:/teacherDetails";
+			}
+		
+		
 		Tema project = new Tema();
 
 		Request request = new Request();
 		request.setStatus("In asteptare (" + DateUtil.getDate() + ")");
 		request.setStudent(curentUser.getUser().getStudent());
 		request.setTeacher(targetTeacher);
+		request.setConfirmed(0);
 
 		// setare tema pentru cerere
 		if (!numeTema.contains("Aplica fara tema"))
@@ -202,6 +222,12 @@ public class RequestController {
 		redirectAttributes.addAttribute("teacherID", Integer.valueOf(teacherID));
 
 		Teacher targetTeacher = teacherRepo.findByIdprofesori(Integer.valueOf(teacherID));
+		
+		if(targetTeacher.getSlots().equals("0")) {
+			redirectAttributes.addFlashAttribute("errorMessage", "Profesorul nu mai are locuri disponibile!");
+			redirectAttributes.addAttribute("teacherID", Integer.valueOf(teacherID));
+			return "redirect:/teacherDetails";
+		}
 
 		if (temaPDF.getBytes().length == 0) {
 			redirectAttributes.addFlashAttribute("nullProject", "Selecteaza un fisier");
@@ -236,6 +262,7 @@ public class RequestController {
 			request.setStudent(curentUser.getUser().getStudent());
 			request.setTeacher(targetTeacher);
 			request.setTema(project);
+			request.setConfirmed(0);
 
 			requestRepo.save(request);
 
@@ -250,17 +277,14 @@ public class RequestController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser) principal;
 		int teacherID = curentUser.getUser().getTeacher().getIdprofesori();
-		int newSlots = Integer.valueOf(curentUser.getUser().getTeacher().getSlots()) - 1;
+		
 
 		Student targetStudent = studentRepo.findByIdstudenti(Integer.parseInt(studentID));
 
 		// update req status in DB
 		requestRepo.updateStatus(status + "  " + DateUtil.getDate(), Integer.valueOf(idCerere));
 
-		// update teacher slots
-		if (status.equalsIgnoreCase("Acceptat"))
-			teacherRepo.updateSlots(curentUser.getUser().getUserID(), String.valueOf(newSlots));
-
+		
 		// send mail to Student
 		sendMail.sendReqStatus(targetStudent.getUser().getEmail(), curentUser.getUsername(), status);
 
@@ -292,6 +316,26 @@ public class RequestController {
 			redirectAttributes.addFlashAttribute("error", "Dimensiune prea mare! (max 16MB)");
 			return "redirect:/studentViewRequest";
 		}
+	}
+	
+	@RequestMapping("/acceptTeacher")
+	public String acceptTeacher(@RequestParam(value = "idCerere") String idCerere, RedirectAttributes redirectAttributes) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MyUser curentUser = (MyUser) principal;
+		
+		requestRepo.setConfirmedByStudent(Integer.valueOf(idCerere));
+		requestRepo.updateStatus("Confirmata de student" + "  " + DateUtil.getDate() , Integer.valueOf(idCerere) );
+		
+		// update teacher slots
+		Request targetRequest = requestRepo.findByIdcereri(Integer.valueOf(idCerere));
+		int teacherID = targetRequest.getTeacher().getUser().getUserID();
+		int newSlots = Integer.valueOf(targetRequest.getTeacher().getSlots()) - 1;
+		teacherRepo.updateSlots(teacherID,Integer.toString(newSlots));
+		studentRepo.setConfirmed(curentUser.getUser().getUserID());
+		
+		redirectAttributes.addAttribute("idCerere", idCerere);
+		return "redirect:/studentViewRequest";
+		
 	}
 
 }

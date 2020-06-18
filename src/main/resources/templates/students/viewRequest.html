@@ -68,6 +68,34 @@
 							</form>
 						</div>
 					</div>
+					
+					<div class="form-row">
+						<div class="name">Status cerere</div>
+						<div class="value">
+								<p>[[${cerere.status}]]</p>
+						</div>
+					</div>
+					
+				<div class = "accept" th:if="${cerere.confirmed==1}">
+					<p> Ai confirmat aceasta cerere! Felicitari! </p>
+				</div>
+				
+				<div class = "accept" th:if="${cerere.confirmed}==0 and ${cerere.student.confirmed}==1">
+					 <p> Ai confirmat deja o alta cerere! Succes!</p>
+				</div>
+				
+					
+				<div th:if="${#strings.contains(cerere.status,'Acceptat')} and ${cerere.student.confirmed}==0" class="accept">
+							<p>Felicitari! Profesorul ti-a acceptat cererea. Apasa butonul pentru a confirma alegerea acestui profesor!</p>
+							<form id="formAccept" th:action="@{/acceptTeacher}"
+								style="text-align: center;">
+								<input type="hidden" th:name="status" value="Confirmat de student">
+								<input type="hidden" name="idCerere" th:value="${cerere.idcereri}">
+								<input type="hidden" name="studentID" th:value="${cerere.student.idstudenti}">
+								<button class="btn btn--radius-2 btn--green" type="submit"
+									onclick="return confirmSubmit('Acceptati studentul?')">Confirma cerere</button>
+							</form>
+				</div>
 
 					<div class="chatBox">
 						<div class="scrollable">

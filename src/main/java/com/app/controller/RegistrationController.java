@@ -47,8 +47,9 @@ public class RegistrationController
         */
     	String password = user.getPassword();
     	String encryptedPassword = passwordEncoder.encode(password);
+    	
+    
         try {
-        	
         user.setPassword(encryptedPassword);
         userRepo.save(user);
         sendMail.sendCredentials(user.getEmail(),user.getUsername(),password);

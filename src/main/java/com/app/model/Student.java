@@ -50,6 +50,16 @@ public class Student implements MultipartFile, Serializable{
 	@OneToMany(mappedBy="student")
 	private List<Request> cereri;
 	
+	private Integer confirmed;
+	
+	public Integer getConfirmed() {
+		return confirmed;
+	}
+
+	public void setConfirmed(Integer confirmed) {
+		this.confirmed = confirmed;
+	}
+
 	public List<Request> getCereri() {
 		return cereri;
 	}
