@@ -51,8 +51,7 @@ public class StudentsController {
 		return "/students/studentWelcome";
 	}
 
-	// metoda asta aduce din VIEW id-ul profului selectat. id-ul e variabila globala
-	// in clasa asta
+	
 	@RequestMapping("/teacherDetails")
 	public String displayTeacher(@RequestParam(value = "teacherID") String teacherID, Model model) {
 		Teacher targetTeacher = teacherRepo.findByIdprofesori(Integer.parseInt(teacherID));

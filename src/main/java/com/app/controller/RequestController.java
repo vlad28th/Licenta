@@ -147,20 +147,18 @@ public class RequestController {
 		// pregatire obiecte
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MyUser curentUser = (MyUser) principal;
-		
-
 		int studentID = curentUser.getUser().getStudent().getIdstudenti();
 		Teacher targetTeacher = teacherRepo.findByIdprofesori(Integer.parseInt(teacherID));
 		
+		//validare locuri disponibile
 		if(targetTeacher.getSlots().equals("0")) {
 				redirectAttributes.addFlashAttribute("errorMessage", "Profesorul nu mai are locuri disponibile!");
 				redirectAttributes.addAttribute("teacherID", Integer.valueOf(teacherID));
 				return "redirect:/teacherDetails";
 			}
 		
-		
+		//initializare model Request(cerere)
 		Tema project = new Tema();
-
 		Request request = new Request();
 		request.setStatus("In asteptare (" + DateUtil.getDate() + ")");
 		request.setStudent(curentUser.getUser().getStudent());
@@ -170,22 +168,23 @@ public class RequestController {
 		// setare tema pentru cerere
 		if (!numeTema.contains("Aplica fara tema"))
 			request.setTema(projectRepo.findByNumeAndTeacherIdprofesori(numeTema, Integer.parseInt(teacherID)));
-
+		
+		//crearea array list. aici se vor aduce din baza de date cereri deja existente.
 		List<Request> verifyRequest = new ArrayList();
 		String errorMessage = "";
 
 		// verificare aplicare fara tema
 		if (!numeTema.equals("custom") && numeTema.contains("Aplica fara tema")) {
 			System.out.println("tema neselectata");
-			verifyRequest.add(requestRepo.findByStudentIdstudentiAndTeacherIdprofesoriAndTemaNume(studentID,
-					Integer.valueOf(teacherID), null));
+			verifyRequest = requestRepo.findByStudentIdstudentiAndTeacherIdprofesoriAndTemaNume(studentID,
+					Integer.valueOf(teacherID), null);
 			errorMessage = "Ai facut deja o cerere catre acest profesor!";
 		}
 
-		// verificare aplicare cu tema
+		// verificare aplicare cu tema profesorului
 		if (!numeTema.equals("custom") && !numeTema.contains("Aplica fara tema")) {
 			System.out.println("tema selectata");
-			verifyRequest = requestRepo.findByStudentIdstudentiAndTemaNume(studentID, numeTema);
+			verifyRequest = requestRepo.findByStudentIdstudentiAndTeacherIdprofesoriAndTemaNume(studentID,Integer.valueOf(teacherID), numeTema);
 			// daca s-a gasit vreo cerere facuta de student cu numele temei X, se verifica
 			// daca tema apartinea studentului. daca da, se sterge.
 			// aici se cauta daca studentul a aplicat pe tema unui profesor. pot exista 2
@@ -211,7 +210,7 @@ public class RequestController {
 		}
 	}
 
-	// only students will acces it
+
 	@PostMapping("/submitRequestMyProject")
 	public String saveRequestWithProject(@RequestParam(value = "teacherID", required = false) String teacherID,
 			@RequestParam("numeTema") String numeTema, @RequestParam(value = "temaPDF") MultipartFile temaPDF,
@@ -247,11 +246,15 @@ public class RequestController {
 				redirectAttributes.addFlashAttribute("errorMessage", "Tema nu a fost incarcata! Dimensiune prea mare!");
 				return "redirect:/teacherDetails";
 			}
+			
+			List<Request> verifyRequest = new ArrayList();
+			verifyRequest = requestRepo.findByStudentIdstudentiAndTeacherIdprofesoriAndTemaNume(
+				curentUser.getUser().getStudent().getIdstudenti(), Integer.valueOf(teacherID), project.getNume());
+			for (int i = 0; i < verifyRequest.size(); i++)
+				if (verifyRequest.get(i) != null && verifyRequest.get(i).getTema().getTeacher() != null)
+					verifyRequest.remove(i);
 
-		
-
-		if (requestRepo.findByStudentIdstudentiAndTeacherIdprofesoriAndTemaNume(
-				curentUser.getUser().getStudent().getIdstudenti(), Integer.valueOf(teacherID), project.getNume()) != null) {
+		if (verifyRequest != null && verifyRequest.size() != 0 && verifyRequest.get(0) != null ) {
 			redirectAttributes.addFlashAttribute("errorMessage", "Ai facut deja o cerere cu aceasta tema!");
 			redirectAttributes.addAttribute("teacherID", Integer.valueOf(teacherID));
 			return "redirect:/teacherDetails";
