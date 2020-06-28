@@ -43,7 +43,7 @@ public void sendReqStatus(String destination, String teacherName, String status)
     }
 
 	@Async
-public void notifyTeacher(String destination, String teacherName, String studentName){
+public void notifyTeacher(String destination, String studentName){
 	
 	String content = String.format("Ati primit o cerere din partea studentului %s!",studentName);
 	

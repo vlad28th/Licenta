@@ -206,6 +206,7 @@ public class RequestController {
 			// targetTeacher.getUser().getUsername(),
 			// curentUser.getUser().getUsername());
 			redirectAttributes.addFlashAttribute("succes", "Cererea a fost facuta cu succes!");
+			sendMail.notifyTeacher(targetTeacher.getUser().getEmail(), curentUser.getUser().getUsername());
 			return "redirect:/teacherDetails";
 		}
 	}
@@ -268,7 +269,7 @@ public class RequestController {
 			request.setConfirmed(0);
 
 			requestRepo.save(request);
-
+			sendMail.notifyTeacher(targetTeacher.getUser().getEmail(), curentUser.getUser().getUsername());
 			redirectAttributes.addFlashAttribute("succes", "Cererea a fost facuta cu succes!");
 			return "redirect:/teacherDetails";
 		}
