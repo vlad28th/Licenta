@@ -38,6 +38,9 @@ public class TeachersController {
 	
 	@Autowired
 	SendMail sendMail;
+	
+	@Autowired
+	UserRepository userRepo;
 
 	
 	@RequestMapping("/teacherWelcome")
@@ -51,7 +54,7 @@ public class TeachersController {
     }
 	
 		@RequestMapping("/submitDetailsTeacher")
-		public String submitDetails(@RequestParam(value = "departament") String departament , @RequestParam(value = "slots") String slots, @RequestParam("comment") String comment,
+		public String submitDetails(@RequestParam(value = "departament") String departament ,@RequestParam(value = "email") String email, @RequestParam(value = "slots") String slots, @RequestParam("comment") String comment,
 				RedirectAttributes redirectAttributes) {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			MyUser curentUser = (MyUser) principal;
@@ -59,6 +62,7 @@ public class TeachersController {
 			
 			
 			teacherRepo.updateDetails(currentUserID, departament, slots);
+			userRepo.setEmail(email, currentUserID);
 			if(comment.length() != 0 ) teacherRepo.updateComment(currentUserID, comment);
 			
 			//Authentication authentication = new UsernamePasswordAuthenticationToken(principal, curentUser.getPassword());

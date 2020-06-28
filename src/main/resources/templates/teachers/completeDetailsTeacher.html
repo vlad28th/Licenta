@@ -32,6 +32,16 @@
 				<div class="card-body">
 					<form th:action="@{/submitDetailsTeacher}">
 						<div class="form-row">
+							<div class="name">Email</div>
+							<br>
+							<div class="input-group">
+								<input class="input--style-6" type="email" th:name="email"
+									placeholder="email" th:value="${teacher.user.email}"
+									required>
+							</div>
+						</div>
+						
+						<div class="form-row">
 							<div class="name">Departament</div>
 							<br>
 							<div class="input-group">
